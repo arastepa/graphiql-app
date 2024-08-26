@@ -10,7 +10,7 @@
     "lint:fix": "next lint --fix",
     "prettier:fix": "prettier --write .",
     "prepare": "husky install",
-    "test": "echo \"Error: no test specified\" && exit 0"
+    "test": "vitest"
   },
   "dependencies": {
     "next": "14.2.6",
@@ -18,15 +18,20 @@
     "react-dom": "^18"
   },
   "devDependencies": {
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/react": "^16.0.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@vitejs/plugin-react": "^4.3.1",
     "eslint": "^8",
     "eslint-config-next": "14.2.6",
+    "husky": "^8.0.3",
+    "jsdom": "^25.0.0",
+    "lint-staged": "^14.0.0",
     "prettier": "^2.8.8",
     "typescript": "^5",
-    "husky": "^8.0.3",
-    "lint-staged": "^14.0.0"
+    "vitest": "^2.0.5"
   },
   "lint-staged": {
     "**/*": "npm run lint:fix"
