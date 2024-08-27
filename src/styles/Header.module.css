@@ -3,14 +3,27 @@
     justify-content: space-between;
     align-items: center;
     padding: 20px;
-    background-color: #343a40;
-    color: #ffffff;
+    background-color: var(--white-color);
+    height: 76px;
+    border-bottom: solid 1px;
+    border-color: var(--gray-color);
+    box-shadow: 0px 8px 15px -3px rgba(209, 209, 209, 0.9);
 }
 
-.logo {
-    font-size: 24px;
-    font-weight: bold;
-    color: #ffffff;
+.headerLogo {
+  display: flex;
+}
+
+.logoText {
+    width: 149px;
+    font-size: 30px;
+    font-family: Orbitron;
+    color: var(--black-color);
+    margin: 20px 0 0 20px;
+}
+
+.headerImg {
+    margin-top: 7px;
 }
 
 .nav {
@@ -19,23 +32,35 @@
 }
 
 .langToggle {
-    background-color: transparent;
+    width: 93px;
+    height: 44px;
+    background-color: var(--white-color);
+    color: var(--secondary-color);
+    font-size: 24px;
+    margin-right: 25px;
+    border-color: var(--secondary-color);
+    cursor: pointer;
+}
+
+.signInButton {
+    width: 75px;
+    height: 57px;
+    background-color: var(--white-color);
     border: none;
-    color: #ffffff;
-    font-size: 16px;
-    margin-right: 20px;
+    color: var(--black-color);
+    margin-right: 25px;
+    font-size: 24px;
     cursor: pointer;
 }
 
 .authButton {
-    background-color: #007bff;
+    width: 122px;
+    height: 44px;
+    background-color: var(--secondary-color);
     border: none;
-    color: #ffffff;
-    padding: 10px 20px;
-    margin-left: 10px;
-    border-radius: 5px;
+    color: var(--white-color);
+    font-size: 24px;
     cursor: pointer;
-    font-size: 16px;
 }
 
 @media (max-width: 768px) {

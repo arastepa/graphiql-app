@@ -5,12 +5,11 @@
 }
 
 .main {
-  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 40px;
-  background-color: #ffffff;
+  background-color: var(--white-color);
 }
 
 @media (max-width: 768px) {
