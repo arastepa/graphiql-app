@@ -8,7 +8,7 @@ const Footer: React.FC = () => {
     return (
         <footer className={styles.footer}>
             <div className={styles.footerIcons}>
-                <a href="" target="_blank" rel="noopener noreferrer">
+                <a href="https://github.com/arastepa" target="_blank" rel="noopener noreferrer">
                     <Image 
                         src={gitIcon} 
                         alt="git icon"   
@@ -16,7 +16,7 @@ const Footer: React.FC = () => {
                         height={30} 
                     />
                 </a>
-                <a href="" target="_blank" rel="noopener noreferrer">
+                <a href="https://github.com/guranda26" target="_blank" rel="noopener noreferrer">
                     <Image 
                         src={gitIcon} 
                         alt="git icon"   
@@ -24,7 +24,7 @@ const Footer: React.FC = () => {
                         height={30} 
                     />
                 </a>
-                <a href="" target="_blank" rel="noopener noreferrer">
+                <a href="https://github.com/PaytsarHarutyunyan" target="_blank" rel="noopener noreferrer">
                     <Image 
                         src={gitIcon} 
                         alt="git icon"   
@@ -34,7 +34,7 @@ const Footer: React.FC = () => {
                 </a>
             </div>
             <span className={styles.footerDate}>{new Date().getFullYear()}</span>
-            <a href="" target="_blank" rel="noopener noreferrer">
+            <a href="https://rs.school/" target="_blank" rel="noopener noreferrer">
                 <Image 
                     src={logoRs} 
                     alt="logo Rs"   
