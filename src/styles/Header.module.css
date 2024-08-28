@@ -63,28 +63,45 @@
     cursor: pointer;
 }
 
+/* Tablet Styles for Header */
 @media (max-width: 768px) {
-    .header {
-        flex-direction: column;
-        align-items: flex-start;
+    .logoText {
+        font-size: 24px;
     }
 
     .nav {
-        margin-top: 10px;
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .authButton {
-        margin-left: 0;
-        margin-top: 10px;
         width: 100%;
-        font-size: 14px;
     }
 
-    .langToggle {
-        margin-right: 0;
+    .langToggle,
+    .signInButton,
+    .authButton {
+        width: 100%;
         margin-bottom: 10px;
-        font-size: 14px;
+    }
+}
+
+/* Mobile Styles for Header */
+@media (max-width: 480px) {
+    .header {
+        padding: 15px;
+        height: auto;
+    }
+
+    .logoText {
+        font-size: 20px;
+        margin: 30px 0 10px 10px;
+    }
+
+    .nav {
+        align-items: flex-start;
+    }
+
+    .langToggle,
+    .signInButton,
+    .authButton {
+        width: 100%;
+        margin-bottom: 8px;
+        font-size: 20px;
     }
 }

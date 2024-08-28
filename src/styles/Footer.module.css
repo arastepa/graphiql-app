@@ -20,14 +20,35 @@
     margin-left: -110px;
 }
 
+/* Tablet Styles for Footer */
 @media (max-width: 768px) {
     .footer {
         flex-direction: column;
-        text-align: center;
+        align-items: flex-start;
     }
 
-    .footer a, .footer span {
-        margin: 10px 0;
+    .footerIcons {
+        margin-top: 10px;
+        gap: 15px;
+    }
+
+    .footerDate {
+        margin-left: 0;
+        font-size: 16px;
+    }
+}
+
+/* Mobile Styles for Footer */
+@media (max-width: 480px) {
+    .footer {
+        padding: 10px;
+    }
+
+    .footerIcons {
+        gap: 10px;
+    }
+
+    .footerDate {
         font-size: 14px;
     }
 }

@@ -12,8 +12,26 @@
   background-color: var(--white-color);
 }
 
+/* Tablet Styles for Main */
 @media (max-width: 768px) {
+  .page {
+    flex-direction: column;
+  }
+
   .main {
       padding: 20px;
+      flex-direction: column;
+      align-items: flex-start;
+  }
+}
+
+/* Mobile Styles for Main */
+@media (max-width: 480px) {
+  .page {
+    padding: 10px;
+  }
+  
+  .main {
+      padding: 15px;
   }
 }
