@@ -9,7 +9,7 @@ const HomePage: React.FC = () => {
 
     return (
         <div className={styles.page}>
-            <Header isAuthenticated={false} onSignOut={() => {}} />
+            <Header isAuthenticated={false} />
                 <main className={styles.main}><WelcomeSection /></main>
             <Footer />
         </div>

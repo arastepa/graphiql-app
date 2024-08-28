@@ -3,6 +3,7 @@ import React from 'react';
 import Image from 'next/image';
 import mainImage from '../../public/img/homeImg.png';
 import styles from '../styles/Welcome.module.css';
+import Link from 'next/link';
 
 const WelcomeSection: React.FC = () => {
     return (
@@ -17,8 +18,8 @@ const WelcomeSection: React.FC = () => {
                 className={styles.welcomeImg}
             />
             <div className={styles.welcomeButtons}>
-                <button className={styles.welcomeButton} onClick={() => console.log('Redirect to Sign In')}>Sign In</button>
-                <button className={styles.welcomeButton} onClick={() => console.log('Redirect to Sign Up')}>Sign Up</button>
+                <Link href="#" className={styles.welcomeButton}>Sign In</Link>
+                <Link href="#" className={styles.welcomeButton}>Sign Up</Link>
             </div>
         </div>
     );

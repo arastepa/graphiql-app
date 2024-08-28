@@ -6,10 +6,9 @@ import styles from '../styles/Header.module.css';
 
 interface HeaderProps {
     isAuthenticated: boolean;
-    onSignOut?: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ isAuthenticated, onSignOut }) => {
+const Header: React.FC<HeaderProps> = ({ isAuthenticated }) => {
     return (
         <header className={styles.header}>
             <div className={styles.headerLogo}>
@@ -27,11 +26,11 @@ const Header: React.FC<HeaderProps> = ({ isAuthenticated, onSignOut }) => {
             <div className={styles.nav}>
                 <button className={styles.langToggle}>EN</button>
                 {isAuthenticated ? (
-                    <button className={styles.authButton} onClick={onSignOut}>Sign Out</button>
+                    <Link href="#" className={styles.authButton}>Sign Out</Link>
                 ) : (
                     <>
-                        <button className={styles.signInButton}>Sign In</button>
-                        <button className={styles.authButton}>Sign Up</button>
+                        <Link href="#" className={styles.signInButton}>Sign In</Link>
+                        <Link href="#" className={styles.authButton}>Sign Up</Link>
                     </>
                 )}
             </div>
