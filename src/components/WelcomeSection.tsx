@@ -4,6 +4,7 @@ import Image from 'next/image';
 import mainImage from '../../public/img/homeImg.png';
 import styles from '../styles/Welcome.module.css';
 import { useTranslation } from 'react-i18next';
+import Link from 'next/link';
 
 const WelcomeSection: React.FC = () => {
   const { t } = useTranslation();
@@ -20,18 +21,12 @@ const WelcomeSection: React.FC = () => {
         className={styles.welcomeImg}
       />
       <div className={styles.welcomeButtons}>
-        <button
-          className={styles.welcomeButton}
-          onClick={() => console.log('Redirect to Sign In')}
-        >
-          {t(`SignIn`)}
-        </button>
-        <button
-          className={styles.welcomeButton}
-          onClick={() => console.log('Redirect to Sign Up')}
-        >
-          {t(`SignUp`)}
-        </button>
+        <Link href="/signin" className={styles.welcomeButton}>
+          Sign In
+        </Link>
+        <Link href="signup" className={styles.welcomeButton}>
+          Sign Up
+        </Link>
       </div>
     </div>
   );
