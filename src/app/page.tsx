@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import React from "react";
-import WelcomeSection from "../components/WelcomeSection";
-import styles from "./page.module.css";
+import React from 'react';
+import WelcomeSection from '../components/WelcomeSection';
+import styles from './page.module.css';
 
 const HomePage: React.FC = () => {
   return (

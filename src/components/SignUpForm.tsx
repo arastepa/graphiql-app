@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import styles from "@/styles/SignUp.module.css";
-import { useFormState } from "react-dom";
+import styles from '@/styles/SignUp.module.css';
+import { useFormState } from 'react-dom';
 
 const SignUpForm = ({
   handleSignup,
@@ -20,7 +20,7 @@ const SignUpForm = ({
   >;
 }) => {
   const [state, handleSignupAction] = useFormState(handleSignup, {
-    message: "",
+    message: '',
   });
   return (
     <form className={styles.form} action={handleSignupAction}>

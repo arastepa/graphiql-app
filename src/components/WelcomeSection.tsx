@@ -1,9 +1,9 @@
-"use client";
-import React from "react";
-import Image from "next/image";
-import mainImage from "../../public/img/homeImg.png";
-import styles from "../styles/Welcome.module.css";
-import { useTranslation } from "react-i18next";
+'use client';
+import React from 'react';
+import Image from 'next/image';
+import mainImage from '../../public/img/homeImg.png';
+import styles from '../styles/Welcome.module.css';
+import { useTranslation } from 'react-i18next';
 
 const WelcomeSection: React.FC = () => {
   const { t } = useTranslation();
@@ -22,13 +22,13 @@ const WelcomeSection: React.FC = () => {
       <div className={styles.welcomeButtons}>
         <button
           className={styles.welcomeButton}
-          onClick={() => console.log("Redirect to Sign In")}
+          onClick={() => console.log('Redirect to Sign In')}
         >
           {t(`SignIn`)}
         </button>
         <button
           className={styles.welcomeButton}
-          onClick={() => console.log("Redirect to Sign Up")}
+          onClick={() => console.log('Redirect to Sign Up')}
         >
           {t(`SignUp`)}
         </button>

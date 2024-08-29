@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import Image from "next/image";
-import frame from "../../public/img/frame.png";
-import enFlag from "../../public/img/en-flag.png";
-import geoFlag from "../../public/img/geo-flag.png";
-import amFlag from "../../public/img/am-flag.png";
-import styles from "../styles/Header.module.css";
-import { useLanguage } from "../context/LanguageContext";
-import { useTranslation } from "react-i18next";
+import React, { useState } from 'react';
+import Image from 'next/image';
+import frame from '../../public/img/frame.png';
+import enFlag from '../../public/img/en-flag.png';
+import geoFlag from '../../public/img/geo-flag.png';
+import amFlag from '../../public/img/am-flag.png';
+import styles from '../styles/Header.module.css';
+import { useLanguage } from '../context/LanguageContext';
+import { useTranslation } from 'react-i18next';
 
 interface HeaderProps {
   isAuthenticated: boolean;
@@ -45,7 +45,7 @@ const Header: React.FC<HeaderProps> = ({ isAuthenticated, onSignOut }) => {
         </button>
         {isLangListVisible && (
           <div className={styles.langList}>
-            {["en", "ka", "am"].map((lang) => (
+            {['en', 'ka', 'am'].map((lang) => (
               <button
                 key={lang}
                 className={`${styles.langToggle} ${styles.removeBorder}`}
@@ -53,7 +53,7 @@ const Header: React.FC<HeaderProps> = ({ isAuthenticated, onSignOut }) => {
               >
                 <Image
                   src={
-                    lang === "en" ? enFlag : lang === "ka" ? geoFlag : amFlag
+                    lang === 'en' ? enFlag : lang === 'ka' ? geoFlag : amFlag
                   }
                   alt={`${lang.toUpperCase()} flag`}
                   className={styles.flag}
