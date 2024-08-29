@@ -1,46 +1,30 @@
-import styles from "@/styles/SignUp.module.css";
+"use server";
 
+import SignUpForm from "@/components/SignUpForm";
+import styles from "@/styles/SignUp.module.css";
+import { validationSchemaSignUp } from "@/utils/validate";
+import * as Yup from "yup";
+
+export const handleSignup = async (prevState: unknown, data: FormData) => {
+  try {
+    const formDataObject: Record<string, unknown> = {};
+    data.forEach((value, key) => {
+      formDataObject[key] = value;
+    });
+    await validationSchemaSignUp.validate(formDataObject, {
+      abortEarly: false,
+    });
+    return { message: "aa" };
+  } catch (err) {
+    if (err instanceof Yup.ValidationError) {
+      return { message: err.errors };
+    }
+  }
+};
 const SignUp = () => {
   return (
     <div className={styles.container}>
-      <form className={styles.form}>
-        <div>
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            placeholder="your email address"
-            required
-          />
-        </div>
-
-        <div>
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            placeholder="type your password"
-            required
-          />
-        </div>
-
-        <div>
-          <label htmlFor="confirmPassword">Confirm Password</label>
-          <input
-            type="password"
-            id="confirmPassword"
-            name="confirmPassword"
-            placeholder="confirm password"
-            required
-          />
-        </div>
-
-        <button type="submit" className={styles.btn}>
-          Submit
-        </button>
-      </form>
+      <SignUpForm handleSignup={handleSignup} />
     </div>
   );
 };
