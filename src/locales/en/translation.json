@@ -1,0 +1,9 @@
+{
+  "Header": {
+    "Title": "Welcome to Rest/Graphiql Client",
+    "Paragraph": "Our platform supports various endpoints and allows you to input queries, variables, and headers."
+  },
+  "SignIn": "Sign In",
+  "SignUp": "Sign Up",
+  "SignOut": "Sign Out"
+}
