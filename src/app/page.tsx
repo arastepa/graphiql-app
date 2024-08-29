@@ -1,10 +1,19 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import React from 'react';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
+import WelcomeSection from '../components/WelcomeSection';
+// import UserSection from '../components/UserSection';
+import styles from './page.module.css';
 
-export default function Home() {
-  return (
-    <main className={styles.main}>
-      <h1>Home</h1>
-    </main>
-  );
-}
+const HomePage: React.FC = () => {
+
+    return (
+        <div className={styles.page}>
+            <Header isAuthenticated={false} />
+                <main className={styles.main}><WelcomeSection /></main>
+            <Footer />
+        </div>
+    );
+};
+
+export default HomePage;
