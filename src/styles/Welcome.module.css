@@ -26,8 +26,8 @@
 }
 
 .welcomeButton {
-  width: 143px;
-  height: 48px;
+  width: 150px;
+  height: 50px;
   background-color: var(--primary-color);
   color: var(--white-color);
   margin-top: 20px;
@@ -35,7 +35,7 @@
   font-size: 20px;
   cursor: pointer;
   text-decoration: none;
-  padding: 10px 35px;
+  padding: 8px 15px;
 }
 
 /* Tablet Styles for Welcome */
