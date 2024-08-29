@@ -6,7 +6,7 @@ import notFound from "../../public/img/not-found.svg";
 const NotFound = () => {
   return (
     <section className={styles.notFound}>
-      <div className={styles.notFoundText}>
+      <div className={styles.notFoundContent}>
         <h2 className={styles.title}>Sorry, Page Not Found</h2>
         <Image src={notFound} alt="not found image" />
         <p>Could not found requested resource </p>
