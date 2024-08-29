@@ -19,11 +19,11 @@ const SignInForm = ({
     | undefined
   >;
 }) => {
-  const [state, handleSignupAction] = useFormState(handleSignin, {
+  const [state, handleSigninAction] = useFormState(handleSignin, {
     message: '',
   });
   return (
-    <form className={styles.form} action={handleSignupAction}>
+    <form className={styles.form} action={handleSigninAction}>
       <p className={styles.error}>{state?.message}</p>
       <div>
         <label htmlFor="email">Email</label>

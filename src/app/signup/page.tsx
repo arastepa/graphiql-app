@@ -8,6 +8,7 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '@/firebase';
 import { redirect } from 'next/navigation';
 import { isRedirectError } from 'next/dist/client/components/redirect';
+import { FirebaseError } from 'firebase/app';
 
 export const handleSignup = async (prevState: unknown, data: FormData) => {
   try {
@@ -29,7 +30,9 @@ export const handleSignup = async (prevState: unknown, data: FormData) => {
     if (err instanceof Yup.ValidationError) {
       return { message: err.errors };
     }
-    console.log(err);
+    if (err instanceof FirebaseError) {
+      return { message: err.code };
+    }
   }
 };
 const SignUp = () => {

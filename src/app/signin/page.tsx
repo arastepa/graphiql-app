@@ -2,7 +2,11 @@
 
 import SignInForm from '@/components/SignInForm';
 import styles from '@/styles/SignUp.module.css';
-import * as Yup from 'yup';
+import { auth } from '@/firebase';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { redirect } from 'next/navigation';
+import { isRedirectError } from 'next/dist/client/components/redirect';
+import { FirebaseError } from 'firebase/app';
 
 export const handleSignin = async (prevState: unknown, data: FormData) => {
   try {
@@ -10,11 +14,16 @@ export const handleSignin = async (prevState: unknown, data: FormData) => {
     data.forEach((value, key) => {
       formDataObject[key] = value;
     });
-
-    return { message: 'aa' };
+    await signInWithEmailAndPassword(
+      auth,
+      formDataObject.email as string,
+      formDataObject.password as string,
+    );
+    redirect('/');
   } catch (err) {
-    if (err instanceof Yup.ValidationError) {
-      return { message: err.errors };
+    if (isRedirectError(err)) redirect('/');
+    if (err instanceof FirebaseError) {
+      return { message: err.code };
     }
   }
 };
