@@ -10,7 +10,7 @@
     "lint:fix": "next lint --fix",
     "prettier:fix": "prettier --write .",
     "prepare": "husky install",
-    "test": "vitest",
+    "test": "vitest --no-watch",
     "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
@@ -28,14 +28,18 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@typescript-eslint/eslint-plugin": "^7.2.0",
     "@vitejs/plugin-react": "^4.3.1",
     "@vitest/coverage-v8": "^2.0.5",
     "eslint": "^8",
     "eslint-config-next": "14.2.6",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-react": "^7.35.0",
     "husky": "^8.0.3",
     "jsdom": "^25.0.0",
     "lint-staged": "^14.0.0",
-    "prettier": "^2.8.8",
+    "prettier": "^3.3.3",
     "typescript": "^5",
     "vitest": "^2.0.5"
   },
