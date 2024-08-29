@@ -5,7 +5,7 @@ import styles from "@/styles/SignUp.module.css";
 import { validationSchemaSignUp } from "@/utils/validate";
 import * as Yup from "yup";
 
-export const handleSignup = async (prevState: unknown, data: FormData) => {
+export const handleSignin = async (prevState: unknown, data: FormData) => {
   try {
     const formDataObject: Record<string, unknown> = {};
     data.forEach((value, key) => {
@@ -24,7 +24,7 @@ export const handleSignup = async (prevState: unknown, data: FormData) => {
 const SignUp = () => {
   return (
     <div className={styles.container}>
-      <SignInForm handleSignup={handleSignup} />
+      <SignInForm handleSignin={handleSignin} />
     </div>
   );
 };

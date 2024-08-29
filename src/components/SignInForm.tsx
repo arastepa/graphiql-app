@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useActionState } from "react";
 import styles from "@/styles/SignUp.module.css";
+import { useFormState } from "react-dom";
 
 const SignInForm = ({
-  handleSignup,
+  handleSignin,
 }: {
-  handleSignup: (
+  handleSignin: (
     prevState: unknown,
     data: FormData,
   ) => Promise<
@@ -19,7 +19,7 @@ const SignInForm = ({
     | undefined
   >;
 }) => {
-  const [state, handleSignupAction] = useActionState(handleSignup, {
+  const [state, handleSignupAction] = useFormState(handleSignin, {
     message: "",
   });
   return (
