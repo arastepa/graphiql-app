@@ -1,8 +1,8 @@
-import React from "react";
-import Image from "next/image";
-import gitIcon from "../../public/img/gitIcon.png";
-import logoRs from "../../public/img/logoRs.png";
-import styles from "../styles/Footer.module.css";
+import React from 'react';
+import Image from 'next/image';
+import gitIcon from '../../public/img/gitIcon.png';
+import logoRs from '../../public/img/logoRs.png';
+import styles from '../styles/Footer.module.css';
 
 const Footer: React.FC = () => {
   return (
