@@ -4,7 +4,7 @@ import i18n from "../utils/i18n";
 describe("i18n configuration", () => {
   test("i18n is initialized with correct languages", () => {
     expect(Object.keys(i18n.options.resources || {})).toEqual(
-      expect.arrayContaining(["en", "ka", "am"])
+      expect.arrayContaining(["en", "ka", "am"]),
     );
   });
 

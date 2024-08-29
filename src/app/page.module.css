@@ -19,9 +19,9 @@
   }
 
   .main {
-      padding: 20px;
-      flex-direction: column;
-      align-items: flex-start;
+    padding: 20px;
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
 
@@ -30,8 +30,8 @@
   .page {
     padding: 10px;
   }
-  
+
   .main {
-      padding: 15px;
+    padding: 15px;
   }
 }
