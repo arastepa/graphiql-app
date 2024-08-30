@@ -29,7 +29,7 @@
     gap: 10px;
 }
 
-.buttonContainer button {
+.buttonContainer .button {
     padding: 10px 15px;
     font-size: 20px;
     cursor: pointer;
@@ -38,8 +38,9 @@
     color: var(--white-color);
     background-color: var(--secondary-color);
     transition: 0.3s ease;
+    text-decoration: none;
 }
 
-.buttonContainer button:hover {
+.buttonContainer .button:hover {
     background-color: var(--border-primary);
 }
