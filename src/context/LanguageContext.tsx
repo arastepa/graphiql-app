@@ -11,10 +11,6 @@ const LanguageContext = createContext<LanguageContextType | undefined>(
   undefined,
 );
 
-const hello = (a: any) => {
-  return a;
-};
-
 export const LanguageProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
