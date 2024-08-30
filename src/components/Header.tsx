@@ -1,7 +1,9 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
+import { signOut } from 'firebase/auth';
+import { auth } from '@/firebase';
 import frame from '../../public/img/frame.png';
 import enFlag from '../../public/img/en-flag.png';
 import geoFlag from '../../public/img/geo-flag.png';
@@ -23,13 +25,15 @@ const Header = () => {
     changeLanguage(lng);
     setLangListVisible(false);
   };
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(
+    Boolean(cookies.get('accessToken')),
+  );
+  console.log(cookies.get('accessToken'));
 
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const token = Cookies.get('accessToken');
-
-  useEffect(() => {
-    setIsAuthenticated(token ? true : false);
-  }, [token]);
+  console.log({
+    isAuthenticated,
+    hasToken: Boolean(cookies.get('accessToken')),
+  });
 
   return (
     <header className={styles.header} role="banner">
@@ -75,9 +79,10 @@ const Header = () => {
         {isAuthenticated ? (
           <Link
             href="#"
-            onClick={() => {
-              // TODO: unauthenticate user from firebase, and only then do the lines below
-              Cookies.remove('accessToken');
+            onClick={async () => {
+              cookies.remove('accessToken');
+              cookies.remove('email');
+              await signOut(auth);
               setIsAuthenticated(false);
             }}
             className={styles.authButton}

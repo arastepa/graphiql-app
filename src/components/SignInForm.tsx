@@ -28,9 +28,11 @@ const SignInForm = ({
   });
   const { t } = useTranslation();
   const router = useRouter();
+
   useEffect(() => {
     if (Cookies.get('accessToken')) router.push('/');
   }, [router]);
+
   return (
     <form className={styles.form} action={handleSigninAction}>
       <p className={styles.error}>{state?.message}</p>

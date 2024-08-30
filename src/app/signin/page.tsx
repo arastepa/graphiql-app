@@ -21,7 +21,14 @@ export const handleSignin = async (prevState: unknown, data: FormData) => {
       formDataObject.password as string,
     );
     const token = await userData.user.getIdToken();
-    cookies().set('accessToken', token);
+    cookies().set({
+      name: 'accessToken',
+      value: token,
+    });
+    cookies().set({
+      name: 'email',
+      value: userData.user?.email as string,
+    });
     redirect('/');
   } catch (err) {
     if (isRedirectError(err)) redirect('/');
