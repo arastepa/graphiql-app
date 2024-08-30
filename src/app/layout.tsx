@@ -21,7 +21,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <LanguageProvider>
-          <Header isAuthenticated={false} />
+          <Header />
           {children}
           <Footer />
         </LanguageProvider>

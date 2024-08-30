@@ -7,6 +7,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import { redirect } from 'next/navigation';
 import { isRedirectError } from 'next/dist/client/components/redirect';
 import { FirebaseError } from 'firebase/app';
+import { cookies } from 'next/headers';
 
 export const handleSignin = async (prevState: unknown, data: FormData) => {
   try {
@@ -14,11 +15,13 @@ export const handleSignin = async (prevState: unknown, data: FormData) => {
     data.forEach((value, key) => {
       formDataObject[key] = value;
     });
-    await signInWithEmailAndPassword(
+    const userData = await signInWithEmailAndPassword(
       auth,
       formDataObject.email as string,
       formDataObject.password as string,
     );
+    const token = await userData.user.getIdToken();
+    cookies().set('accessToken', token);
     redirect('/');
   } catch (err) {
     if (isRedirectError(err)) redirect('/');

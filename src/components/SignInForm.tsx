@@ -1,7 +1,10 @@
 'use client';
 
 import styles from '@/styles/SignUp.module.css';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 import { useFormState } from 'react-dom';
+import Cookies from 'js-cookie';
 
 const SignInForm = ({
   handleSignin,
@@ -22,6 +25,10 @@ const SignInForm = ({
   const [state, handleSigninAction] = useFormState(handleSignin, {
     message: '',
   });
+  const router = useRouter();
+  useEffect(() => {
+    if (Cookies.get('accessToken')) router.push('/');
+  }, [router]);
   return (
     <form className={styles.form} action={handleSigninAction}>
       <p className={styles.error}>{state?.message}</p>
