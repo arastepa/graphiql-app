@@ -59,6 +59,8 @@ const Header = () => {
                   }
                   alt={`${lang.toUpperCase()} flag`}
                   className={styles.flag}
+                  width={20}
+                  height={15}
                 />
                 {lang.toUpperCase()}
               </button>

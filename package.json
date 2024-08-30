@@ -10,7 +10,7 @@
     "lint:fix": "next lint --fix",
     "prettier:fix": "prettier --write .",
     "prepare": "husky install",
-    "test": "vitest --no-watch",
+    "test": "NODE_OPTIONS='--max-old-space-size=4096' vitest",
     "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
@@ -28,8 +28,9 @@
   },
   "devDependencies": {
     "@testing-library/dom": "^10.4.0",
-    "@testing-library/react": "^16.0.0",
-    "@types/js-cookie": "^3.0.6",
+    "@testing-library/jest-dom": "^6.5.0",
+    "@testing-library/react": "^16.0.1",
+    "@types/jest": "^29.5.12",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
