@@ -1,16 +1,27 @@
-import { expect, test } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import HomePage from '../app/page'; // Adjust the import if the path differs
+import { expect, describe, it, vi } from 'vitest';
+import HomePage from '../app/page';
 
-test('renders HomePage with Header, WelcomeSection, and Footer', () => {
-  render(<HomePage />);
+vi.mock('../components/WelcomeSection', () => ({
+  default: () => (
+    <div data-testid="mocked-welcome-section">Mocked WelcomeSection</div>
+  ),
+}));
 
-  const headerElement = screen.getByRole('banner');
-  expect(headerElement).toBeDefined();
+vi.mock('../app/page.module.css', () => ({
+  default: {
+    page: 'mocked-page-class',
+    main: 'mocked-main-class',
+  },
+}));
 
-  const welcomeText = screen.getByText('Welcome to Rest/Graphiql Client');
-  expect(welcomeText).toBeDefined();
+describe('HomePage', () => {
+  it('renders the homepage with the correct structure', () => {
+    render(<HomePage />);
 
-  const footerElement = screen.getByRole('contentinfo');
-  expect(footerElement).toBeDefined();
+    const mainElement = screen.getByRole('main');
+    expect(mainElement.className).toBe('mocked-main-class');
+
+    expect(screen.getByTestId('mocked-welcome-section')).toBeDefined();
+  });
 });

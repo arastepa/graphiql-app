@@ -10,8 +10,10 @@ import styles from '../styles/Header.module.css';
 import { useLanguage } from '../context/LanguageContext';
 import Link from 'next/link';
 import Cookies from 'js-cookie';
+import { useTranslation } from 'react-i18next';
 
 const Header = () => {
+  const { t } = useTranslation();
   const { currentLanguage, changeLanguage } = useLanguage();
   const [isLangListVisible, setLangListVisible] = useState(false);
 
@@ -77,15 +79,15 @@ const Header = () => {
             }}
             className={styles.authButton}
           >
-            Sign Out
+            {t(`SignOut`)}
           </Link>
         ) : (
           <>
             <Link href="/signin" className={styles.signInButton}>
-              Sign In
+              {t(`SignIn`)}
             </Link>
-            <Link href="signup" className={styles.authButton}>
-              Sign Up
+            <Link href="/signup" className={styles.authButton}>
+              {t(`SignUp`)}
             </Link>
           </>
         )}

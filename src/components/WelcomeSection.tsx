@@ -22,10 +22,10 @@ const WelcomeSection: React.FC = () => {
       />
       <div className={styles.welcomeButtons}>
         <Link href="/signin" className={styles.welcomeButton}>
-          Sign In
+          {t(`SignIn`)}
         </Link>
-        <Link href="signup" className={styles.welcomeButton}>
-          Sign Up
+        <Link href="/signup" className={styles.welcomeButton}>
+          {t(`SignUp`)}
         </Link>
       </div>
     </div>

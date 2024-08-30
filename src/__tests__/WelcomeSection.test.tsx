@@ -1,44 +1,88 @@
-import { expect, vi, describe, it } from 'vitest';
-import { render, screen, fireEvent, cleanup } from '@testing-library/react';
+import { expect, vi, describe, it, afterEach, beforeAll } from 'vitest';
+import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import WelcomeSection from '../components/WelcomeSection';
+import { I18nextProvider } from 'react-i18next';
+import i18n from '../utils/i18n';
 
-vi.mock('react-i18next', () => ({
-  useTranslation: () => ({
-    t: (key: string) => key,
-  }),
+// Mock next/image
+vi.mock('next/image', () => ({
+  default: ({
+    src,
+    alt,
+    className,
+  }: {
+    src: string;
+    alt: string;
+    className: string;
+  }) => <img src={src} alt={alt} className={className} />,
+}));
+
+// Mock next/link
+vi.mock('next/link', () => ({
+  default: ({
+    children,
+    href,
+    className,
+    role,
+  }: {
+    children: React.ReactNode;
+    href: string;
+    className: string;
+    role: string;
+  }) => (
+    <a href={href} className={className} role={role}>
+      {children}
+    </a>
+  ),
 }));
 
 describe('WelcomeSection', () => {
+  beforeAll(() => {
+    i18n.init({
+      lng: 'en',
+      fallbackLng: 'en',
+      ns: ['translations'],
+      defaultNS: 'translations',
+      resources: {
+        en: {
+          translations: {
+            'Header.Title': 'Welcome to Rest/Graphiql Client',
+            'Header.Paragraph': 'Some welcome text',
+            SignIn: 'Sign In',
+            SignUp: 'Sign Up',
+          },
+        },
+      },
+    });
+  });
+
   afterEach(() => {
-    cleanup();
     vi.clearAllMocks();
   });
+
   it('renders the welcome section with correct elements', () => {
-    render(<WelcomeSection />);
+    render(
+      <I18nextProvider i18n={i18n}>
+        <WelcomeSection />
+      </I18nextProvider>,
+    );
 
     expect(
-      screen.getByRole('heading', { name: 'Header.Title' }),
+      screen.getByRole('heading', {
+        name: 'Welcome to Rest/Graphiql Client',
+        level: 1,
+      }),
     ).toBeInTheDocument();
-    expect(screen.getByText('Header.Paragraph')).toBeInTheDocument();
+    expect(screen.getByText('Some welcome text')).toBeInTheDocument();
     expect(screen.getByAltText('home img')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'SignIn' })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'SignUp' })).toBeInTheDocument();
-  });
-
-  it('calls console.log when Sign In button is clicked', () => {
-    const consoleSpy = vi.spyOn(console, 'log');
-    render(<WelcomeSection />);
-
-    fireEvent.click(screen.getByRole('button', { name: 'SignIn' }));
-    expect(consoleSpy).toHaveBeenCalledWith('Redirect to Sign In');
-  });
-
-  it('calls console.log when Sign Up button is clicked', () => {
-    const consoleSpy = vi.spyOn(console, 'log');
-    render(<WelcomeSection />);
-
-    fireEvent.click(screen.getByRole('button', { name: 'SignUp' }));
-    expect(consoleSpy).toHaveBeenCalledWith('Redirect to Sign Up');
+    expect(screen.getByRole('link', { name: 'Sign In' })).toHaveAttribute(
+      'href',
+      '/signin',
+    );
+    expect(screen.getByRole('link', { name: 'Sign Up' })).toHaveAttribute(
+      'href',
+      '/signup',
+    );
   });
 });

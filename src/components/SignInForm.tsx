@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { useFormState } from 'react-dom';
 import Cookies from 'js-cookie';
+import { useTranslation } from 'react-i18next';
 
 const SignInForm = ({
   handleSignin,
@@ -25,6 +26,7 @@ const SignInForm = ({
   const [state, handleSigninAction] = useFormState(handleSignin, {
     message: '',
   });
+  const { t } = useTranslation();
   const router = useRouter();
   useEffect(() => {
     if (Cookies.get('accessToken')) router.push('/');
@@ -33,29 +35,29 @@ const SignInForm = ({
     <form className={styles.form} action={handleSigninAction}>
       <p className={styles.error}>{state?.message}</p>
       <div>
-        <label htmlFor="email">Email</label>
+        <label htmlFor="email">{t(`Auth.EmailLabel`)}</label>
         <input
           type="email"
           id="email"
           name="email"
-          placeholder="your email address"
+          placeholder={t(`Auth.EmailInput`)}
           required
         />
       </div>
 
       <div>
-        <label htmlFor="password">Password</label>
+        <label htmlFor="password">{t(`Auth.PasswordLabel`)}</label>
         <input
           type="password"
           id="password"
           name="password"
-          placeholder="type your password"
+          placeholder={t(`Auth.PasswordInput`)}
           required
         />
       </div>
 
       <button type="submit" className={styles.btn}>
-        Submit
+        {t(`Submit`)}
       </button>
     </form>
   );
