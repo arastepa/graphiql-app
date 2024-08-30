@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { signOut } from 'firebase/auth';
 import { auth } from '@/firebase';
@@ -34,6 +34,23 @@ const Header = () => {
     isAuthenticated,
     hasToken: Boolean(cookies.get('accessToken')),
   });
+
+  useEffect(() => {
+    const handleCookieChange = () => {
+      setIsAuthenticated(Boolean(cookies.get('accessToken')));
+    };
+
+    document.addEventListener('cookieChange', handleCookieChange);
+
+    const interval = setInterval(() => {
+      handleCookieChange();
+    }, 1000);
+
+    return () => {
+      clearInterval(interval);
+      document.removeEventListener('cookieChange', handleCookieChange);
+    };
+  }, []);
 
   return (
     <header className={styles.header} role="banner">
