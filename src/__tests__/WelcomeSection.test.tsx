@@ -1,5 +1,5 @@
 import { expect, vi, describe, it } from 'vitest';
-import { render, screen, fireEvent, cleanup } from '@testing-library/react';
+import { render, screen, cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import WelcomeSection from '../components/WelcomeSection';
 
