@@ -26,9 +26,11 @@ const Header = () => {
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const token = Cookies.get('accessToken');
+
   useEffect(() => {
     setIsAuthenticated(token ? true : false);
   }, [token]);
+
   return (
     <header className={styles.header} role="banner">
       <Link href="/" className="linkLogo">
@@ -74,6 +76,7 @@ const Header = () => {
           <Link
             href="#"
             onClick={() => {
+              // TODO: unauthenticate user from firebase, and only then do the lines below
               Cookies.remove('accessToken');
               setIsAuthenticated(false);
             }}

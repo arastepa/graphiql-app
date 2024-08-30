@@ -20,13 +20,23 @@ export const handleSignup = async (prevState: unknown, data: FormData) => {
     await validationSchemaSignUp.validate(formDataObject, {
       abortEarly: false,
     });
+
     const userData = await createUserWithEmailAndPassword(
       auth,
       formDataObject.email as string,
       formDataObject.password as string,
     );
+    console.log({ userData });
     const token = await userData.user.getIdToken();
-    cookies().set('accessToken', token);
+    cookies().set({
+      name: 'accessToken',
+      value: token,
+    });
+    cookies().set({
+      name: 'email',
+      value: userData.user?.email as string,
+    });
+
     redirect('/');
   } catch (err) {
     if (isRedirectError(err)) redirect('/');
