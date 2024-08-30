@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import frame from '../../public/img/frame.png';
 import enFlag from '../../public/img/en-flag.png';
@@ -9,12 +9,9 @@ import amFlag from '../../public/img/am-flag.png';
 import styles from '../styles/Header.module.css';
 import { useLanguage } from '../context/LanguageContext';
 import Link from 'next/link';
+import Cookies from 'js-cookie';
 
-interface HeaderProps {
-  isAuthenticated: boolean;
-}
-
-const Header: React.FC<HeaderProps> = ({ isAuthenticated }) => {
+const Header = () => {
   const { currentLanguage, changeLanguage } = useLanguage();
   const [isLangListVisible, setLangListVisible] = useState(false);
 
@@ -25,6 +22,11 @@ const Header: React.FC<HeaderProps> = ({ isAuthenticated }) => {
     setLangListVisible(false);
   };
 
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const token = Cookies.get('accessToken');
+  useEffect(() => {
+    setIsAuthenticated(token ? true : false);
+  }, [token]);
   return (
     <header className={styles.header} role="banner">
       <Link href="/" className="linkLogo">
@@ -65,7 +67,14 @@ const Header: React.FC<HeaderProps> = ({ isAuthenticated }) => {
         )}
 
         {isAuthenticated ? (
-          <Link href="#" className={styles.authButton}>
+          <Link
+            href="#"
+            onClick={() => {
+              Cookies.remove('accessToken');
+              setIsAuthenticated(false);
+            }}
+            className={styles.authButton}
+          >
             Sign Out
           </Link>
         ) : (
