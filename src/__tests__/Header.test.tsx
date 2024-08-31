@@ -5,8 +5,8 @@ import Header from '../components/Header';
 import { LanguageProvider } from '../context/LanguageContext';
 import { I18nextProvider } from 'react-i18next';
 import i18n from '../utils/i18n';
-import Cookies from 'js-cookie'; // Ensure this import is present
-import { vi } from 'vitest'; // Add this import
+import Cookies from 'js-cookie'; 
+import { vi } from 'vitest'; 
 
 describe('Header Component', () => {
   const renderHeader = () => {
