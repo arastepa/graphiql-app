@@ -10,7 +10,7 @@
     "lint:fix": "next lint --fix",
     "prettier:fix": "prettier --write .",
     "prepare": "husky install",
-    "test": "vitest --no-watch",
+    "test": "NODE_OPTIONS='--max-old-space-size=4096' vitest",
     "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
@@ -28,9 +28,10 @@
   },
   "devDependencies": {
     "@testing-library/dom": "^10.4.0",
-    "@testing-library/react": "^16.0.0",
-    "@types/js-cookie": "^3.0.6",
-    "@types/node": "^20",
+    "@testing-library/jest-dom": "^6.5.0",
+    "@testing-library/react": "^16.0.1",
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.16.2",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "@typescript-eslint/eslint-plugin": "^7.2.0",
@@ -45,7 +46,7 @@
     "jsdom": "^25.0.0",
     "lint-staged": "^14.0.0",
     "prettier": "^3.3.3",
-    "typescript": "^5",
+    "typescript": "~5.4.3",
     "vitest": "^2.0.5"
   },
   "lint-staged": {

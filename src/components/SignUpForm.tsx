@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import { useFormState } from 'react-dom';
 import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
+import { useTranslation } from 'react-i18next';
 
 const SignUpForm = ({
   handleSignup,
@@ -22,6 +23,7 @@ const SignUpForm = ({
     | undefined
   >;
 }) => {
+  const { t } = useTranslation();
   const [state, handleSignupAction] = useFormState(handleSignup, {
     message: '',
   });
@@ -34,40 +36,40 @@ const SignUpForm = ({
     <form className={styles.form} action={handleSignupAction}>
       <p className={styles.error}>{state?.message}</p>
       <div>
-        <label htmlFor="email">Email</label>
+        <label htmlFor="email">{t(`Auth.EmailLabel`)}</label>
         <input
           type="email"
           id="email"
           name="email"
-          placeholder="your email address"
+          placeholder={t(`Auth.EmailInput`)}
           required
         />
       </div>
 
       <div>
-        <label htmlFor="password">Password</label>
+        <label htmlFor="password">{t(`Auth.PasswordLabel`)}</label>
         <input
           type="password"
           id="password"
           name="password"
-          placeholder="type your password"
+          placeholder={t(`Auth.PasswordInput`)}
           required
         />
       </div>
 
       <div>
-        <label htmlFor="confirmPassword">Confirm Password</label>
+        <label htmlFor="confirmPassword">{t(`Auth.PasswordConfLabel`)}</label>
         <input
           type="password"
           id="confirmPassword"
           name="confirmPassword"
-          placeholder="confirm password"
+          placeholder={t(`Auth.PasswordConfInput`)}
           required
         />
       </div>
 
       <button type="submit" className={styles.btn}>
-        Submit
+        {t(`Submit`)}
       </button>
     </form>
   );

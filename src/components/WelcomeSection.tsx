@@ -9,7 +9,7 @@ import Link from 'next/link';
 const WelcomeSection: React.FC = () => {
   const { t } = useTranslation();
   return (
-    <div className={styles.welcome}>
+    <div className={styles.welcome} role="banner">
       <h1 className={styles.welcomePart}>{t(`Header.Title`)}</h1>
       <h4 className={styles.welcomeText}>{t(`Header.Paragraph`)}</h4>
       <Image
@@ -21,11 +21,11 @@ const WelcomeSection: React.FC = () => {
         className={styles.welcomeImg}
       />
       <div className={styles.welcomeButtons}>
-        <Link href="/signin" className={styles.welcomeButton}>
-          Sign In
+        <Link href="/signin" className={styles.welcomeButton} role="button">
+          {t(`SignIn`)}
         </Link>
-        <Link href="signup" className={styles.welcomeButton}>
-          Sign Up
+        <Link href="/signup" className={styles.welcomeButton} role="button">
+          {t(`SignUp`)}
         </Link>
       </div>
     </div>

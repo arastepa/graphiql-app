@@ -1,16 +1,31 @@
-import { expect, test } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import HomePage from '../app/page'; // Adjust the import if the path differs
+import HomePage from '../app/page';
+import '@testing-library/jest-dom';
+import i18n from 'i18next';
+import { initReactI18next } from 'react-i18next';
 
-test('renders HomePage with Header, WelcomeSection, and Footer', () => {
-  render(<HomePage />);
+i18n.use(initReactI18next).init({
+  lng: 'en',
+  resources: {
+    en: {
+      translation: {
+        'Header.Title': 'Welcome',
+        'Header.Paragraph': 'Welcome text',
+      },
+    },
+  },
+});
 
-  const headerElement = screen.getByRole('banner');
-  expect(headerElement).toBeDefined();
+describe('HomePage', () => {
+  it('renders the homepage with the WelcomeSection', () => {
+    render(<HomePage />);
 
-  const welcomeText = screen.getByText('Welcome to Rest/Graphiql Client');
-  expect(welcomeText).toBeDefined();
-
-  const footerElement = screen.getByRole('contentinfo');
-  expect(footerElement).toBeDefined();
+    expect(screen.getByRole('banner')).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', { name: 'Welcome' }),
+    ).toBeInTheDocument();
+    expect(screen.getByText('Welcome text')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'SignIn' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'SignUp' })).toBeInTheDocument();
+  });
 });

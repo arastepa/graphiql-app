@@ -8,7 +8,13 @@ const NotFound = () => {
     <section className={styles.notFound}>
       <div className={styles.notFoundContent}>
         <h2 className={styles.title}>Sorry, Page Not Found</h2>
-        <Image src={notFound} alt="not found image" />
+        <Image
+          src={notFound}
+          alt="not found image"
+          width={0}
+          height={0}
+          style={{ width: '90%', height: '90%', objectFit: 'contain' }}
+        />
         <p>Could not found requested resource </p>
       </div>
     </section>
