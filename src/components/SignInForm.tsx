@@ -1,36 +1,45 @@
 'use client';
 
-import styles from '@/styles/SignUp.module.css';
-import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
 import { useFormState } from 'react-dom';
-import Cookies from 'js-cookie';
+import styles from '@/styles/SignUp.module.css';
+import { redirect } from 'next/navigation';
+import { isRedirectError } from 'next/dist/client/components/redirect';
+import { FirebaseError } from 'firebase/app';
+import { useAuth } from '@/context/AuthContext';
 import { useTranslation } from 'react-i18next';
 
-const SignInForm = ({
-  handleSignin,
-}: {
-  handleSignin: (
-    prevState: unknown,
-    data: FormData,
-  ) => Promise<
-    | {
-        message: string;
+
+// TODO: create wrapper for SignInForm and store there all non-form related logic
+const SignInForm = () => {
+  const { user, signIn } = useAuth();
+  const { t } = useTranslation();
+
+  if (user) {
+    redirect('/');
+  }
+
+  const handleSignin = async (prevState: unknown, data: FormData) => {
+    try {
+      const { email, password } = Object.fromEntries(data) as {
+        email: string;
+        password: string;
+      };
+
+      await signIn(email, password);
+
+      redirect('/');
+    } catch (err) {
+      if (isRedirectError(err)) redirect('/');
+      if (err instanceof FirebaseError) {
+        return { message: err.code };
       }
-    | {
-        message: string[];
-      }
-    | undefined
-  >;
-}) => {
+    }
+  };
+
   const [state, handleSigninAction] = useFormState(handleSignin, {
     message: '',
   });
-  const { t } = useTranslation();
-  const router = useRouter();
-  useEffect(() => {
-    if (Cookies.get('accessToken')) router.push('/');
-  }, [router]);
+
   return (
     <form className={styles.form} action={handleSigninAction}>
       <p className={styles.error}>{state?.message}</p>

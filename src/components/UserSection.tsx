@@ -1,21 +1,30 @@
-// import React from 'react';
-// // import styles from '../styles/Home.module.css';
+import React from 'react';
+import styles from '../styles/UserSection.module.css';
+import Link from 'next/link';
 
-// interface UserSectionProps {
-//     username: string;
-// }
+interface UserSectionProps {
+  username: string;
+}
 
-// const UserSection: React.FC<UserSectionProps> = ({ username }) => {
-//     return (
-//         <div className={styles.welcomeBack}>
-//             <h1>Welcome Back, {username}!</h1>
-//             <div className={styles.nav}>
-//                 <button>REST Client</button>
-//                 <button>GraphiQL Client</button>
-//                 <button>History</button>
-//             </div>
-//         </div>
-//     );
-// };
+const UserSection: React.FC<UserSectionProps> = ({ username }) => {
+  return (
+    <div className={styles.userSection}>
+      <h1 className={styles.welcomeMessage}>
+        <span className={styles.welcome}>Welcome Back,</span> {username}!
+      </h1>
+      <div className={styles.buttonContainer}>
+        <Link href="#" className={styles.button}>
+          REST Client
+        </Link>
+        <Link href="#" className={styles.button}>
+          GraphiQL Client
+        </Link>
+        <Link href="#" className={styles.button}>
+          History
+        </Link>
+      </div>
+    </div>
+  );
+};
 
-// export default UserSection;
+export default UserSection;

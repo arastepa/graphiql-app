@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import frame from '../../public/img/frame.png';
 import enFlag from '../../public/img/en-flag.png';
@@ -9,8 +9,9 @@ import amFlag from '../../public/img/am-flag.png';
 import styles from '../styles/Header.module.css';
 import { useLanguage } from '../context/LanguageContext';
 import Link from 'next/link';
-import Cookies from 'js-cookie';
 import { useTranslation } from 'react-i18next';
+import { useAuth } from '@/context/AuthContext';
+import { useRouter } from 'next/navigation';
 
 const Header = () => {
   const { t } = useTranslation();
@@ -23,12 +24,10 @@ const Header = () => {
     changeLanguage(lng);
     setLangListVisible(false);
   };
+  const { isAuthenticated, logOut } = useAuth();
 
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const token = Cookies.get('accessToken');
-  useEffect(() => {
-    setIsAuthenticated(token ? true : false);
-  }, [token]);
+  const router = useRouter();
+
   return (
     <header className={styles.header} role="banner">
       <Link href="/" className="linkLogo">
@@ -73,9 +72,9 @@ const Header = () => {
         {isAuthenticated ? (
           <Link
             href="#"
-            onClick={() => {
-              Cookies.remove('accessToken');
-              setIsAuthenticated(false);
+            onClick={async () => {
+              await logOut();
+              router.push('/');
             }}
             className={styles.authButton}
           >

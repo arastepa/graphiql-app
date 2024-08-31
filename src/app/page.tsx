@@ -1,17 +1,9 @@
 'use client';
-
 import React from 'react';
-import WelcomeSection from '../components/WelcomeSection';
-import styles from './page.module.css';
+import HomePageContent from '@/components/HomePageContent';
 
 const HomePage: React.FC = () => {
-  return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <WelcomeSection />
-      </main>
-    </div>
-  );
+  return <HomePageContent />;
 };
 
 export default HomePage;
