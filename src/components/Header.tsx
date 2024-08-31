@@ -1,9 +1,7 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
-import { signOut } from 'firebase/auth';
-import { auth } from '@/firebase';
 import frame from '../../public/img/frame.png';
 import enFlag from '../../public/img/en-flag.png';
 import geoFlag from '../../public/img/geo-flag.png';
@@ -11,8 +9,9 @@ import amFlag from '../../public/img/am-flag.png';
 import styles from '../styles/Header.module.css';
 import { useLanguage } from '../context/LanguageContext';
 import Link from 'next/link';
-import Cookies from 'js-cookie';
 import { useTranslation } from 'react-i18next';
+import { useAuth } from '@/context/AuthContext';
+import { useRouter } from 'next/navigation';
 
 const Header = () => {
   const { t } = useTranslation();
@@ -25,32 +24,9 @@ const Header = () => {
     changeLanguage(lng);
     setLangListVisible(false);
   };
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(
-    Boolean(cookies.get('accessToken')),
-  );
-  console.log(cookies.get('accessToken'));
+  const { isAuthenticated, logOut } = useAuth();
 
-  console.log({
-    isAuthenticated,
-    hasToken: Boolean(cookies.get('accessToken')),
-  });
-
-  useEffect(() => {
-    const handleCookieChange = () => {
-      setIsAuthenticated(Boolean(cookies.get('accessToken')));
-    };
-
-    document.addEventListener('cookieChange', handleCookieChange);
-
-    const interval = setInterval(() => {
-      handleCookieChange();
-    }, 1000);
-
-    return () => {
-      clearInterval(interval);
-      document.removeEventListener('cookieChange', handleCookieChange);
-    };
-  }, []);
+  const router = useRouter();
 
   return (
     <header className={styles.header} role="banner">
@@ -97,10 +73,8 @@ const Header = () => {
           <Link
             href="#"
             onClick={async () => {
-              cookies.remove('accessToken');
-              cookies.remove('email');
-              await signOut(auth);
-              setIsAuthenticated(false);
+              await logOut();
+              router.push('/');
             }}
             className={styles.authButton}
           >

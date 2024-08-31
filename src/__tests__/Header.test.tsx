@@ -5,8 +5,6 @@ import Header from '../components/Header';
 import { LanguageProvider } from '../context/LanguageContext';
 import { I18nextProvider } from 'react-i18next';
 import i18n from '../utils/i18n';
-import Cookies from 'js-cookie';
-import { vi } from 'vitest';
 
 describe('Header Component', () => {
   const renderHeader = () => {
@@ -45,7 +43,6 @@ describe('Header Component', () => {
   });
 
   test('handles authentication state', () => {
-    vi.spyOn(Cookies, 'get').mockReturnValue('mockToken');
     renderHeader();
     expect(
       screen.getByText((content, element) => {
