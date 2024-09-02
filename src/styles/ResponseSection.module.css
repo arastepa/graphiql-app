@@ -1,0 +1,44 @@
+.responseSection {
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  max-width: 800px;
+  margin: 2rem auto;
+}
+
+.responseSection h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.responseCode,
+.responseStatus,
+.responseBody {
+  margin-bottom: 1rem;
+}
+
+.responseCode strong,
+.responseStatus strong {
+  color: #555;
+}
+
+.responseCode {
+  background-color: #e0f7fa;
+  padding: 0.5rem;
+  border-radius: 4px;
+}
+
+.responseStatus {
+  background-color: #e8f5e9;
+  padding: 0.5rem;
+  border-radius: 4px;
+}
+
+.responseBody {
+  background-color: #f3e5f5;
+  padding: 0.5rem;
+  border-radius: 4px;
+  overflow: auto; 
+}

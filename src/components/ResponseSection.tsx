@@ -4,6 +4,7 @@ import React, { useContext, useEffect } from 'react';
 import { JsonEditor } from 'json-edit-react';
 import { useSearchParams } from 'next/navigation';
 import { ResponseContext } from '../context/ResponseContext';
+import styles from '../styles/ResponseSection.module.css';
 
 const ResponseSection: React.FC = () => {
   const searchParams = useSearchParams();
@@ -42,17 +43,17 @@ const ResponseSection: React.FC = () => {
   }, [searchParams, setResponseData]);
 
   return (
-    <div className="response-section">
+    <section className={styles.responseSection}>
       <h2>Response Details</h2>
-      <div className="response-code">
+      <div className={styles.responseCode}>
         <strong>HTTP Response Code:</strong>{' '}
         {responseCode !== null ? responseCode : 'N/A'}
       </div>
-      <div className="response-status">
+      <div className={styles.responseStatus}>
         <strong>Status:</strong>{' '}
         {responseStatus !== null ? responseStatus : 'N/A'}
       </div>
-      <div className="response-body">
+      <div className={styles.responseBody}>
         <strong>Response Body:</strong>
         {responseBody ? (
           <JsonEditor data={responseBody} setData={() => {}} />
@@ -60,7 +61,7 @@ const ResponseSection: React.FC = () => {
           'No Response'
         )}
       </div>
-    </div>
+    </section>
   );
 };
 

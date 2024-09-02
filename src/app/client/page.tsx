@@ -8,7 +8,7 @@ const RestClientPage: React.FC = () => {
   return (
     <ResponseProvider>
       <div>
-        <h1>REST Client</h1>
+        <h1 style={{textAlign: 'center', margin: '20px auto'}}>REST Client</h1>
         <ResponseSection />
       </div>
     </ResponseProvider>
