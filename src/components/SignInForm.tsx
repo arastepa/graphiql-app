@@ -8,7 +8,6 @@ import { FirebaseError } from 'firebase/app';
 import { useAuth } from '@/context/AuthContext';
 import { useTranslation } from 'react-i18next';
 
-
 // TODO: create wrapper for SignInForm and store there all non-form related logic
 const SignInForm = () => {
   const { user, signIn } = useAuth();
