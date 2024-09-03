@@ -1,0 +1,34 @@
+.restClient {
+  display: flex;
+  justify-content: center;
+  min-height: 79vh;
+  margin-top: 20px;
+}
+
+.clientHeader select {
+  height: 30px;
+}
+
+.clientHeader {
+  display: flex;
+}
+
+.clientHeader input,
+.headerSection input {
+  height: 30px;
+}
+
+.bodySection textarea {
+  height: 100px;
+  width: 100%;
+}
+
+.restClient button {
+  height: 40px;
+  background-color: var(--secondary-color);
+  color: white;
+  padding: 5px;
+  cursor: pointer;
+  border: none;
+  margin: 5px 0;
+}

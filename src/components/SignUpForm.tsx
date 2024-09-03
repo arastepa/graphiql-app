@@ -10,7 +10,6 @@ import { isRedirectError } from 'next/dist/client/components/redirect';
 import { FirebaseError } from 'firebase/app';
 import { useTranslation } from 'react-i18next';
 
-
 // TODO: create wrapper for SignUpForm and store there all non-form related logic
 const SignUpForm = () => {
   const { user, signUp } = useAuth();
