@@ -14,6 +14,7 @@
     "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
+    "base64-url": "^2.3.3",
     "firebase": "^10.13.1",
     "i18": "^0.0.6",
     "i18n": "^0.15.1",

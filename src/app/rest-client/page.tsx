@@ -1,16 +1,21 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from '@/styles/Rest.module.css';
+import { encode } from 'base64-url';
+import { useAuth } from '@/context/AuthContext';
 
 const RestClient = () => {
   const [method, setMethod] = useState('GET');
   const [endpoint, setEndpoint] = useState('');
   const [headers, setHeaders] = useState([{ key: '', value: '' }]);
   const [body, setBody] = useState('');
-  const [response, setResponse] = useState(null);
-  const router = useRouter();
+  const { isAuthenticated } = useAuth();
 
+  const router = useRouter();
+  useEffect(() => {
+    if (!isAuthenticated) router.push('/signin');
+  }, [isAuthenticated, router]);
   const handleMethodChange = (e) => {
     const newMethod = e.target.value;
     setMethod(newMethod);
@@ -28,19 +33,30 @@ const RestClient = () => {
   };
 
   const handleRequest = async () => {
-    const res = await fetch(endpoint, {
-      method,
-      headers: headers.reduce((acc, { key, value }) => {
-        if (key && value) acc[key] = value;
-        return acc;
-      }, {}),
-      body: method !== 'GET' ? body : undefined,
-    });
-    const result = await res.json();
-    setResponse({
-      status: res.status,
-      data: JSON.stringify(result, null, 2),
-    });
+    const encodedEndpoint = encode(endpoint);
+    const encodedBody = body ? encode(JSON.stringify(JSON.parse(body))) : '';
+    const queryParams = headers
+      .map((header) => `${encode(header.key)}=${encode(header.value)}`)
+      .join('&');
+
+    let url = `rest-client/${method}/${encodedEndpoint}`;
+    if (encodedBody) url += `/${encodedBody}`;
+    if (queryParams) url += `?${queryParams}`;
+
+    router.push(url);
+    // const res = await fetch(endpoint, {
+    //   method,
+    //   headers: headers.reduce((acc, { key, value }) => {
+    //     if (key && value) acc[key] = value;
+    //     return acc;
+    //   }, {}),
+    //   body: method !== 'GET' ? body : undefined,
+    // });
+    // const result = await res.json();
+    // setResponse({
+    //   status: res.status,
+    //   data: JSON.stringify(result, null, 2),
+    // });
   };
 
   return (
@@ -98,13 +114,13 @@ const RestClient = () => {
 
           <button onClick={handleRequest}>Send Request</button>
 
-          {response && (
+          {/* {response && (
             <div className="response-section">
               <h3>Response</h3>
               <p>Status: {response.status}</p>
               <pre>{response.data}</pre>
             </div>
-          )}
+          )} */}
         </div>
       </main>
     </div>
