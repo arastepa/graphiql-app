@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import styles from '@/styles/Rest.module.css';
 import { encode } from 'base64-url';
 import { useAuth } from '@/context/AuthContext';
+import { usePathname } from 'next/navigation';
 
 const RestClient = () => {
   const [method, setMethod] = useState('GET');
@@ -12,6 +13,7 @@ const RestClient = () => {
   const [body, setBody] = useState('');
   const { isAuthenticated } = useAuth();
 
+  const pathname = usePathname();
   const router = useRouter();
   useEffect(() => {
     if (!isAuthenticated) router.push('/signin');
@@ -19,7 +21,6 @@ const RestClient = () => {
   const handleMethodChange = (e) => {
     const newMethod = e.target.value;
     setMethod(newMethod);
-    router.push(`/rest-client/${newMethod}`);
   };
 
   const handleAddHeader = () => {
@@ -44,23 +45,12 @@ const RestClient = () => {
     if (queryParams) url += `?${queryParams}`;
 
     router.push(url);
-    // const res = await fetch(endpoint, {
-    //   method,
-    //   headers: headers.reduce((acc, { key, value }) => {
-    //     if (key && value) acc[key] = value;
-    //     return acc;
-    //   }, {}),
-    //   body: method !== 'GET' ? body : undefined,
-    // });
-    // const result = await res.json();
-    // setResponse({
-    //   status: res.status,
-    //   data: JSON.stringify(result, null, 2),
-    // });
   };
 
   return (
-    <div className={styles.restClient}>
+    <div
+      className={`${styles.restClient} ${pathname === '/rest-client' ? styles.client : ''}`}
+    >
       <main>
         <div className={styles.clientWrapper}>
           <div className={styles.clientHeader}>
@@ -113,14 +103,6 @@ const RestClient = () => {
           </div>
 
           <button onClick={handleRequest}>Send Request</button>
-
-          {/* {response && (
-            <div className="response-section">
-              <h3>Response</h3>
-              <p>Status: {response.status}</p>
-              <pre>{response.data}</pre>
-            </div>
-          )} */}
         </div>
       </main>
     </div>

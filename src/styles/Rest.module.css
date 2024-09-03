@@ -1,8 +1,11 @@
 .restClient {
   display: flex;
   justify-content: center;
-  min-height: 79vh;
-  margin-top: 20px;
+  margin-top: 18px;
+}
+
+.client {
+  min-height: 76vh;
 }
 
 .clientHeader select {
