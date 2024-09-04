@@ -44,7 +44,11 @@ const RestClient = () => {
     if (encodedBody) url += `/${encodedBody}`;
     if (queryParams) url += `?${queryParams}`;
 
-    router.push(url);
+    router.replace(url);
+
+    setEndpoint('');
+    setHeaders([{ key: '', value: '' }]);
+    setBody('');
   };
 
   return (
