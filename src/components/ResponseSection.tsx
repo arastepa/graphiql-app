@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { JsonEditor } from 'json-edit-react';
+import JsonViewer from '@andypf/json-viewer/dist/esm/react/JsonViewer';
 import styles from '../styles/ResponseSection.module.css';
 
 interface ResponseSectionProps {
@@ -29,7 +29,17 @@ const ResponseSection: React.FC<ResponseSectionProps> = ({
       <div className={styles.responseBody}>
         <strong>Response Body:</strong>
         {responseBody ? (
-          <JsonEditor data={responseBody} setData={() => {}} />
+          <JsonViewer
+            data={responseBody}
+            indent={2}
+            expanded={2}
+            theme="default-light"
+            showDataTypes={false}
+            showToolbar={false}
+            showCopy={false}
+            showSize={false}
+            expandIconType="arrow"
+          />
         ) : (
           'No Response'
         )}
