@@ -1,6 +1,8 @@
+'use client';
+
 import React, { createContext, useState, ReactNode } from 'react';
 
-type ResponseContextType = {
+export type ResponseContextType = {
   responseCode: number | null;
   responseStatus: string | null;
   responseBody: object | null;

@@ -40,7 +40,7 @@ const RestClient = () => {
       .map((header) => `${encode(header.key)}=${encode(header.value)}`)
       .join('&');
 
-    let url = `rest-client/${method}/${encodedEndpoint}`;
+    let url = `/rest-client/${method}/${encodedEndpoint}`;
     if (encodedBody) url += `/${encodedBody}`;
     if (queryParams) url += `?${queryParams}`;
 

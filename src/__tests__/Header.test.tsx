@@ -44,17 +44,21 @@ describe('Header Component', () => {
 
   test('handles authentication state', () => {
     renderHeader();
-    expect(
-      screen.getByText((content, element) => {
-        return (
-          element.tagName.toLowerCase() === 'a' &&
-          /sign out|გასვლა/i.test(content)
-        );
-      }),
-    ).toBeInTheDocument();
+    // Check for the presence of the "sign out" or "logout" button
+    const signOutButton = screen.getByRole('button', {
+      name: /sign out|logout|გასვლა/i,
+    });
+    expect(signOutButton).toBeInTheDocument();
 
-    fireEvent.click(screen.getByText(/sign out|გასვლა/i)); // Updated matcher
-    expect(screen.getByText(/sign in|შესვლა/i)).toBeInTheDocument(); // Updated matcher
-    expect(screen.getByText(/sign up|რეგისტრაცია/i)).toBeInTheDocument();
+    // Simulate signing out
+    fireEvent.click(signOutButton);
+
+    // Check for the presence of the "sign in" and "sign up" buttons
+    expect(
+      screen.getByRole('button', { name: /sign in|შესვლა/i }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: /sign up|რეგისტრაცია/i }),
+    ).toBeInTheDocument();
   });
 });

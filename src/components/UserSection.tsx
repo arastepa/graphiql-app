@@ -13,7 +13,7 @@ const UserSection: React.FC<UserSectionProps> = ({ username }) => {
         <span className={styles.welcome}>Welcome Back,</span> {username}!
       </h1>
       <div className={styles.buttonContainer}>
-        <Link href="/client" className={styles.button}>
+        <Link href="/rest-client" className={styles.button}>
           REST Client
         </Link>
         <Link href="#" className={styles.button}>
