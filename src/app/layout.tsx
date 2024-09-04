@@ -5,6 +5,8 @@ import Header from '@/components/Header';
 import { LanguageProvider } from '@/context/LanguageContext';
 import { AuthProvider } from '@/context/AuthContext';
 import Footer from '@/components/Footer';
+import { ResponseProvider } from '@/context/ResponseContext';
+import ErrorBoundary from './error-boundary';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -23,11 +25,15 @@ export default function RootLayout({
       <body className={inter.className}>
         <LanguageProvider>
           <AuthProvider>
-            <>
-              <Header />
-              {children}
-              <Footer />
-            </>
+            <ResponseProvider>
+              <ErrorBoundary>
+                <>
+                  <Header />
+                  {children}
+                  <Footer />
+                </>
+              </ErrorBoundary>
+            </ResponseProvider>
           </AuthProvider>
         </LanguageProvider>
       </body>

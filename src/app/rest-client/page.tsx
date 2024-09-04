@@ -5,6 +5,7 @@ import styles from '@/styles/Rest.module.css';
 import { encode } from 'base64-url';
 import { useAuth } from '@/context/AuthContext';
 import { usePathname } from 'next/navigation';
+import { toast } from 'react-toastify';
 
 const RestClient = () => {
   const [method, setMethod] = useState('GET');
@@ -12,12 +13,15 @@ const RestClient = () => {
   const [headers, setHeaders] = useState([{ key: '', value: '' }]);
   const [body, setBody] = useState('');
   const { isAuthenticated } = useAuth();
+  const [error, setError] = useState<string | null>(null);
 
   const pathname = usePathname();
   const router = useRouter();
+
   useEffect(() => {
     if (!isAuthenticated) router.push('/signin');
   }, [isAuthenticated, router]);
+
   const handleMethodChange = (e) => {
     const newMethod = e.target.value;
     setMethod(newMethod);
@@ -34,17 +38,47 @@ const RestClient = () => {
   };
 
   const handleRequest = async () => {
-    const encodedEndpoint = encode(endpoint);
-    const encodedBody = body ? encode(JSON.stringify(JSON.parse(body))) : '';
-    const queryParams = headers
-      .map((header) => `${encode(header.key)}=${encode(header.value)}`)
-      .join('&');
+    try {
+      const encodedEndpoint = encode(endpoint);
+      const encodedBody =
+        (method === 'POST' || method === 'PUT') && body
+          ? encode(JSON.stringify(JSON.parse(body)))
+          : '';
 
-    let url = `rest-client/${method}/${encodedEndpoint}`;
-    if (encodedBody) url += `/${encodedBody}`;
-    if (queryParams) url += `?${queryParams}`;
+      // Construct the URL for the ResponsePage
+      let url = `/rest-client/${method}/${encodedEndpoint}`;
+      if (encodedBody) url += `/${encodedBody}`; // Include encoded body for POST/PUT
 
-    router.push(url);
+      // Construct query parameters for headers
+      const queryParams = new URLSearchParams();
+      headers.forEach((header) => {
+        if (header.key) {
+          queryParams.append(
+            `header_${encode(header.key)}`,
+            encode(header.value),
+          );
+        }
+      });
+
+      // Append query parameters to the URL
+      if (queryParams.toString()) {
+        url += `?${queryParams.toString()}`;
+      }
+
+      // Redirect to the constructed URL
+      router.push(url);
+
+      // Reset the form
+      setEndpoint('');
+      setHeaders([{ key: '', value: '' }]);
+      setBody('');
+      setError(null);
+    } catch (error) {
+      setError(
+        'An error occurred while processing your request. Please try again.',
+      );
+      toast.error('An error occurred while processing your request.');
+    }
   };
 
   return (
@@ -101,6 +135,7 @@ const RestClient = () => {
               onChange={(e) => setBody(e.target.value)}
             />
           </div>
+          {error && <div className={styles.error}>{error}</div>}
 
           <button onClick={handleRequest}>Send Request</button>
         </div>
