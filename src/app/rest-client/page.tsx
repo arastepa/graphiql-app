@@ -17,9 +17,11 @@ const RestClient = () => {
 
   const pathname = usePathname();
   const router = useRouter();
+
   useEffect(() => {
     if (!isAuthenticated) router.push('/signin');
   }, [isAuthenticated, router]);
+
   const handleMethodChange = (e) => {
     const newMethod = e.target.value;
     setMethod(newMethod);
@@ -38,33 +40,35 @@ const RestClient = () => {
   const handleRequest = async () => {
     try {
       const encodedEndpoint = encode(endpoint);
-      const encodedBody = body ? encode(JSON.stringify(JSON.parse(body))) : '';
-      const queryParams = headers
-        .map((header) => `${encode(header.key)}=${encode(header.value)}`)
-        .join('&');
+      const encodedBody =
+        (method === 'POST' || method === 'PUT') && body
+          ? encode(JSON.stringify(JSON.parse(body)))
+          : '';
 
+      // Construct the URL for the ResponsePage
       let url = `/rest-client/${method}/${encodedEndpoint}`;
-      if (encodedBody) url += `/${encodedBody}`;
-      if (queryParams) url += `?${queryParams}`;
+      if (encodedBody) url += `/${encodedBody}`; // Include encoded body for POST/PUT
 
-      const response = await fetch(url, {
-        method: method,
-        headers: headers.reduce(
-          (acc, header) => {
-            if (header.key) acc[header.key] = header.value;
-            return acc;
-          },
-          {} as Record<string, string>,
-        ),
-        body: method !== 'GET' ? body : undefined,
+      // Construct query parameters for headers
+      const queryParams = new URLSearchParams();
+      headers.forEach((header) => {
+        if (header.key) {
+          queryParams.append(
+            `header_${encode(header.key)}`,
+            encode(header.value),
+          );
+        }
       });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+      // Append query parameters to the URL
+      if (queryParams.toString()) {
+        url += `?${queryParams.toString()}`;
       }
 
-      router.replace(url);
+      // Redirect to the constructed URL
+      router.push(url);
 
+      // Reset the form
       setEndpoint('');
       setHeaders([{ key: '', value: '' }]);
       setBody('');
