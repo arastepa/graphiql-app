@@ -5,6 +5,7 @@ import styles from '@/styles/Rest.module.css';
 import { encode } from 'base64-url';
 import { useAuth } from '@/context/AuthContext';
 import { usePathname } from 'next/navigation';
+import { toast } from 'react-toastify';
 
 const RestClient = () => {
   const [method, setMethod] = useState('GET');
@@ -12,6 +13,7 @@ const RestClient = () => {
   const [headers, setHeaders] = useState([{ key: '', value: '' }]);
   const [body, setBody] = useState('');
   const { isAuthenticated } = useAuth();
+  const [error, setError] = useState<string | null>(null);
 
   const pathname = usePathname();
   const router = useRouter();
@@ -34,21 +36,45 @@ const RestClient = () => {
   };
 
   const handleRequest = async () => {
-    const encodedEndpoint = encode(endpoint);
-    const encodedBody = body ? encode(JSON.stringify(JSON.parse(body))) : '';
-    const queryParams = headers
-      .map((header) => `${encode(header.key)}=${encode(header.value)}`)
-      .join('&');
+    try {
+      const encodedEndpoint = encode(endpoint);
+      const encodedBody = body ? encode(JSON.stringify(JSON.parse(body))) : '';
+      const queryParams = headers
+        .map((header) => `${encode(header.key)}=${encode(header.value)}`)
+        .join('&');
 
-    let url = `/rest-client/${method}/${encodedEndpoint}`;
-    if (encodedBody) url += `/${encodedBody}`;
-    if (queryParams) url += `?${queryParams}`;
+      let url = `/rest-client/${method}/${encodedEndpoint}`;
+      if (encodedBody) url += `/${encodedBody}`;
+      if (queryParams) url += `?${queryParams}`;
 
-    router.replace(url);
+      const response = await fetch(url, {
+        method: method,
+        headers: headers.reduce(
+          (acc, header) => {
+            if (header.key) acc[header.key] = header.value;
+            return acc;
+          },
+          {} as Record<string, string>,
+        ),
+        body: method !== 'GET' ? body : undefined,
+      });
 
-    setEndpoint('');
-    setHeaders([{ key: '', value: '' }]);
-    setBody('');
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      router.replace(url);
+
+      setEndpoint('');
+      setHeaders([{ key: '', value: '' }]);
+      setBody('');
+      setError(null);
+    } catch (error) {
+      setError(
+        'An error occurred while processing your request. Please try again.',
+      );
+      toast.error('An error occurred while processing your request.');
+    }
   };
 
   return (
@@ -105,6 +131,7 @@ const RestClient = () => {
               onChange={(e) => setBody(e.target.value)}
             />
           </div>
+          {error && <div className={styles.error}>{error}</div>}
 
           <button onClick={handleRequest}>Send Request</button>
         </div>
