@@ -10,11 +10,27 @@ interface ResponseSectionProps {
   responseBody: string | null;
 }
 
+const getStatusDescription = (code: number | null): string => {
+  if (code === 200) return 'OK';
+  if (code === 201) return 'Created';
+  if (code === 204) return 'No Content';
+  if (code === 400) return 'Bad Request';
+  if (code === 401) return 'Unauthorized';
+  if (code === 403) return 'Forbidden';
+  if (code === 404) return 'Not Found';
+  if (code === 500) return 'Internal Server Error';
+  return 'Unknown Status';
+};
+
 const ResponseSection: React.FC<ResponseSectionProps> = ({
   responseCode,
   responseStatus,
   responseBody,
 }) => {
+  const statusDescription = responseCode
+    ? getStatusDescription(responseCode)
+    : responseStatus;
+
   return (
     <section className={styles.responseSection}>
       <h2>Response Details</h2>
@@ -23,8 +39,7 @@ const ResponseSection: React.FC<ResponseSectionProps> = ({
         {responseCode !== null ? responseCode : 'N/A'}
       </div>
       <div className={styles.responseStatus}>
-        <strong>Status:</strong>{' '}
-        {responseStatus !== null ? responseStatus : 'N/A'}
+        <strong>Status:</strong> {statusDescription ? statusDescription : 'N/A'}
       </div>
       <div className={styles.responseBody}>
         <strong>Response Body:</strong>
