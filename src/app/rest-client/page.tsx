@@ -86,6 +86,7 @@ const RestClient = () => {
               <option value="DELETE">DELETE</option>
             </select>
             <input
+              className={styles.endpoint_url}
               type="text"
               placeholder="Endpoint URL"
               value={endpoint}
@@ -94,7 +95,7 @@ const RestClient = () => {
           </div>
 
           <div className={styles.headerSection}>
-            <h3>Headers</h3>
+            <h3 className={styles.headerText}>Headers</h3>
             <button onClick={handleAddHeader}>Add Header</button>
             {headers.map((header, index) => (
               <div key={index}>

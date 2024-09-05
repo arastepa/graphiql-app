@@ -1,7 +1,10 @@
 .restClient {
+  width: 800px;
   display: flex;
   justify-content: center;
   margin-top: 18px;
+  background-color: #efefef;
+  border-radius: 5px;
 }
 
 .client {
@@ -10,6 +13,11 @@
 
 .clientHeader select {
   height: 30px;
+  margin-right: 10px;
+}
+
+.endpoint_url {
+  width: 400px;
 }
 
 .clientHeader {
@@ -21,9 +29,18 @@
   height: 30px;
 }
 
+.headerSection input {
+  margin: 10px 10px 10px 0;
+  width: 238px;
+}
+
 .bodySection textarea {
   height: 100px;
   width: 100%;
+}
+
+.headerText {
+  margin: 10px 0 10px 0;
 }
 
 .restClient button {

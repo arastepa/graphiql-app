@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { JsonEditor, JsonData } from 'json-edit-react';
-import styles from '@/styles/RequestBodyEditor.module.css';
 import { isObjectEmpty } from '@/utils/common';
+import styles from '../styles/RequestBodyEditor.module.css';
 
 export type RequestBody = { type: 'json' | 'text'; body: string };
 
@@ -43,6 +43,7 @@ const RequestBodyEditor: React.FC<RequestBodyEditorProps> = ({
     <div>
       <div>
         <select
+          className={styles.select}
           value={mode}
           onChange={(e) => setMode(e.target.value as 'json' | 'text')}
         >
@@ -62,7 +63,7 @@ const RequestBodyEditor: React.FC<RequestBodyEditorProps> = ({
         />
       ) : (
         <textarea
-          style={{ width: '100%', height: '300px', fontFamily: 'monospace' }}
+          style={{ width: '100%', height: '300px' }}
           value={bodyText} // Show the JSON as text
           onChange={handleTextChange}
           placeholder="Enter plain text request body here"
