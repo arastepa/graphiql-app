@@ -7,6 +7,8 @@ import { AuthProvider } from '@/context/AuthContext';
 import Footer from '@/components/Footer';
 import { ResponseProvider } from '@/context/ResponseContext';
 import ErrorBoundary from './error-boundary';
+import { Suspense } from 'react';
+import Loading from './loading';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -28,9 +30,11 @@ export default function RootLayout({
             <ResponseProvider>
               <ErrorBoundary>
                 <>
-                  <Header />
-                  {children}
-                  <Footer />
+                  <Suspense fallback={<Loading />}>
+                    <Header />
+                    {children}
+                    <Footer />
+                  </Suspense>
                 </>
               </ErrorBoundary>
             </ResponseProvider>
