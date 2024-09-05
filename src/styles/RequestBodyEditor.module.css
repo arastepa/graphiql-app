@@ -1,0 +1,46 @@
+/* Custom styles for the JSON editor */
+.custom-json-editor {
+    border: 1px solid #ccc;
+    padding: 10px;
+    background-color: #f7f7f7;
+    font-family: monospace;
+    font-size: 14px;
+    line-height: 1.5;
+    max-height: 400px;
+    overflow-y: auto;  /* Scrollable if content overflows */
+  }
+  
+  .custom-json-editor .json-editor-node {
+    margin-bottom: 5px;
+  }
+  
+  .custom-json-editor .json-editor-key {
+    color: #333;
+    font-weight: bold;
+  }
+  
+  .custom-json-editor .json-editor-value {
+    color: #1a73e8; /* Blue for values */
+  }
+  
+  .custom-json-editor .json-editor-brackets {
+    color: #555;
+  }
+  
+  .custom-json-editor .json-editor-array-index {
+    color: #f4511e; /* Red for array indices */
+  }
+  
+  /* Optional: Style buttons inside the JSON editor */
+  .custom-json-editor button {
+    background-color: #0070f3;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  .custom-json-editor button:hover {
+    background-color: #005bb5;
+  }
+  

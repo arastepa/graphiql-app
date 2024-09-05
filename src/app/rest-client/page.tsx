@@ -1,17 +1,17 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import styles from '@/styles/Rest.module.css';
 import { encode } from 'base64-url';
-import { useAuth } from '@/context/AuthContext';
-import { usePathname } from 'next/navigation';
 import { toast } from 'react-toastify';
+import { useAuth } from '@/context/AuthContext';
+import RequestBodyEditor, { RequestBody } from '@/components/RequestBodyEditor';
 
 const RestClient = () => {
   const [method, setMethod] = useState('GET');
   const [endpoint, setEndpoint] = useState('');
   const [headers, setHeaders] = useState([{ key: '', value: '' }]);
-  const [body, setBody] = useState('');
+  const [{ body } = {}, setBody] = useState<RequestBody>();
   const { isAuthenticated } = useAuth();
   const [error, setError] = useState<string | null>(null);
 
@@ -41,9 +41,7 @@ const RestClient = () => {
     try {
       const encodedEndpoint = encode(endpoint);
       const encodedBody =
-        (method === 'POST' || method === 'PUT') && body
-          ? encode(JSON.stringify(JSON.parse(body)))
-          : '';
+        (method === 'POST' || method === 'PUT') && body ? encode(body) : '';
 
       // Construct the URL for the ResponsePage
       let url = `/rest-client/${method}/${encodedEndpoint}`;
@@ -65,14 +63,7 @@ const RestClient = () => {
         url += `?${queryParams.toString()}`;
       }
 
-      // Redirect to the constructed URL
       router.push(url);
-
-      // Reset the form
-      setEndpoint('');
-      setHeaders([{ key: '', value: '' }]);
-      setBody('');
-      setError(null);
     } catch (error) {
       setError(
         'An error occurred while processing your request. Please try again.',
@@ -129,11 +120,7 @@ const RestClient = () => {
 
           <div className={styles.bodySection}>
             <h3>Body</h3>
-            <textarea
-              placeholder="JSON/Text"
-              value={body}
-              onChange={(e) => setBody(e.target.value)}
-            />
+            <RequestBodyEditor onBodyChange={setBody} />
           </div>
           {error && <div className={styles.error}>{error}</div>}
 

@@ -15,10 +15,7 @@ export default async function ResponsePage({
   const encodedURL = params.encodedEndpoint;
   const encodedBody = encodedURL[1];
 
-  const body =
-    method !== 'GET' && encodedBody
-      ? JSON.parse(decode(encodedBody))
-      : undefined;
+  const body = encodedBody ? decode(encodedBody) : undefined;
   const headers = Object.keys(searchParams)
     .filter((key) => key.startsWith('header_'))
     .reduce(
@@ -32,7 +29,14 @@ export default async function ResponsePage({
       },
       {} as Record<string, string>,
     );
-  console.log('HH:', headers);
+
+  const getBody = () => {
+    if (!body) return undefined;
+    if (headers['Content-Type'] === 'application/json') {
+      return JSON.stringify(JSON.parse(body));
+    }
+    return body;
+  };
 
   const fetchResponse = async () => {
     try {
@@ -40,9 +44,8 @@ export default async function ResponsePage({
         method,
         headers: {
           ...headers,
-          'Content-Type': method !== 'GET' ? 'application/json' : undefined,
         },
-        body: method !== 'GET' ? JSON.stringify(body) : undefined,
+        body: getBody(),
       });
       const data = await response.json();
 
