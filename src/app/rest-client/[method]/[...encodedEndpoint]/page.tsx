@@ -44,9 +44,6 @@ export default async function ResponsePage({
         },
         body: method !== 'GET' ? JSON.stringify(body) : undefined,
       });
-      if (!response.ok) {
-        console.log(await response.json);
-      }
       const data = await response.json();
 
       return {
@@ -55,7 +52,7 @@ export default async function ResponsePage({
         data,
       };
     } catch (error) {
-      console.log('zzz', error);
+      console.log(error);
     }
   };
 
