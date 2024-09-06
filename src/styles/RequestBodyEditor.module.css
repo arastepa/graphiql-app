@@ -1,0 +1,15 @@
+.custom-json-editor {
+    border: 1px solid #ccc;
+    padding: 10px;
+    font-size: 14px;
+    line-height: 1.5;
+    height: 300px;
+    overflow-y: auto;  /* Scrollable if content overflows */
+    margin-bottom: 10px;
+  }
+
+  .select {
+    width: 80px;
+    height: 30px;
+    margin-bottom: 10px;
+  }
