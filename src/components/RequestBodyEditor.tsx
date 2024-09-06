@@ -3,10 +3,8 @@ import { JsonEditor, JsonData } from 'json-edit-react';
 import { isObjectEmpty } from '@/utils/common';
 import styles from '../styles/RequestBodyEditor.module.css';
 
-export type RequestBody = { type: 'json' | 'text'; body: string };
-
 interface RequestBodyEditorProps {
-  onBodyChange: (payload: RequestBody) => void;
+  onBodyChange: (payload: string) => void;
 }
 
 const RequestBodyEditor: React.FC<RequestBodyEditorProps> = ({
@@ -31,12 +29,12 @@ const RequestBodyEditor: React.FC<RequestBodyEditorProps> = ({
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const textValue = e.target.value;
     setBodyText(textValue);
-    onBodyChange({ type: 'text', body: textValue });
+    onBodyChange(textValue);
   };
 
   const handleJsonChange = (newData: Record<string, JsonData>) => {
     setBodyJson(newData);
-    onBodyChange({ type: 'json', body: JSON.stringify(newData, null, 2) }); // Prettify and notify parent
+    onBodyChange(JSON.stringify(newData, null, 2)); // Prettify and notify parent
   };
 
   return (

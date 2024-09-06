@@ -5,13 +5,13 @@ import styles from '@/styles/Rest.module.css';
 import { encode } from 'base64-url';
 import { toast } from 'react-toastify';
 import { useAuth } from '@/context/AuthContext';
-import RequestBodyEditor, { RequestBody } from '@/components/RequestBodyEditor';
+import RequestBodyEditor from '@/components/RequestBodyEditor';
 
 const RestClient = () => {
   const [method, setMethod] = useState('GET');
   const [endpoint, setEndpoint] = useState('');
   const [headers, setHeaders] = useState([{ key: '', value: '' }]);
-  const [{ body } = {}, setBody] = useState<RequestBody>();
+  const [body, setBody] = useState<string>();
   const { isAuthenticated } = useAuth();
   const [error, setError] = useState<string | null>(null);
 
