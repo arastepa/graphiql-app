@@ -35,7 +35,6 @@ const firebaseConfig = {
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
   const [firebaseAuth, setFirebaseAuth] = useState<Auth>();
 
   useEffect(() => {
@@ -45,13 +44,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUser(user);
-      setLoading(false);
     });
 
     return () => unsubscribe();
   }, []);
-
-  if (!firebaseAuth || loading) return '...Loading';
 
   const signUp = async (email: string, password: string) => {
     try {
