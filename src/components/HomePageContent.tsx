@@ -1,9 +1,9 @@
 'use client';
 import React from 'react';
-import WelcomeSection from '@/components/WelcomeSection';
-import styles from '@/styles/HomePageContent.module.css';
-import UserSection from '@/components/UserSection';
-import { useAuth } from '@/context/AuthContext';
+import WelcomeSection from '../components/WelcomeSection';
+import styles from '../styles/HomePageContent.module.css';
+import UserSection from '../components/UserSection';
+import { useAuth } from '../context/AuthContext';
 import { User } from 'firebase/auth';
 
 const HomePageContent: React.FC = () => {

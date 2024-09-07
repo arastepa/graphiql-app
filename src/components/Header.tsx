@@ -10,7 +10,7 @@ import styles from '../styles/Header.module.css';
 import { useLanguage } from '../context/LanguageContext';
 import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
-import { useAuth } from '@/context/AuthContext';
+import { useAuth } from '../context/AuthContext';
 import { useRouter } from 'next/navigation';
 
 const Header = () => {

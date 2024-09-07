@@ -1,6 +1,6 @@
 'use client';
 
-import { useAuth } from '@/context/AuthContext';
+import { useAuth } from '../context/AuthContext';
 import styles from '@/styles/SignUp.module.css';
 import { useFormState } from 'react-dom';
 import { validationSchemaSignUp } from '@/utils/validate';
