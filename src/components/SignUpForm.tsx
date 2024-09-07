@@ -1,9 +1,9 @@
 'use client';
 
 import { useAuth } from '../context/AuthContext';
-import styles from '@/styles/SignUp.module.css';
+import styles from '../styles/SignUp.module.css';
 import { useFormState } from 'react-dom';
-import { validationSchemaSignUp } from '@/utils/validate';
+import { validationSchemaSignUp } from '../utils/validate';
 import * as Yup from 'yup';
 import { redirect } from 'next/navigation';
 import { isRedirectError } from 'next/dist/client/components/redirect';

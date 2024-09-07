@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
-import styles from '@/styles/Loading.module.css';
-import loader from '@/img/loading.png';
+import styles from '../styles/Loading.module.css';
+import loader from '../img/loading.png';
 
 const Loading = () => {
   return (
