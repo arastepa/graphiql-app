@@ -1,7 +1,6 @@
-import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
-import ErrorBoundary from '../app/error-boundary'; // Adjust the import path as necessary
+import ErrorBoundary from '../app/error-boundary'; // Adjust import path
 import { useRouter } from 'next/navigation';
 
 // Mock the Next.js useRouter hook
@@ -19,7 +18,6 @@ const ErrorThrowingComponent = () => {
 
 describe('ErrorBoundary', () => {
   it('renders the fallback UI when an error is thrown', async () => {
-    // Render the ErrorBoundary with a component that throws an error
     render(
       <ErrorBoundary>
         <ErrorThrowingComponent />
@@ -40,7 +38,6 @@ describe('ErrorBoundary', () => {
   it('calls router.refresh when Retry button is clicked', async () => {
     const { refresh } = useRouter();
 
-    // Render the ErrorBoundary with a component that throws an error
     render(
       <ErrorBoundary>
         <ErrorThrowingComponent />
@@ -59,7 +56,6 @@ describe('ErrorBoundary', () => {
   it('calls router.back when Go Back button is clicked', async () => {
     const { back } = useRouter();
 
-    // Render the ErrorBoundary with a component that throws an error
     render(
       <ErrorBoundary>
         <ErrorThrowingComponent />

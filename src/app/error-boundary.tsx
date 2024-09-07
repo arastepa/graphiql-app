@@ -11,11 +11,17 @@ const ErrorBoundary: React.FC<{ children: React.ReactNode }> = ({
   const router = useRouter();
 
   const handleRetry = () => {
-    router.refresh();
+    console.log('Retry button clicked');
+    window.location.reload();
   };
 
   const handleBack = () => {
-    router.back();
+    console.log('Back button clicked');
+    if (window.history.length > 1) {
+      router.back();
+    } else {
+      router.push('/');
+    }
   };
 
   return (

@@ -1,7 +1,7 @@
 'use client';
 
 import { useFormState } from 'react-dom';
-import styles from '@/styles/SignUp.module.css';
+import styles from '../styles/SignUp.module.css';
 import { redirect } from 'next/navigation';
 import { isRedirectError } from 'next/dist/client/components/redirect';
 import { FirebaseError } from 'firebase/app';
