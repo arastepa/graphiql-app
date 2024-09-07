@@ -1,73 +1,114 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
-import ErrorBoundary from '../app/error-boundary'; // Adjust import path
-import { useRouter } from 'next/navigation';
+import ErrorBoundary from '@/app/error-boundary';
 
-// Mock the Next.js useRouter hook
+const mockBack = vi.fn();
+const mockPush = vi.fn();
+
+const mockReload = vi.fn();
+Object.defineProperty(window, 'location', {
+  value: {
+    reload: mockReload,
+  },
+  writable: true,
+});
+
+const mockHistory = { length: 2 };
+
+vi.spyOn(window.history, 'length', 'get').mockImplementation(
+  () => mockHistory.length,
+);
+
 vi.mock('next/navigation', () => ({
   useRouter: () => ({
-    refresh: vi.fn(),
-    back: vi.fn(),
+    back: mockBack,
+    push: mockPush,
   }),
 }));
 
-// Component that throws an error
-const ErrorThrowingComponent = () => {
-  throw new Error('Test Error');
+const TestComponent = () => {
+  throw new Error('Test error');
+  return <div>Test Component</div>;
 };
 
 describe('ErrorBoundary', () => {
-  it('renders the fallback UI when an error is thrown', async () => {
+  beforeEach(() => {
+    mockBack.mockClear();
+    mockPush.mockClear();
+    mockReload.mockClear();
+  });
+
+  it('renders error fallback UI when an error occurs', () => {
     render(
       <ErrorBoundary>
-        <ErrorThrowingComponent />
+        <TestComponent />
       </ErrorBoundary>,
     );
 
-    // Wait for the error UI to appear
+    expect(screen.getByText('500 - Server Error')).toBeTruthy();
+    expect(
+      screen.getByText(
+        'Something went wrong on our end. Please try again later.',
+      ),
+    ).toBeTruthy();
+    expect(screen.getByText('Retry')).toBeTruthy();
+    expect(screen.getByText('Go Back')).toBeTruthy();
+  });
+
+  it('calls window.location.reload when Retry button is clicked', async () => {
+    render(
+      <ErrorBoundary>
+        <TestComponent />
+      </ErrorBoundary>,
+    );
+
     await waitFor(() => {
-      expect(screen.getByText('500 - Server Error')).toBeInTheDocument();
-      expect(
-        screen.getByText(
-          'Something went wrong on our end. Please try again later.',
-        ),
-      ).toBeInTheDocument();
+      expect(screen.getByText('Retry')).toBeTruthy();
+    });
+
+    fireEvent.click(screen.getByText('Retry'));
+    await waitFor(() => {
+      expect(mockReload).toHaveBeenCalledTimes(1);
     });
   });
 
-  it('calls router.refresh when Retry button is clicked', async () => {
-    const { refresh } = useRouter();
-
+  it('calls router.back when Go Back button is clicked and history.length > 1', async () => {
     render(
       <ErrorBoundary>
-        <ErrorThrowingComponent />
+        <TestComponent />
       </ErrorBoundary>,
     );
 
-    // Wait for the error UI to appear
-    await waitFor(() => screen.getByText('500 - Server Error'));
+    mockHistory.length = 2;
 
-    // Click the Retry button
-    fireEvent.click(screen.getByText('Retry'));
+    await waitFor(() => {
+      expect(screen.getByText('Go Back')).toBeTruthy();
+    });
 
-    expect(refresh).toHaveBeenCalled(); // Check if refresh was called
+    fireEvent.click(screen.getByText('Go Back'));
+    await waitFor(() => {
+      expect(mockBack).toHaveBeenCalledTimes(1);
+      expect(mockPush).toHaveBeenCalledTimes(0);
+    });
   });
 
-  it('calls router.back when Go Back button is clicked', async () => {
-    const { back } = useRouter();
-
+  it('calls router.push when Go Back button is clicked and history.length <= 1', async () => {
     render(
       <ErrorBoundary>
-        <ErrorThrowingComponent />
+        <TestComponent />
       </ErrorBoundary>,
     );
 
-    // Wait for the error UI to appear
-    await waitFor(() => screen.getByText('500 - Server Error'));
+    mockHistory.length = 1;
 
-    // Click the Go Back button
+    await waitFor(() => {
+      expect(screen.getByText('Go Back')).toBeTruthy();
+    });
+
     fireEvent.click(screen.getByText('Go Back'));
-
-    expect(back).toHaveBeenCalled(); // Check if back was called
+    await waitFor(() => {
+      expect(mockPush).toHaveBeenCalledTimes(1);
+      expect(mockBack).toHaveBeenCalledTimes(0);
+    });
   });
 });
