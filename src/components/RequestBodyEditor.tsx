@@ -24,7 +24,7 @@ const RequestBodyEditor: React.FC<RequestBodyEditorProps> = ({
       return;
     }
     setBodyText('');
-  }, [mode]);
+  }, [mode, bodyJson]);
 
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const textValue = e.target.value;
