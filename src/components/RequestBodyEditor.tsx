@@ -24,6 +24,7 @@ const RequestBodyEditor: React.FC<RequestBodyEditorProps> = ({
       return;
     }
     setBodyText('');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mode]);
 
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {

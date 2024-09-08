@@ -2,85 +2,83 @@
 
 import { useAuth } from '../context/AuthContext';
 import styles from '../styles/SignUp.module.css';
-import { useFormState } from 'react-dom';
 import { validationSchemaSignUp } from '../utils/validate';
-import * as Yup from 'yup';
-import { redirect } from 'next/navigation';
-import { isRedirectError } from 'next/dist/client/components/redirect';
+import { useRouter } from 'next/navigation';
 import { FirebaseError } from 'firebase/app';
 import { useTranslation } from 'react-i18next';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 
-// TODO: create wrapper for SignUpForm and store there all non-form related logic
 const SignUpForm = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ resolver: yupResolver(validationSchemaSignUp) });
+  const router = useRouter();
   const { user, signUp } = useAuth();
   const { t } = useTranslation();
 
   if (user) {
-    redirect('/');
+    router.push('/');
   }
 
-  const handleSignup = async (prevState: unknown, data: FormData) => {
+  const handleSignup = async (data: {
+    email?: string;
+    password?: string;
+    confirmPassword?: string;
+  }) => {
     try {
-      const formDataObject = Object.fromEntries(data) as {
-        email: string;
-        password: string;
-      };
+      await signUp(data.email, data.password);
 
-      await validationSchemaSignUp.validate(formDataObject, {
-        abortEarly: false,
-      });
-
-      const { email, password } = formDataObject;
-
-      await signUp(email, password);
-
-      redirect('/');
+      router.push('/');
     } catch (err) {
-      if (isRedirectError(err)) redirect('/');
-      if (err instanceof Yup.ValidationError) {
-        return { message: err.errors };
-      }
       if (err instanceof FirebaseError) {
         return { message: err.code };
       }
     }
   };
 
-  const [state, handleSignupAction] = useFormState(handleSignup, {
-    message: '',
-  });
-
   return (
-    <form className={styles.form} action={handleSignupAction}>
-      <p className={styles.error}>{state?.message}</p>
+    <form className={styles.form} onSubmit={handleSubmit(handleSignup)}>
+      {errors.email && <p className={styles.error}>{errors.email?.message}</p>}
       <div>
         <label htmlFor="email">{t(`Auth.EmailLabel`)}</label>
         <input
           type="email"
           id="email"
           name="email"
+          {...register('email')}
           placeholder={t(`Auth.EmailInput`)}
           required
         />
       </div>
 
+      {errors.password && (
+        <p className={styles.error}>{errors.password?.message}</p>
+      )}
       <div>
         <label htmlFor="password">{t(`Auth.PasswordLabel`)}</label>
         <input
           type="password"
           id="password"
           name="password"
+          {...register('password')}
           placeholder={t(`Auth.PasswordInput`)}
           required
         />
       </div>
 
+      {errors.confirmPassword && (
+        <p className={styles.error}>{errors.confirmPassword?.message}</p>
+      )}
       <div>
         <label htmlFor="confirmPassword">{t(`Auth.PasswordConfLabel`)}</label>
         <input
           type="password"
           id="confirmPassword"
           name="confirmPassword"
+          {...register('confirmPassword')}
           placeholder={t(`Auth.PasswordConfInput`)}
           required
         />

@@ -1,4 +1,4 @@
-<!-- 'use client';
+'use client';
 
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { describe, it, vi } from 'vitest';
@@ -6,35 +6,46 @@ import SignInForm from '../components/SignInForm';
 import { AuthContext } from '../context/AuthContext';
 import { FirebaseError } from 'firebase/app';
 import React from 'react';
-// import { useFormState } from 'react-dom';
 import '@testing-library/jest-dom';
+import { User } from 'firebase/auth';
 
-// FIX: this test is failing, so i modified it's name
-const MockAuthProvider: React.FC<{ children: React.ReactNode }> = ({
-children,
-}) => {
-const mockSignIn = vi.fn();
-const mockUser = null;
+const MockAuthProvider: React.FC<{
+  children: React.ReactNode;
+  signIn: (email: string, password: string) => Promise<User>;
+}> = ({ children, signIn }) => {
+  const mockUser = null;
 
-return (
-<AuthContext.Provider value={{ user: mockUser, signIn: mockSignIn }}>
-{children}
-</AuthContext.Provider>
-);
+  return (
+    <AuthContext.Provider
+      value={{
+        user: mockUser,
+        signIn,
+        signUp: null,
+        logOut: null,
+        isAuthenticated: false,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
+vi.mock('next/navigation', () => ({
+  useRouter: vi.fn(),
+}));
+
 vi.mock('react-i18next', () => ({
-useTranslation: () => ({
-t: (key: string) => key,
-}),
+  useTranslation: () => ({
+    t: (key: string) => key,
+  }),
 }));
 
 describe('SignInForm', () => {
-it('renders the form and handles successful sign in', async () => {
-const mockSignIn = vi.fn().mockResolvedValueOnce(undefined); // Ensure mockSignIn is defined
+  it('renders the form and handles successful sign in', async () => {
+    const mockSignIn = vi.fn().mockResolvedValueOnce(undefined); // Define mockSignIn here
 
     render(
-      <MockAuthProvider>
+      <MockAuthProvider signIn={mockSignIn}>
         <SignInForm />
       </MockAuthProvider>,
     );
@@ -58,18 +69,17 @@ const mockSignIn = vi.fn().mockResolvedValueOnce(undefined); // Ensure mockSignI
         'password123',
       );
     });
+  });
 
-});
-
-it('handles sign in errors', async () => {
-const mockSignIn = vi
-.fn()
-.mockRejectedValueOnce(
-new FirebaseError('auth/wrong-password', 'Wrong password'),
-);
+  it('handles sign in errors', async () => {
+    const mockSignIn = vi
+      .fn()
+      .mockRejectedValueOnce(
+        new FirebaseError('auth/wrong-password', 'Wrong password'),
+      );
 
     render(
-      <MockAuthProvider>
+      <MockAuthProvider signIn={mockSignIn}>
         <SignInForm />
       </MockAuthProvider>,
     );
@@ -91,6 +101,5 @@ new FirebaseError('auth/wrong-password', 'Wrong password'),
     });
 
     expect(screen.getByText('auth/wrong-password')).toBeInTheDocument();
-
+  });
 });
-}); -->
