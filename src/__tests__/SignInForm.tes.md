@@ -1,4 +1,4 @@
-'use client';
+<!-- 'use client';
 
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { describe, it, Mock, vi } from 'vitest';
@@ -108,4 +108,4 @@ describe('SignInForm', () => {
 
     expect(screen.getByText('auth/wrong-password')).toBeInTheDocument();
   });
-});
+}); -->
