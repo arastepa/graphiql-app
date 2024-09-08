@@ -1,66 +1,68 @@
 'use client';
 
-import { useFormState } from 'react-dom';
 import styles from '../styles/SignUp.module.css';
-import { redirect } from 'next/navigation';
-import { isRedirectError } from 'next/dist/client/components/redirect';
 import { FirebaseError } from 'firebase/app';
 import { useAuth } from '@/context/AuthContext';
 import { useTranslation } from 'react-i18next';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useForm } from 'react-hook-form';
 
 // TODO: create wrapper for SignInForm and store there all non-form related logic
 const SignInForm = () => {
+  const router = useRouter();
+  const [errorMsg, setErrorMsg] = useState('');
   const { user, signIn } = useAuth();
   const { t } = useTranslation();
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<{ email: string; password: string }>();
   if (user) {
-    redirect('/');
+    router.push('/');
   }
 
-  const handleSignin = async (prevState: unknown, data: FormData) => {
+  const handleSignin = async (data: { email?: string; password?: string }) => {
     try {
-      const { email, password } = Object.fromEntries(data) as {
-        email: string;
-        password: string;
-      };
-
-      await signIn(email, password);
-
-      redirect('/');
+      await signIn(data.email, data.password);
+      router.push('/');
     } catch (err) {
-      if (isRedirectError(err)) redirect('/');
       if (err instanceof FirebaseError) {
-        return { message: err.code };
+        setErrorMsg(err.code);
       }
     }
   };
 
-  const [state, handleSigninAction] = useFormState(handleSignin, {
-    message: '',
-  });
-
   return (
-    <form className={styles.form} action={handleSigninAction}>
-      <p className={styles.error}>{state?.message}</p>
+    <form className={styles.form} onSubmit={handleSubmit(handleSignin)}>
+      <p className={styles.error}>{errorMsg}</p>
       <div>
+        <p className={styles.error}>
+          {errors.email ? 'email is required' : ''}
+        </p>
         <label htmlFor="email">{t(`Auth.EmailLabel`)}</label>
         <input
           type="email"
           id="email"
           name="email"
+          {...register('email', { required: true })}
           placeholder={t(`Auth.EmailInput`)}
-          required
         />
       </div>
 
       <div>
+        <p className={styles.error}>
+          {errors.password ? 'password is required' : ''}
+        </p>
         <label htmlFor="password">{t(`Auth.PasswordLabel`)}</label>
         <input
           type="password"
           id="password"
           name="password"
+          {...register('password', { required: true })}
           placeholder={t(`Auth.PasswordInput`)}
-          required
         />
       </div>
 
