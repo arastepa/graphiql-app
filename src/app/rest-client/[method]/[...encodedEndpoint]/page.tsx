@@ -47,6 +47,9 @@ export default async function ResponsePage({
         },
         body: getBody(),
       });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
       const data = await response.json();
 
       return {
@@ -55,7 +58,12 @@ export default async function ResponsePage({
         data,
       };
     } catch (error) {
-      console.log(error);
+      console.error('Fetch error:', error);
+      return {
+        status: 500,
+        statusText: 'Internal Server Error',
+        data: null,
+      };
     }
   };
 

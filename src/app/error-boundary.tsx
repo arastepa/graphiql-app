@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ErrorBoundary as ReactErrorBoundary } from 'react-error-boundary';
 import styles from '../styles/NotFound.module.css';
@@ -9,13 +9,20 @@ const ErrorBoundary: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const router = useRouter();
+  const [retryCount, setRetryCount] = useState(0);
 
   const handleRetry = () => {
-    router.refresh();
+    setRetryCount(retryCount + 1);
+    location.reload();
   };
 
   const handleBack = () => {
-    router.back();
+    console.log('Back button clicked');
+    if (window.history.length > 1) {
+      router.back();
+    } else {
+      router.push('/');
+    }
   };
 
   return (

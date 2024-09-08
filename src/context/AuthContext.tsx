@@ -21,7 +21,9 @@ interface AuthContextType {
   logOut: () => Promise<void>;
 }
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+export const AuthContext = createContext<AuthContextType | undefined>(
+  undefined,
+);
 
 // TODO: store the values as env variables
 const firebaseConfig = {

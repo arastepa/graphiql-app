@@ -3,6 +3,7 @@ import HomePage from '../app/page';
 import '@testing-library/jest-dom';
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
+import { AuthProvider } from '../context/AuthContext'; // Import AuthProvider
 
 i18n.use(initReactI18next).init({
   lng: 'en',
@@ -18,7 +19,11 @@ i18n.use(initReactI18next).init({
 
 describe('HomePage', () => {
   it('renders the homepage with the WelcomeSection', () => {
-    render(<HomePage />);
+    render(
+      <AuthProvider>
+        <HomePage />
+      </AuthProvider>,
+    );
 
     expect(screen.getByRole('banner')).toBeInTheDocument();
     expect(
