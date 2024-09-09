@@ -9,7 +9,9 @@
     "PasswordConfLabel": "Հաստատեք գաղտնաբառը",
     "EmailInput": "ձեր էլ-փոստի հասցեն",
     "PasswordInput": "մուտքագրեք ձեր գաղտնաբառը",
-    "PasswordConfInput": "հաստատեք գաղտնաբառը"
+    "PasswordConfInput": "հաստատեք գաղտնաբառը",
+    "EmailAlreadyInUse": "Էլ․ հասցեն արդեն օգտագործվում է",
+    "GenericError": "Անսպասելի սխալ տեղի ունեցավ։ Խնդրում ենք կրկին փորձել ավելի ուշ։"
   },
   "SignIn": "Մուտք",
   "SignUp": "Գրանցվել",

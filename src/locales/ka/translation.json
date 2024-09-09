@@ -9,7 +9,9 @@
     "PasswordConfLabel": "გაიმეორეთ პაროლი",
     "EmailInput": "ჩაწერეთ თქვენი იმეილი",
     "PasswordInput": "ჩაწერეთ თქვენი პაროლი",
-    "PasswordConfInput": "გაიმეორეთ პაროლი"
+    "PasswordConfInput": "გაიმეორეთ პაროლი",
+    "EmailAlreadyInUse": "აღნიშნული იმეილი უკვე რეგისტრირებულია",
+    "GenericError": "დაფიქსირდა შეცოდა. გთხოვთ, სცადეთ თავიდან"
   },
   "SignIn": "შესვლა",
   "SignUp": "რეგისტრაცია",

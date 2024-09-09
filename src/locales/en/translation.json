@@ -9,7 +9,9 @@
     "PasswordConfLabel": "Confirm Password",
     "EmailInput": "your email address",
     "PasswordInput": "type your password",
-    "PasswordConfInput": "confirm Password"
+    "PasswordConfInput": "confirm Password",
+    "EmailAlreadyInUse": "Email is already in use",
+    "GenericError": "An unexpected error occurred. Please try again later."
   },
   "SignIn": "Sign In",
   "SignUp": "Sign Up",
