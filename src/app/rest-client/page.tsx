@@ -43,9 +43,8 @@ const RestClient = () => {
       const encodedBody =
         (method === 'POST' || method === 'PUT') && body ? encode(body) : '';
 
-      // Construct the URL for the ResponsePage
       let url = `/rest-client/${method}/${encodedEndpoint}`;
-      if (encodedBody) url += `/${encodedBody}`; // Include encoded body for POST/PUT
+      if (encodedBody) url += `/${encodedBody}`;
 
       // Construct query parameters for headers
       const queryParams = new URLSearchParams();
@@ -58,7 +57,6 @@ const RestClient = () => {
         }
       });
 
-      // Append query parameters to the URL
       if (queryParams.toString()) {
         url += `?${queryParams.toString()}`;
       }
