@@ -159,19 +159,6 @@ const GraphiQLClient = () => {
 
           <button onClick={redirectToEncodedUrl}>Run Query</button>
         </div>
-
-        {/* <div className="response-section">
-          <h3>Response</h3>
-          <div>Status: {responseStatus}</div>
-          <JSONViewer src={responseBody} />
-        </div>
-
-        {showDocumentation && (
-          <div className="documentation-section">
-            <h3>SDL Documentation</h3>
-            <p>Schema goes here...</p>
-          </div>
-        )} */}
       </div>
     </div>
   );
