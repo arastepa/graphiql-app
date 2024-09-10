@@ -1,9 +1,5 @@
-import prettier from 'prettier/standalone';
-import prettierPluginGraphql from 'prettier/plugins/graphql';
+import gqlPrettier from 'graphql-prettier';
 
 export const formatGraphQL = (query) => {
-  return prettier.format(query, {
-    parser: 'graphql',
-    plugins: [prettierPluginGraphql],
-  });
+  return gqlPrettier(query);
 };

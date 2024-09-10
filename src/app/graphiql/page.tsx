@@ -59,7 +59,7 @@ export const GraphiQLClient = () => {
 
   const prettifyQuery = async () => {
     try {
-      const formatted = await formatGraphQL(query);
+      const formatted = formatGraphQL(query);
       setQuery(formatted);
     } catch (err) {
       console.log(err);
