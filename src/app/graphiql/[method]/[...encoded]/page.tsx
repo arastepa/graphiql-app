@@ -43,7 +43,6 @@ export default async function ResponseGraph({
 
       const data = await response.json();
 
-      console.log('DDD:', data.characters.info.count);
       return {
         status: response.status,
         responseBody: data,
