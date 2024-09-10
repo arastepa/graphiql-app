@@ -35,26 +35,28 @@ export const GraphiQLClient = () => {
   };
 
   const redirectToEncodedUrl = () => {
-    const encodedEndpointUrl = encode(endpointUrl);
-    const body = JSON.stringify({
-      query,
-      variables: JSON.parse(variables || '{}'),
-    });
-    const encodedBody = encode(body);
+    if (endpointUrl && query) {
+      const encodedEndpointUrl = encode(endpointUrl);
+      const body = JSON.stringify({
+        query,
+        variables: JSON.parse(variables || '{}'),
+      });
+      const encodedBody = encode(body);
 
-    const queryParams = new URLSearchParams();
-    headers.forEach((header) => {
-      if (header.key) {
-        queryParams.append(
-          `header_${encode(header.key)}`,
-          encode(header.value),
-        );
-      }
-    });
+      const queryParams = new URLSearchParams();
+      headers.forEach((header) => {
+        if (header.key) {
+          queryParams.append(
+            `header_${encode(header.key)}`,
+            encode(header.value),
+          );
+        }
+      });
 
-    router.push(
-      `/graphiql//GRAPHQL/${encodedEndpointUrl}/${encodedBody}?${queryParams.toString()}`,
-    );
+      router.push(
+        `/graphiql//GRAPHQL/${encodedEndpointUrl}/${encodedBody}?${queryParams.toString()}`,
+      );
+    }
   };
 
   const prettifyQuery = async () => {
