@@ -1,0 +1,31 @@
+.graphiqlClient {
+    width: 50%;
+    margin: 20px;
+    padding: 50px;
+    background-color: #D9D9D9;
+    border-radius: 20px;
+}
+
+.graphiqlClient button {
+    height: 40px;
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 5px;
+    cursor: pointer;
+    border: none;
+    margin: 20px 0;
+}
+
+.inputs{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+}
+
+.inputs input {
+    height: 30px;
+}
+
+.sdl {
+    margin-left: 35px;
+}
