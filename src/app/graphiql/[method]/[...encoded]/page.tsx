@@ -1,6 +1,5 @@
 import { decode } from 'base64-url';
-import styles from '@/styles/Resp.module.css';
-import GraphiQLClient from '../../page';
+import { GraphiQLClient } from '@/app/graphiql/page';
 
 export default async function ResponseGraph({
   params,
@@ -10,10 +9,13 @@ export default async function ResponseGraph({
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
   const endpoint = decode(params.encoded[0]);
+  console.log('eee:', endpoint);
   const encodedURL = params.encoded;
   const encodedBody = encodedURL[1];
 
-  const body = encodedBody ? decode(encodedBody) : undefined;
+  const body = decode(encodedBody);
+  const newBody = body.replace(/\\n/g, '').replace(/\s+/g, ' ');
+  console.log('ccc', newBody);
   const headers = Object.keys(searchParams)
     .filter((key) => key.startsWith('header_'))
     .reduce(
@@ -36,11 +38,12 @@ export default async function ResponseGraph({
           ...headers,
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(body),
+        body: newBody,
       });
 
       const data = await response.json();
 
+      console.log('DDD:', data.characters.info.count);
       return {
         status: response.status,
         responseBody: data,
@@ -57,7 +60,7 @@ export default async function ResponseGraph({
   const { status, responseBody } = await makeRequest();
 
   return (
-    <div className={styles.restContainer}>
+    <div>
       <GraphiQLClient />
       {/* <ResponseGraphiQl
         responseCode={status}

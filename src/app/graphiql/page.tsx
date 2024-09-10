@@ -1,17 +1,15 @@
 'use client';
 
 import React, { useState } from 'react';
-import CodeMirror from '@uiw/react-codemirror';
+import CodeMirror, { EditorView } from '@uiw/react-codemirror';
 import styles from '@/styles/Graphiql.module.css';
 import { encode } from 'base64-url';
 import { useRouter } from 'next/navigation';
 import { graphql } from 'cm6-graphql';
-import { EditorView } from '@uiw/react-codemirror';
-import prettier from 'prettier/standalone';
-import prettierPluginGraphql from 'prettier/plugins/graphql';
+import { formatGraphQL } from '@/utils/prettify';
 import { langs } from '@uiw/codemirror-extensions-langs';
 
-const GraphiQLClient = () => {
+export const GraphiQLClient = () => {
   const router = useRouter();
   const [endpointUrl, setEndpointUrl] = useState<string>('');
   const [sdlUrl, setSdlUrl] = useState<string>('');
@@ -55,16 +53,13 @@ const GraphiQLClient = () => {
     });
 
     router.push(
-      `/GRAPHQL/${encodedEndpointUrl}/${encodedBody}?${queryParams.toString()}`,
+      `/graphiql//GRAPHQL/${encodedEndpointUrl}/${encodedBody}?${queryParams.toString()}`,
     );
   };
 
   const prettifyQuery = async () => {
     try {
-      const formatted = await prettier.format(query, {
-        parser: 'graphql',
-        plugins: [prettierPluginGraphql],
-      });
+      const formatted = await formatGraphQL(query);
       setQuery(formatted);
     } catch (err) {
       console.log(err);
