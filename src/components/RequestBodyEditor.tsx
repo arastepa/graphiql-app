@@ -35,7 +35,7 @@ const RequestBodyEditor: React.FC<RequestBodyEditorProps> = ({
 
   const handleJsonChange = (newData: Record<string, JsonData>) => {
     setBodyJson(newData);
-    onBodyChange(JSON.stringify(newData, null, 2)); // Prettify and notify parent
+    onBodyChange(JSON.stringify(newData, null, 2));
   };
 
   return (
@@ -63,7 +63,7 @@ const RequestBodyEditor: React.FC<RequestBodyEditorProps> = ({
       ) : (
         <textarea
           style={{ width: '100%', height: '300px' }}
-          value={bodyText} // Show the JSON as text
+          value={bodyText}
           onChange={handleTextChange}
           placeholder="Enter plain text request body here"
         />
