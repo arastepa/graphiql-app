@@ -38,10 +38,8 @@ export const GraphiQLClient = () => {
   };
 
   const fetchSchema = async () => {
-    if (!sdlUrl) return;
-
     try {
-      const response = await fetch(sdlUrl);
+      const response = await fetch(`${endpointUrl}?sdl`);
       if (response.ok) {
         const schema = await response.text();
         if (schema) {
@@ -52,6 +50,7 @@ export const GraphiQLClient = () => {
           setShowDocumentation(false);
         }
       } else {
+        console.error('Failed to fetch schema:', response.status);
         setDocumentation(null);
         setShowDocumentation(false);
       }
