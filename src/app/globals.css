@@ -9,7 +9,8 @@
   --hover-primary: rgba(220, 215, 215, 0.71);
   --border-primary: rgb(199, 198, 198);
   --light-blue-color: rgb(228, 238, 255);
-  --error-color: rgb(183, 28, 28)
+  --error-color: rgb(183, 28, 28);
+  --client-section-color: rgb(200, 200, 236);
 }
 
 * {

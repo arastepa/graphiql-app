@@ -6,7 +6,7 @@ import frame from '../../public/img/frame.png';
 import enFlag from '../../public/img/en-flag.png';
 import geoFlag from '../../public/img/geo-flag.png';
 import amFlag from '../../public/img/am-flag.png';
-import styles from '../styles/Header.module.css';
+import styles from '@/styles/Header.module.css';
 import { useLanguage } from '../context/LanguageContext';
 import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
@@ -17,9 +17,12 @@ const Header = () => {
   const { t } = useTranslation();
   const { currentLanguage, changeLanguage } = useLanguage();
   const [isLangListVisible, setLangListVisible] = useState(false);
+  const [activeButton, setActiveButton] = useState('auth');
 
   const toggleLangList = () => setLangListVisible((prev) => !prev);
-
+  const toggleButton = (button) => {
+    setActiveButton(button);
+  };
   const handleLanguageChange = (lng: string) => {
     changeLanguage(lng);
     setLangListVisible(false);
@@ -82,11 +85,21 @@ const Header = () => {
           </Link>
         ) : (
           <>
-            <Link href="/signin" className={styles.signInButton}>
-              {t(`SignIn`)}
+            <Link href="/signin" passHref>
+              <div
+                className={`${styles.signInButton} ${activeButton === 'signIn' ? styles.active : ''}`}
+                onClick={() => toggleButton('signIn')}
+              >
+                {t('SignIn')}
+              </div>
             </Link>
-            <Link href="/signup" className={styles.authButton}>
-              {t(`SignUp`)}
+            <Link href="/signup" passHref>
+              <div
+                className={`${styles.authButton} ${activeButton === 'auth' ? styles.active : ''}`}
+                onClick={() => toggleButton('auth')}
+              >
+                {t('SignUp')}
+              </div>
             </Link>
           </>
         )}
