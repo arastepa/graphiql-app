@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import styles from '@/styles/Rest.module.css';
+import errStyles from '@/styles/Error.module.css';
 import { encode } from 'base64-url';
 import { toast } from 'react-toastify';
 import { useAuth } from '@/context/AuthContext';
@@ -141,7 +142,7 @@ const RestClient = () => {
 
           <div className={styles.variablesSection}>
             <h3>Variables</h3>
-            {varErr && <div className={styles.error}>{varErr}</div>}
+            {varErr && <div className={errStyles.error}>{varErr}</div>}
             <textarea
               value={variables}
               onChange={(e) => handleVariableChange(e.target.value)}
@@ -149,7 +150,7 @@ const RestClient = () => {
             />
           </div>
 
-          {error && <div className={styles.error}>{error}</div>}
+          {error && <div className={errStyles.error}>{error}</div>}
 
           <button onClick={handleRequest}>Send Request</button>
         </div>
