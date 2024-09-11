@@ -10,13 +10,11 @@ export default async function ResponseGraph({
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
   const endpoint = decode(params.encoded[0]);
-  console.log('eee:', endpoint);
   const encodedURL = params.encoded;
   const encodedBody = encodedURL[1];
 
   const body = decode(encodedBody);
   const newBody = body.replace(/\\n/g, '').replace(/\s+/g, ' ');
-  console.log('ccc', newBody);
   const headers = Object.keys(searchParams)
     .filter((key) => key.startsWith('header_'))
     .reduce(

@@ -116,8 +116,6 @@ describe('SignUpForm', () => {
       );
     });
 
-    console.log(screen.debug());
-
     expect(screen.getByText(/Auth.EmailAlreadyInUse/i)).toBeInTheDocument();
   });
 });
