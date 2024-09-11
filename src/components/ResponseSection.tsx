@@ -8,6 +8,7 @@ interface ResponseSectionProps {
   responseCode: number | null;
   responseStatus: string | null;
   responseBody: string | null;
+  responseErrors?: object[] | null;
 }
 
 const getStatusDescription = (code: number | null): string => {
@@ -26,6 +27,7 @@ const ResponseSection: React.FC<ResponseSectionProps> = ({
   responseCode,
   responseStatus,
   responseBody,
+  responseErrors,
 }) => {
   const statusDescription = responseCode
     ? getStatusDescription(responseCode)
@@ -57,6 +59,24 @@ const ResponseSection: React.FC<ResponseSectionProps> = ({
           />
         ) : (
           'No Response'
+        )}
+        {/* GraphQL Errors (if applicable) */}
+
+        {responseErrors && responseErrors.length > 0 && (
+          <div className={styles.responseErrors}>
+            <strong>Response Errors:</strong>
+            <JsonViewer
+              data={responseErrors}
+              indent={2}
+              expanded={2}
+              theme="default-light"
+              showDataTypes={false}
+              showToolbar={false}
+              showCopy={false}
+              showSize={false}
+              expandIconType="arrow"
+            />
+          </div>
         )}
       </div>
     </section>

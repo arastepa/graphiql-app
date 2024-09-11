@@ -17,11 +17,14 @@ export const GraphiQLClient = () => {
   const [variables, setVariables] = useState<string>('{}');
   const [varErr, setVarErr] = useState('');
   const [headers, setHeaders] = useState<Record<string, string>[]>([]);
+  const [documentation, setDocumentation] = useState<string | null>(null);
+  const [showDocumentation, setShowDocumentation] = useState<boolean>(false);
 
   const handleEndpointChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const url = e.target.value;
     setEndpointUrl(url);
     setSdlUrl(`${url}?sdl`);
+    fetchSchema();
   };
 
   const addHeader = () => {
@@ -32,6 +35,31 @@ export const GraphiQLClient = () => {
     const updatedHeaders = [...headers];
     updatedHeaders[index] = { key, value };
     setHeaders(updatedHeaders);
+  };
+
+  const fetchSchema = async () => {
+    if (!sdlUrl) return;
+
+    try {
+      const response = await fetch(sdlUrl);
+      if (response.ok) {
+        const schema = await response.text();
+        if (schema) {
+          setDocumentation(schema);
+          setShowDocumentation(true);
+        } else {
+          setDocumentation(null);
+          setShowDocumentation(false);
+        }
+      } else {
+        setDocumentation(null);
+        setShowDocumentation(false);
+      }
+    } catch (error) {
+      console.error('Error fetching schema:', error);
+      setDocumentation(null);
+      setShowDocumentation(false);
+    }
   };
 
   const redirectToEncodedUrl = () => {
@@ -64,7 +92,7 @@ export const GraphiQLClient = () => {
       const formatted = formatGraphQL(query);
       setQuery(formatted);
     } catch (err) {
-      console.log(err);
+      console.error('Error formatting query:', err);
     }
   };
 
@@ -144,6 +172,7 @@ export const GraphiQLClient = () => {
               <label>Variables:</label>
               {varErr ? <p>{varErr}</p> : ''}
               <CodeMirror
+                id="variablesEditor"
                 value={variables}
                 onChange={(value) => {
                   handleVariableChange(value);
@@ -155,6 +184,17 @@ export const GraphiQLClient = () => {
           </div>
 
           <button onClick={redirectToEncodedUrl}>Run Query</button>
+          {showDocumentation && (
+            <div className={styles.documentation}>
+              <h3>Schema Documentation:</h3>
+              <CodeMirror
+                value={documentation || ''}
+                height="400px"
+                extensions={[graphql(), EditorView.lineWrapping]}
+                readOnly
+              />
+            </div>
+          )}
         </div>
       </div>
     </div>
