@@ -1,6 +1,7 @@
 .restContainer {
   display: flex;
   flex-direction: column;
+  margin-top: 20px;
   align-items: center;
 }
 
@@ -8,11 +9,12 @@
   width: 800px;
   display: flex;
   justify-content: center;
-  margin-top: 18px;
   background-color: #efefef;
   border-radius: 5px;
   margin: auto;
+  margin-top: 20px;
   padding: 20px;
+  background-color: var(--client-section-color);
 }
 
 .client {
