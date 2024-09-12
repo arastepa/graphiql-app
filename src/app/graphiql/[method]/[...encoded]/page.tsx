@@ -1,5 +1,5 @@
 import { decode } from 'base64-url';
-import { GraphiQLClient } from '@/app/graphiql/page';
+import GraphiQLClient from '@/app/graphiql/page';
 import ResponseSection from '@/components/ResponseSection';
 
 export default async function ResponseGraph({
@@ -19,11 +19,10 @@ export default async function ResponseGraph({
     .filter((key) => key.startsWith('header_'))
     .reduce(
       (acc, key) => {
-        acc[decode(key.replace('header_', ''))] = Array.isArray(
-          searchParams[key],
-        )
-          ? decode(searchParams[key].join(', '))
-          : decode(searchParams[key]);
+        const paramValue = searchParams[key];
+        acc[decode(key.replace('header_', ''))] = Array.isArray(paramValue)
+          ? decode(paramValue.join(', '))
+          : decode(paramValue || '');
         return acc;
       },
       {} as Record<string, string>,

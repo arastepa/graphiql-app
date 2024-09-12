@@ -10,7 +10,7 @@ import { formatGraphQL } from '@/utils/prettify';
 import { langs } from '@uiw/codemirror-extensions-langs';
 import { useAuth } from '@/context/AuthContext';
 
-export const GraphiQLClient = () => {
+const GraphiQLClient = () => {
   const router = useRouter();
   const [endpointUrl, setEndpointUrl] = useState<string>('');
   const [sdlUrl, setSdlUrl] = useState<string>('');
