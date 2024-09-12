@@ -19,7 +19,7 @@ const UserSection: React.FC<UserSectionProps> = ({ username }) => {
         <Link href="/graphiql" className={styles.button}>
           GraphiQL Client
         </Link>
-        <Link href="#" className={styles.button}>
+        <Link href="/history" className={styles.button}>
           History
         </Link>
       </div>

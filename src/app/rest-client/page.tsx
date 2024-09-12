@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import styles from '@/styles/Rest.module.css';
 import errStyles from '@/styles/Error.module.css';
@@ -8,12 +8,50 @@ import { toast } from 'react-toastify';
 import { useAuth } from '@/context/AuthContext';
 import RequestBodyEditor from '@/components/RequestBodyEditor';
 
-const RestClient = () => {
-  const [method, setMethod] = useState('GET');
-  const [endpoint, setEndpoint] = useState('');
-  const [headers, setHeaders] = useState([{ key: '', value: '' }]);
-  const [body, setBody] = useState<string>();
-  const [variables, setVariables] = useState<string>('{}');
+type MethodName = 'GET' | 'POST' | 'PUT' | 'DELETE';
+
+export type RestClientPayload = {
+  method: MethodName;
+  type: 'REST';
+  endpoint: string;
+  headers: { key: string; value: string }[];
+  variables: string;
+  timestamp: string;
+  body: string;
+};
+
+type RestClientProps = {
+  searchParams: Record<string, never> | { timestamp: string };
+};
+
+const findItemByTimestamp = (
+  timestamp?: string,
+): Record<string, never> | RestClientPayload => {
+  if (!timestamp) return {};
+
+  const historyData = JSON.parse(
+    localStorage.getItem('requestHistory') || '[]',
+  ) as RestClientPayload[];
+
+  return historyData.find((item) => item.timestamp === timestamp) || {};
+};
+
+const RestClient: FC<RestClientProps> = ({ searchParams }) => {
+  const requestDataFromHistory = findItemByTimestamp(searchParams?.timestamp);
+
+  const {
+    method: initialMethod = 'GET',
+    endpoint: initialEndpoint = '',
+    headers: initialHeaders = [{ key: '', value: '' }],
+    variables: initialVariables = '{}',
+    body: initialBody = '',
+  } = requestDataFromHistory;
+
+  const [method, setMethod] = useState(initialMethod);
+  const [endpoint, setEndpoint] = useState(initialEndpoint);
+  const [headers, setHeaders] = useState(initialHeaders);
+  const [body, setBody] = useState<string>(initialBody);
+  const [variables, setVariables] = useState<string>(initialVariables);
   const [varErr, setVarErr] = useState<string>('');
   const { isAuthenticated } = useAuth();
   const [error, setError] = useState<string | null>(null);
@@ -79,6 +117,20 @@ const RestClient = () => {
         url += `?${queryParams.toString()}`;
       }
 
+      const requestHistory = JSON.parse(
+        localStorage.getItem('requestHistory') || '[]',
+      );
+      requestHistory.push({
+        type: 'REST',
+        method,
+        endpoint,
+        body,
+        headers,
+        variables,
+        timestamp: new Date().toISOString(),
+      });
+      localStorage.setItem('requestHistory', JSON.stringify(requestHistory));
+
       router.push(url);
     } catch (error) {
       setError(
@@ -137,7 +189,7 @@ const RestClient = () => {
 
           <div className={styles.bodySection}>
             <h3>Body</h3>
-            <RequestBodyEditor onBodyChange={setBody} />
+            <RequestBodyEditor onBodyChange={setBody} initialBody={body} />
           </div>
 
           <div className={styles.variablesSection}>
