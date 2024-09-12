@@ -1,6 +1,6 @@
 import { decode } from 'base64-url';
 import RestClient from '../../page';
-import styles from '@/styles/Resp.module.css';
+import styles from '@/styles/Rest.module.css';
 import ResponseSection from '@/components/ResponseSection';
 
 export default async function ResponsePage({

@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import styles from '@/styles/Rest.module.css';
+import errStyles from '@/styles/Error.module.css';
 import { encode } from 'base64-url';
 import { toast } from 'react-toastify';
 import { useAuth } from '@/context/AuthContext';
@@ -12,6 +13,8 @@ const RestClient = () => {
   const [endpoint, setEndpoint] = useState('');
   const [headers, setHeaders] = useState([{ key: '', value: '' }]);
   const [body, setBody] = useState<string>();
+  const [variables, setVariables] = useState<string>('{}');
+  const [varErr, setVarErr] = useState<string>('');
   const { isAuthenticated } = useAuth();
   const [error, setError] = useState<string | null>(null);
 
@@ -37,6 +40,16 @@ const RestClient = () => {
     setHeaders(newHeaders);
   };
 
+  const handleVariableChange = (value: string) => {
+    try {
+      JSON.parse(value);
+      setVariables(value);
+      setVarErr('');
+    } catch (err) {
+      if (err instanceof SyntaxError) setVarErr('Invalid JSON');
+    }
+  };
+
   const handleRequest = async () => {
     try {
       const encodedEndpoint = encode(endpoint);
@@ -56,6 +69,11 @@ const RestClient = () => {
           );
         }
       });
+
+      // Add variables to query parameters if applicable
+      if (variables && JSON.parse(variables)) {
+        queryParams.append('variables', encode(variables));
+      }
 
       if (queryParams.toString()) {
         url += `?${queryParams.toString()}`;
@@ -121,7 +139,18 @@ const RestClient = () => {
             <h3>Body</h3>
             <RequestBodyEditor onBodyChange={setBody} />
           </div>
-          {error && <div className={styles.error}>{error}</div>}
+
+          <div className={styles.variablesSection}>
+            <h3>Variables</h3>
+            {varErr && <div className={errStyles.error}>{varErr}</div>}
+            <textarea
+              value={variables}
+              onChange={(e) => handleVariableChange(e.target.value)}
+              placeholder="Enter variables in JSON format"
+            />
+          </div>
+
+          {error && <div className={errStyles.error}>{error}</div>}
 
           <button onClick={handleRequest}>Send Request</button>
         </div>

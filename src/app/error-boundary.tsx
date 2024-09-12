@@ -17,7 +17,6 @@ const ErrorBoundary: React.FC<{ children: React.ReactNode }> = ({
   };
 
   const handleBack = () => {
-    console.log('Back button clicked');
     if (window.history.length > 1) {
       router.back();
     } else {

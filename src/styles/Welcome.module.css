@@ -39,6 +39,10 @@
   text-decoration: none;
 }
 
+.welcomeButton:hover {
+  background-color: var(--hover-secondary);
+}
+
 /* Tablet Styles for Welcome */
 @media (max-width: 768px) {
   .welcomePart {

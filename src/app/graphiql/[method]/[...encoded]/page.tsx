@@ -1,5 +1,6 @@
 import { decode } from 'base64-url';
 import { GraphiQLClient } from '@/app/graphiql/page';
+import ResponseSection from '@/components/ResponseSection';
 
 export default async function ResponseGraph({
   params,
@@ -9,13 +10,11 @@ export default async function ResponseGraph({
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
   const endpoint = decode(params.encoded[0]);
-  console.log('eee:', endpoint);
   const encodedURL = params.encoded;
   const encodedBody = encodedURL[1];
 
   const body = decode(encodedBody);
   const newBody = body.replace(/\\n/g, '').replace(/\s+/g, ' ');
-  console.log('ccc', newBody);
   const headers = Object.keys(searchParams)
     .filter((key) => key.startsWith('header_'))
     .reduce(
@@ -45,27 +44,32 @@ export default async function ResponseGraph({
 
       return {
         status: response.status,
+        statusText: response.statusText,
         responseBody: data,
+        responseErrors: data.errors || null,
       };
     } catch (error) {
       return {
         status: 500,
+        statusText: 'Internal Server Error',
         responseBody: { error: 'Request failed' },
       };
     }
   };
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { status, responseBody } = await makeRequest();
+  const { status, statusText, responseBody, responseErrors } =
+    await makeRequest();
 
   return (
     <div>
       <GraphiQLClient />
-      {/* <ResponseGraphiQl
+      <ResponseSection
         responseCode={status}
         responseStatus={statusText}
-        responseBody={data}
-      /> */}
+        responseBody={responseBody}
+        responseErrors={responseErrors}
+      />
     </div>
   );
 }

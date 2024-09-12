@@ -75,33 +75,42 @@
 
 .header a {
   text-decoration: none;
-  color: inherit;
 }
 
 .signInButton {
-  width: 80px;
-  height: 57px;
-  background-color: var(--white-color);
-  border: none;
-  color: var(--black-color);
-  margin: 15px 25px 0 0;
-  padding-top: 5px;
-  text-decoration: none;
-  font-size: 22px;
-  cursor: pointer;
+  width: 100px;
+  margin: 2px 25px 0 0;
+  padding-top: 7px;
 }
 
 .authButton {
   width: 150px;
-  height: 48px;
-  background-color: var(--secondary-color);
-  border: none;
-  color: var(--white-color);
+  padding: 10px;
+}
+
+.signInButton,
+.authButton {
+  height: 49px;
   font-size: 22px;
   cursor: pointer;
   text-align: center;
   text-decoration: none;
-  padding: 10px;
+  border: 2px solid var(--secondary-color);
+  color: var(--secondary-color);
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+.signInButton:hover,
+.authButton:hover {
+  background-color: var(--secondary-color);
+  color: var(--white-color);
+}
+
+.active {
+  background-color: var(--secondary-color);
+  color: var(--white-color);
 }
 
 /* Tablet Styles for Header */
