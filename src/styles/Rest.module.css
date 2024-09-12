@@ -62,3 +62,10 @@
   border: none;
   margin: 5px 0;
 }
+
+.restClient button:hover{
+
+  background-color: var(--hover-secondary);
+
+
+}

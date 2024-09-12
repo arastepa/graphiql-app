@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { JsonEditor, JsonData } from 'json-edit-react';
+import { JsonData } from 'json-edit-react';
 import { isObjectEmpty } from '@/utils/common';
 import styles from '../styles/RequestBodyEditor.module.css';
+import dynamic from 'next/dynamic';
 
 interface RequestBodyEditorProps {
   onBodyChange: (payload: string) => void;
 }
+
+const JsonEditor = dynamic(
+  () => import('json-edit-react').then((mod) => mod.JsonEditor),
+  { ssr: false },
+);
 
 const RequestBodyEditor: React.FC<RequestBodyEditorProps> = ({
   onBodyChange,
