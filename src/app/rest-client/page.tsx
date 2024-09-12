@@ -67,6 +67,12 @@ const RestClient: FC<RestClientProps> = ({ searchParams }) => {
     if (!isAuthenticated) router.push('/signin');
   }, [isAuthenticated, router]);
 
+  const substituteVariables = (text: string, variables: object) => {
+    return text.replace(/\{\{(.*?)\}\}/g, (_, key) => {
+      return variables[key.trim()] || `{{${key}}}`; // Fallback to placeholder if not found
+    });
+  };
+
   const handleMethodChange = (e) => {
     const newMethod = e.target.value;
     setMethod(newMethod);
@@ -94,9 +100,21 @@ const RestClient: FC<RestClientProps> = ({ searchParams }) => {
 
   const handleRequest = async () => {
     try {
-      const encodedEndpoint = encode(endpoint);
+      // Parse variables JSON
+      const parsedVariables = JSON.parse(variables);
+
+      // Substitute variables in the endpoint and body
+      const finalEndpoint = substituteVariables(endpoint, parsedVariables);
+      const finalBody =
+        body && (method === 'POST' || method === 'PUT')
+          ? substituteVariables(body, parsedVariables)
+          : '';
+
+      const encodedEndpoint = encode(finalEndpoint);
       const encodedBody =
-        (method === 'POST' || method === 'PUT') && body ? encode(body) : '';
+        (method === 'POST' || method === 'PUT') && finalBody
+          ? encode(finalBody)
+          : '';
 
       let url = `/rest-client/${method}/${encodedEndpoint}`;
       if (encodedBody) url += `/${encodedBody}`;
@@ -113,7 +131,7 @@ const RestClient: FC<RestClientProps> = ({ searchParams }) => {
       });
 
       // Add variables to query parameters if applicable
-      if (variables && JSON.parse(variables)) {
+      if (variables && parsedVariables) {
         queryParams.append('variables', encode(variables));
       }
 
