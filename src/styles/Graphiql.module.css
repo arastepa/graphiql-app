@@ -16,6 +16,10 @@
   margin: 20px 0;
 }
 
+.graphiqlClient button:hover {
+  background-color: var(--hover-secondary);
+}
+
 .inputs {
   display: flex;
   flex-direction: column;

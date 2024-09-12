@@ -20,11 +20,10 @@ export default async function ResponsePage({
     .filter((key) => key.startsWith('header_'))
     .reduce(
       (acc, key) => {
-        acc[decode(key.replace('header_', ''))] = Array.isArray(
-          searchParams[key],
-        )
-          ? decode(searchParams[key].join(', '))
-          : decode(searchParams[key]);
+        const paramValue = searchParams[key];
+        acc[decode(key.replace('header_', ''))] = Array.isArray(paramValue)
+          ? decode(paramValue.join(', '))
+          : decode(paramValue || '');
         return acc;
       },
       {} as Record<string, string>,
@@ -32,7 +31,7 @@ export default async function ResponsePage({
 
   const getBody = () => {
     if (!body) return undefined;
-    if (headers['Content-Type'] === 'application/json') {
+    if (method !== 'GET' && method !== 'DELETE') {
       return JSON.stringify(JSON.parse(body));
     }
     return body;
@@ -44,6 +43,7 @@ export default async function ResponsePage({
         method,
         headers: {
           ...headers,
+          'Content-Type': method !== 'GET' ? 'application/json' : undefined,
         },
         body: getBody(),
       });

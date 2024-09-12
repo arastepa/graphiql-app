@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import CodeMirror, { EditorView } from '@uiw/react-codemirror';
 import styles from '@/styles/Graphiql.module.css';
 import { encode } from 'base64-url';
@@ -8,8 +8,9 @@ import { useRouter } from 'next/navigation';
 import { graphql } from 'cm6-graphql';
 import { formatGraphQL } from '@/utils/prettify';
 import { langs } from '@uiw/codemirror-extensions-langs';
+import { useAuth } from '@/context/AuthContext';
 
-export const GraphiQLClient = () => {
+const GraphiQLClient = () => {
   const router = useRouter();
   const [endpointUrl, setEndpointUrl] = useState<string>('');
   const [sdlUrl, setSdlUrl] = useState<string>('');
@@ -19,6 +20,11 @@ export const GraphiQLClient = () => {
   const [headers, setHeaders] = useState<Record<string, string>[]>([]);
   const [documentation, setDocumentation] = useState<string | null>(null);
   const [showDocumentation, setShowDocumentation] = useState<boolean>(false);
+  const { isAuthenticated } = useAuth();
+
+  useEffect(() => {
+    if (!isAuthenticated) router.push('/signin');
+  }, [isAuthenticated, router]);
 
   const handleEndpointChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const url = e.target.value;
