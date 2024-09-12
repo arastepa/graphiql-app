@@ -5,9 +5,12 @@ import styles from '../styles/ResponseSection.module.css';
 import dynamic from 'next/dynamic';
 
 const JsonViewer = dynamic(
-  () => import('@andypf/json-viewer/dist/esm/react/JsonViewer'),
+  () =>
+    import('@andypf/json-viewer/dist/esm/react/JsonViewer').then(
+      (mod) => mod.JsonViewer,
+    ),
   { ssr: false },
-);
+) as typeof import('@andypf/json-viewer/dist/esm/react/JsonViewer');
 
 interface ResponseSectionProps {
   responseCode: number | null;
