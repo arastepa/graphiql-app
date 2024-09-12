@@ -11,7 +11,9 @@ import RequestBodyEditor from '@/components/RequestBodyEditor';
 const RestClient = () => {
   const [method, setMethod] = useState('GET');
   const [endpoint, setEndpoint] = useState('');
-  const [headers, setHeaders] = useState([{ key: '', value: '' }]);
+  const [headers, setHeaders] = useState([
+    { key: 'Content-Type', value: 'application/json' },
+  ]);
   const [body, setBody] = useState<string>();
   const [variables, setVariables] = useState<string>('{}');
   const [varErr, setVarErr] = useState<string>('');

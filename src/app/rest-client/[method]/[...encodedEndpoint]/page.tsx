@@ -31,7 +31,7 @@ export default async function ResponsePage({
 
   const getBody = () => {
     if (!body) return undefined;
-    if (method !== 'GET' && method !== 'DELETE') {
+    if (headers['Content-Type'] === 'application/json') {
       return JSON.stringify(JSON.parse(body));
     }
     return body;
@@ -43,7 +43,6 @@ export default async function ResponsePage({
         method,
         headers: {
           ...headers,
-          'Content-Type': method !== 'GET' ? 'application/json' : undefined,
         },
         body: getBody(),
       });
