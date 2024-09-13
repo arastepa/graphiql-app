@@ -63,9 +63,10 @@
   margin: 5px 0;
 }
 
-.restClient button:hover{
-
+.restClient button:hover {
   background-color: var(--hover-secondary);
+}
 
-
+.variablesSection {
+  margin: 20px 0;
 }

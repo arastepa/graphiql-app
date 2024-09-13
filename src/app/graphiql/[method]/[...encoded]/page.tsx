@@ -6,7 +6,7 @@ export default async function ResponseGraph({
   params,
   searchParams,
 }: {
-  params: { method: string; encoded: string[] }; // Add encodedBody here
+  params: { method: string; encoded: string[] };
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
   const endpoint = decode(params.encoded[0]);
