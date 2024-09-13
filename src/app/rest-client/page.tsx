@@ -42,7 +42,9 @@ const RestClient: FC<RestClientProps> = ({ searchParams }) => {
   const {
     method: initialMethod = 'GET',
     endpoint: initialEndpoint = '',
-    headers: initialHeaders = [{ key: '', value: '' }],
+    headers: initialHeaders = [
+      { key: 'Content-Type', value: 'application/json' },
+    ],
     variables: initialVariables = '{}',
     body: initialBody = '',
   } = requestDataFromHistory;
