@@ -92,8 +92,8 @@ const RestClient: FC<RestClientProps> = ({ searchParams }) => {
 
   const handleVariableChange = (value: string) => {
     try {
-      setVariables(value);
       JSON.parse(value);
+      setVariables(value);
       setVarErr('');
     } catch (err) {
       if (err instanceof SyntaxError) setVarErr('Invalid JSON');
