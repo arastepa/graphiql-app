@@ -62,7 +62,7 @@ export default async function ResponseGraph({
 
   return (
     <div>
-      <GraphiQLClient />
+      <GraphiQLClient searchParams={undefined} />
       <ResponseSection
         responseCode={status}
         responseStatus={statusText}

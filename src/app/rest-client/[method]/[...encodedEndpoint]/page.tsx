@@ -70,7 +70,7 @@ export default async function ResponsePage({
 
   return (
     <div className={styles.restContainer}>
-      <RestClient />
+      <RestClient searchParams={undefined} />
       <ResponseSection
         responseCode={status}
         responseStatus={statusText}
