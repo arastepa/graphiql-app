@@ -30,11 +30,20 @@ const TestComponent: React.FC = () => {
 describe('useResponseContext', () => {
   it('throws error when used outside of ResponseProvider', () => {
     const TestComponentWithoutProvider: React.FC = () => {
-      useResponseContext();
-      return <div />;
+      // Check if using the hook throws an error
+      try {
+        useResponseContext();
+        return <div />;
+      } catch (error) {
+        if (error instanceof Error) {
+          return <div data-testid="error">{error.message}</div>;
+        }
+      }
     };
 
-    expect(() => render(<TestComponentWithoutProvider />)).toThrow(
+    render(<TestComponentWithoutProvider />);
+
+    expect(screen.getByTestId('error')).toHaveTextContent(
       'useResponseContext must be used within a ResponseProvider',
     );
   });
@@ -46,14 +55,17 @@ describe('useResponseContext', () => {
       </ResponseProvider>,
     );
 
+    // Check initial values
     expect(screen.getByTestId('response-code')).toHaveTextContent('');
     expect(screen.getByTestId('response-status')).toHaveTextContent('');
     expect(screen.getByTestId('response-body')).toHaveTextContent('null');
 
+    // Trigger context update
     act(() => {
       screen.getByText('Update Context').click();
     });
 
+    // Check updated values
     expect(screen.getByTestId('response-code')).toHaveTextContent('200');
     expect(screen.getByTestId('response-status')).toHaveTextContent('OK');
     expect(screen.getByTestId('response-body')).toHaveTextContent(
