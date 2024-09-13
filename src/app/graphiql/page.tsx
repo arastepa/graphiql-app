@@ -25,7 +25,9 @@ const findItemByTimestamp = (
   if (!timestamp) return {};
 
   const historyData = JSON.parse(
-    localStorage.getItem('requestHistory') || '[]',
+    typeof window !== 'undefined'
+      ? localStorage.getItem('requestHistory') || '[]'
+      : '[]',
   ) as RestClientPayload[];
 
   return historyData.find((item) => item.timestamp === timestamp) || {};
@@ -120,7 +122,9 @@ export const GraphiQLClient = ({ searchParams }) => {
       });
 
       const requestHistory = JSON.parse(
-        localStorage.getItem('requestHistory') || '[]',
+        typeof window !== 'undefined'
+          ? localStorage.getItem('requestHistory') || '[]'
+          : '[]',
       );
       requestHistory.push({
         type: 'GRAPHQL',
@@ -130,7 +134,8 @@ export const GraphiQLClient = ({ searchParams }) => {
         headers,
         timestamp: new Date().toISOString(),
       });
-      localStorage.setItem('requestHistory', JSON.stringify(requestHistory));
+      if (typeof window !== 'undefined')
+        localStorage.setItem('requestHistory', JSON.stringify(requestHistory));
 
       router.push(
         `/graphiql//GRAPHQL/${encodedEndpointUrl}/${encodedBody}?${queryParams.toString()}`,

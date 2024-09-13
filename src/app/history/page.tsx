@@ -10,7 +10,10 @@ const History = () => {
   const [history, setHistory] = useState([]);
 
   useEffect(() => {
-    const savedHistory = localStorage.getItem('requestHistory');
+    const savedHistory =
+      typeof window !== 'undefined'
+        ? localStorage.getItem('requestHistory')
+        : '';
     if (savedHistory) {
       setHistory(JSON.parse(savedHistory));
     }

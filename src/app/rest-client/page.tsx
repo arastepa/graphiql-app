@@ -30,7 +30,9 @@ const findItemByTimestamp = (
   if (!timestamp) return {};
 
   const historyData = JSON.parse(
-    localStorage.getItem('requestHistory') || '[]',
+    typeof window !== 'undefined'
+      ? localStorage.getItem('requestHistory') || '[]'
+      : '[]',
   ) as RestClientPayload[];
 
   return historyData.find((item) => item.timestamp === timestamp) || {};
@@ -120,7 +122,9 @@ const RestClient: FC<RestClientProps> = ({ searchParams }) => {
       }
 
       const requestHistory = JSON.parse(
-        localStorage.getItem('requestHistory') || '[]',
+        typeof window !== 'undefined'
+          ? localStorage.getItem('requestHistory') || '[]'
+          : '[]',
       );
       requestHistory.push({
         type: 'REST',
@@ -131,7 +135,8 @@ const RestClient: FC<RestClientProps> = ({ searchParams }) => {
         variables,
         timestamp: new Date().toISOString(),
       });
-      localStorage.setItem('requestHistory', JSON.stringify(requestHistory));
+      if (typeof window !== 'undefined')
+        localStorage.setItem('requestHistory', JSON.stringify(requestHistory));
 
       router.push(url);
     } catch (error) {
