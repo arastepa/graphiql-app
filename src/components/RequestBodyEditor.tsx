@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { JsonData } from 'json-edit-react';
 import { isObjectEmpty } from '@/utils/common';
 import styles from '../styles/RequestBodyEditor.module.css';
@@ -6,30 +6,73 @@ import dynamic from 'next/dynamic';
 
 interface RequestBodyEditorProps {
   onBodyChange: (payload: string) => void;
+  initialBody: string;
 }
-
 const JsonEditor = dynamic(
   () => import('json-edit-react').then((mod) => mod.JsonEditor),
   { ssr: false },
 );
 
+const isJsonString = (str: string) => {
+  try {
+    JSON.parse(str);
+    return true;
+  } catch (e) {
+    return false;
+  }
+};
+
+type BodyType = 'json' | 'text';
+
+const getInitialBodyConfig = (initialBody: string) => {
+  if (initialBody === '') {
+    return { initialType: 'json', initialBodyText: '', initialBodyJSON: {} };
+  }
+
+  if (isJsonString(initialBody)) {
+    return {
+      initialType: 'json',
+      initialBodyText: '',
+      initialBodyJSON: JSON.parse(initialBody),
+    };
+  }
+
+  return {
+    initialType: 'text',
+    initialBodyText: initialBody,
+    initialBodyJSON: {},
+  };
+};
+
 const RequestBodyEditor: React.FC<RequestBodyEditorProps> = ({
   onBodyChange,
+  initialBody,
 }) => {
-  const [bodyJson, setBodyJson] = useState<Record<string, JsonData>>({});
-  const [bodyText, setBodyText] = useState<string>('');
-  const [mode, setMode] = useState<'json' | 'text'>('json');
+  const [bodyJson, setBodyJson] = useState<Record<string, JsonData>>(
+    getInitialBodyConfig(initialBody).initialBodyJSON,
+  );
+  const [bodyText, setBodyText] = useState<string>(
+    getInitialBodyConfig(initialBody).initialBodyText,
+  );
+  const [mode, setMode] = useState<BodyType>(
+    getInitialBodyConfig(initialBody).initialType as BodyType,
+  );
 
+  const previousModeRef = useRef(getInitialBodyConfig(initialBody).initialType);
   useEffect(() => {
-    if (mode === 'text') {
+    if (mode === 'text' && previousModeRef.current !== 'text') {
       setBodyText(
         isObjectEmpty(bodyJson) ? '' : JSON.stringify(bodyJson, null, 2),
       );
       setBodyJson({});
 
+      previousModeRef.current = 'text';
       return;
     }
-    setBodyText('');
+    if (mode === 'json' && previousModeRef.current !== 'json') {
+      setBodyText('');
+      previousModeRef.current === 'json';
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mode]);
 

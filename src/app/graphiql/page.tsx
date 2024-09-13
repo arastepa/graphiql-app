@@ -10,14 +10,49 @@ import { formatGraphQL } from '@/utils/prettify';
 import { langs } from '@uiw/codemirror-extensions-langs';
 import { useAuth } from '@/context/AuthContext';
 
-const GraphiQLClient = () => {
+export type RestClientPayload = {
+  type: 'GRAPHQL';
+  endpoint: string;
+  headers: { key: string; value: string }[];
+  variables: string;
+  timestamp: string;
+  query: string;
+};
+
+const findItemByTimestamp = (
+  timestamp?: string,
+): Record<string, never> | RestClientPayload => {
+  if (!timestamp) return {};
+
+  const historyData = JSON.parse(
+    typeof window !== 'undefined'
+      ? localStorage.getItem('requestHistory') || '[]'
+      : '[]',
+  ) as RestClientPayload[];
+
+  return historyData.find((item) => item.timestamp === timestamp) || {};
+};
+
+export const GraphiQLClient = ({ searchParams }) => {
+  const requestDataFromHistory = findItemByTimestamp(searchParams?.timestamp);
+
+  const {
+    endpoint: initialEndpoint = '',
+    headers: initialHeaders = [],
+    variables: initialVariables = '{}',
+    query: initialQuery = '',
+  } = requestDataFromHistory;
+
   const router = useRouter();
-  const [endpointUrl, setEndpointUrl] = useState<string>('');
-  const [sdlUrl, setSdlUrl] = useState<string>('');
-  const [query, setQuery] = useState<string>('');
-  const [variables, setVariables] = useState<string>('{}');
+  const [endpointUrl, setEndpointUrl] = useState<string>(initialEndpoint);
+  const [sdlUrl, setSdlUrl] = useState<string>(
+    initialEndpoint ? `${initialEndpoint}?sdl` : '',
+  );
+  const [query, setQuery] = useState<string>(initialQuery);
+  const [variables, setVariables] = useState<string>(initialVariables);
   const [varErr, setVarErr] = useState('');
-  const [headers, setHeaders] = useState<Record<string, string>[]>([]);
+  const [headers, setHeaders] =
+    useState<Record<string, string>[]>(initialHeaders);
   const [documentation, setDocumentation] = useState<string | null>(null);
   const [showDocumentation, setShowDocumentation] = useState<boolean>(false);
   const { isAuthenticated } = useAuth();
@@ -85,6 +120,22 @@ const GraphiQLClient = () => {
           );
         }
       });
+
+      const requestHistory = JSON.parse(
+        typeof window !== 'undefined'
+          ? localStorage.getItem('requestHistory') || '[]'
+          : '[]',
+      );
+      requestHistory.push({
+        type: 'GRAPHQL',
+        endpoint: endpointUrl,
+        query,
+        variables,
+        headers,
+        timestamp: new Date().toISOString(),
+      });
+      if (typeof window !== 'undefined')
+        localStorage.setItem('requestHistory', JSON.stringify(requestHistory));
 
       router.push(
         `/graphiql//GRAPHQL/${encodedEndpointUrl}/${encodedBody}?${queryParams.toString()}`,
