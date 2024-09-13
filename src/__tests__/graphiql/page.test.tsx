@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import '@testing-library/jest-dom';
 import { User } from 'firebase/auth';
 import { FC, HTMLProps } from 'react';
+import { ResponseProvider } from '@/context/ResponseContext';
 
 interface CodeMirrorProps extends HTMLProps<HTMLDivElement> {
   'data-testid': string;
@@ -56,7 +57,11 @@ describe('GraphiQLClient', () => {
       },
     });
 
-    render(<GraphiQLClient searchParams={{ timestamp: '' }} />);
+    render(
+      <ResponseProvider>
+        <GraphiQLClient searchParams={{ timestamp: '' }} />
+      </ResponseProvider>,
+    );
 
     expect(screen.getByLabelText(/Endpoint URL:/)).toBeInTheDocument();
     expect(screen.getByLabelText(/SDL URL:/)).toBeInTheDocument();
