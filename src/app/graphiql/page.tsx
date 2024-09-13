@@ -169,8 +169,9 @@ export const GraphiQLClient = ({ searchParams }) => {
         <div className={styles.clientSection}>
           <div className={styles.inputs}>
             <div>
-              <label>Endpoint URL:</label>
+              <label htmlFor="endpointURL">Endpoint URL:</label>
               <input
+                id="endpointURL"
                 type="text"
                 value={endpointUrl}
                 onChange={handleEndpointChange}
@@ -178,8 +179,9 @@ export const GraphiQLClient = ({ searchParams }) => {
             </div>
             <br />
             <div>
-              <label>SDL URL:</label>
+              <label htmlFor="SLDurl">SDL URL:</label>
               <input
+                id="SLDurl"
                 type="text"
                 value={sdlUrl}
                 onChange={(e) => setSdlUrl(e.target.value)}
@@ -213,8 +215,10 @@ export const GraphiQLClient = ({ searchParams }) => {
           </div>
 
           <div className="editor-section">
-            <label>Query:</label>
+            <label htmlFor="query">Query:</label>
             <CodeMirror
+              data-testid="codemirror-query"
+              id="query"
               value={query}
               onChange={(value) => {
                 setQuery(value);
@@ -225,9 +229,10 @@ export const GraphiQLClient = ({ searchParams }) => {
             <button onClick={prettifyQuery}>Prettify</button>
             <br />
             <div>
-              <label>Variables:</label>
+              <label htmlFor="variablesEditor">Variables:</label>
               {varErr ? <p>{varErr}</p> : ''}
               <CodeMirror
+                data-testid="codemirror-variables"
                 id="variablesEditor"
                 value={variables}
                 onChange={(value) => {

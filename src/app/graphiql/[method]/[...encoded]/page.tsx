@@ -56,7 +56,6 @@ export default async function ResponseGraph({
     }
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { status, statusText, responseBody, responseErrors } =
     await makeRequest();
 
