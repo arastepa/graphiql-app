@@ -7,6 +7,8 @@ import { encode } from 'base64-url';
 import { toast } from 'react-toastify';
 import { useAuth } from '@/context/AuthContext';
 import RequestBodyEditor from '@/components/RequestBodyEditor';
+import CodeMirror, { EditorView } from '@uiw/react-codemirror';
+import { langs } from '@uiw/codemirror-extensions-langs';
 
 type MethodName = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
@@ -218,10 +220,12 @@ const RestClient: FC<RestClientProps> = ({ searchParams }) => {
           <div className={styles.variablesSection}>
             <h3>Variables</h3>
             {varErr && <div className={errStyles.error}>{varErr}</div>}
-            <textarea
+            <CodeMirror
               value={variables}
-              onChange={(e) => handleVariableChange(e.target.value)}
-              placeholder="Enter variables in JSON format"
+              height="100px"
+              extensions={[langs.json(), EditorView.lineWrapping]}
+              onChange={(value) => handleVariableChange(value)}
+              theme="light"
             />
           </div>
 
