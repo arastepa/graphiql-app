@@ -7,13 +7,16 @@ export default async function ResponsePage({
   params,
   searchParams,
 }: {
-  params: { method: string; encodedEndpoint: string[] }; // Add encodedBody here
+  params: { method: string; encodedEndpoint: string[] };
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
   const method = params.method;
   const endpoint = decode(params.encodedEndpoint[0]);
-  const encodedURL = params.encodedEndpoint;
-  const encodedBody = encodedURL[1];
+  const encodedBody = params.encodedEndpoint[1];
+
+  // Log the endpoint and encoded body for debugging
+  console.log('Decoded endpoint:', endpoint);
+  console.log('Encoded body:', encodedBody);
 
   const body = encodedBody ? decode(encodedBody) : undefined;
   const headers = Object.keys(searchParams)
@@ -29,10 +32,18 @@ export default async function ResponsePage({
       {} as Record<string, string>,
     );
 
+  // Log the headers for debugging
+  console.log('Decoded headers:', headers);
+
   const getBody = () => {
     if (!body) return undefined;
     if (headers['Content-Type'] === 'application/json') {
-      return JSON.stringify(JSON.parse(body));
+      try {
+        return JSON.stringify(JSON.parse(body));
+      } catch (error) {
+        console.error('Error parsing body as JSON:', error);
+        return body;
+      }
     }
     return body;
   };
@@ -43,12 +54,16 @@ export default async function ResponsePage({
         method,
         headers: {
           ...headers,
+          'Content-Type':
+            headers['Content-Type'] || 'application/x-www-form-urlencoded',
         },
         body: getBody(),
       });
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
+
       const data = await response.json();
 
       return {
