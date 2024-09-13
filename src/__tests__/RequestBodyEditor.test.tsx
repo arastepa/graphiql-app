@@ -6,7 +6,9 @@ import '@testing-library/jest-dom';
 describe('RequestBodyEditor', () => {
   it('renders correctly and switches between modes', () => {
     const mockOnBodyChange = vi.fn();
-    render(<RequestBodyEditor onBodyChange={mockOnBodyChange} />);
+    render(
+      <RequestBodyEditor onBodyChange={mockOnBodyChange} initialBody="" />,
+    );
 
     expect(screen.getByRole('combobox')).toHaveValue('json');
     expect(
@@ -25,7 +27,9 @@ describe('RequestBodyEditor', () => {
 
   it('calls onBodyChange with text data when text is updated', () => {
     const mockOnBodyChange = vi.fn();
-    render(<RequestBodyEditor onBodyChange={mockOnBodyChange} />);
+    render(
+      <RequestBodyEditor onBodyChange={mockOnBodyChange} initialBody="" />,
+    );
 
     fireEvent.change(screen.getByRole('combobox'), {
       target: { value: 'text' },
