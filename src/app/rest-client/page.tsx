@@ -69,7 +69,7 @@ const RestClient: FC<RestClientProps> = ({ searchParams }) => {
 
   const substituteVariables = (text: string, variables: object) => {
     return text.replace(/\{\{(.*?)\}\}/g, (_, key) => {
-      return variables[key.trim()] || `{{${key}}}`; // Fallback to placeholder if not found
+      return variables[key.trim()] || `{{${key}}}`;
     });
   };
 
@@ -100,7 +100,6 @@ const RestClient: FC<RestClientProps> = ({ searchParams }) => {
 
   const handleRequest = async () => {
     try {
-      // Parse variables JSON
       const parsedVariables = JSON.parse(variables);
 
       // Substitute variables in the endpoint and body
@@ -119,7 +118,6 @@ const RestClient: FC<RestClientProps> = ({ searchParams }) => {
       let url = `/rest-client/${method}/${encodedEndpoint}`;
       if (encodedBody) url += `/${encodedBody}`;
 
-      // Construct query parameters for headers
       const queryParams = new URLSearchParams();
       headers.forEach((header) => {
         if (header.key) {
@@ -130,7 +128,6 @@ const RestClient: FC<RestClientProps> = ({ searchParams }) => {
         }
       });
 
-      // Add variables to query parameters if applicable
       if (variables && parsedVariables) {
         queryParams.append('variables', encode(variables));
       }
@@ -158,6 +155,7 @@ const RestClient: FC<RestClientProps> = ({ searchParams }) => {
 
       router.push(url);
     } catch (error) {
+      console.error('Request handling error:', error);
       setError(
         'An error occurred while processing your request. Please try again.',
       );
