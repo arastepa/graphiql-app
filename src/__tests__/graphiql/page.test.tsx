@@ -88,14 +88,14 @@ describe('GraphiQLClient', () => {
 
     act(() => {
       fireEvent.change(screen.getByLabelText(/Endpoint URL:/), {
-        target: { value: 'http://new-endpoint' },
+        target: { value: 'http://new-endpoint.com' }, // Provide a full URL
       });
     });
 
     const sdlUrlInput = screen.getByLabelText(/SDL URL:/) as HTMLInputElement;
 
     await waitFor(() => {
-      expect(sdlUrlInput.value).toBe('http://new-endpoint?sdl');
+      expect(sdlUrlInput.value).toBe('http://new-endpoint.com?sdl');
     });
   });
 
