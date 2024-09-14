@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
 import './globals.css';
 import Header from '@/components/Header';
 import { LanguageProvider } from '@/context/LanguageContext';
@@ -9,8 +8,6 @@ import { ResponseProvider } from '@/context/ResponseContext';
 import ErrorBoundary from './error-boundary';
 import { Suspense } from 'react';
 import Loading from './loading';
-
-const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -24,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body>
         <LanguageProvider>
           <AuthProvider>
             <ResponseProvider>

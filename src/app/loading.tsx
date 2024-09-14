@@ -5,7 +5,7 @@ import loader from '../img/loading.png';
 
 const Loading = () => {
   return (
-    <div className={styles.loader}>
+    <div className={styles.loader} data-testid="loading">
       <Image src={loader} width={100} height={100} alt="loader" />
     </div>
   );
