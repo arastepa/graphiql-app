@@ -2,7 +2,6 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, vi } from 'vitest';
 import RequestBodyEditor from '../components/RequestBodyEditor';
 import '@testing-library/jest-dom';
-
 describe('RequestBodyEditor', () => {
   it('renders correctly and switches between modes', () => {
     const mockOnBodyChange = vi.fn();
