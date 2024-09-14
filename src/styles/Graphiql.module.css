@@ -33,3 +33,81 @@
 .sdl {
   margin-left: 35px;
 }
+
+/* Tablet Styles */
+@media (max-width: 768px) {
+  .graphiqlClient {
+    width: 70%;
+    margin: 20px auto;
+    padding: 40px;
+    background-color: var(--client-section-color);
+    border-radius: 5px;
+  }
+
+  .graphiqlClient button {
+    height: 40px;
+    background-color: var(--secondary-color);
+    color: var(--white-color);
+    padding: 5px;
+    cursor: pointer;
+    border: none;
+    margin: 20px 0;
+  }
+
+  .graphiqlClient button:hover {
+    background-color: var(--hover-secondary);
+  }
+
+  .inputs {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+  }
+
+  .inputs input {
+    height: 30px;
+  }
+
+  .sdl {
+    margin-left: 25px;
+  }
+}
+
+/* Mobile Styles */
+@media (max-width: 480px) {
+  .graphiqlClient {
+    width: 80%;
+    margin: 20px auto;
+    padding: 50px;
+    background-color: var(--client-section-color);
+    border-radius: 5px;
+  }
+
+  .graphiqlClient button {
+    height: 40px;
+    background-color: var(--secondary-color);
+    color: var(--white-color);
+    padding: 5px;
+    cursor: pointer;
+    border: none;
+    margin: 20px 0;
+  }
+
+  .graphiqlClient button:hover {
+    background-color: var(--hover-secondary);
+  }
+
+  .inputs {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+  }
+
+  .inputs input {
+    height: 30px;
+  }
+
+  .sdl {
+    margin-left: -2px;
+  }
+}

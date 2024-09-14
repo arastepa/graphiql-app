@@ -43,3 +43,11 @@
 .error {
   color: red;
 }
+
+/* Mobile Styles */
+@media (max-width: 480px) {
+  
+  .form {
+    width: 80%;
+  }
+}

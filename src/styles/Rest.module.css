@@ -70,3 +70,20 @@
 .variablesSection {
   margin: 20px 0;
 }
+
+/* Mobile Styles for Welcome */
+@media (max-width: 480px) {
+
+  .restClient {
+    width: 400px;
+  }
+  
+  .clientWrapper {
+    width: 400px;
+    margin: 0 auto;
+  }
+
+  .variablesSection {
+    margin-top: 20px;
+  }
+}
