@@ -7,6 +7,8 @@ import { encode } from 'base64-url';
 import { toast } from 'react-toastify';
 import { useAuth } from '@/context/AuthContext';
 import RequestBodyEditor from '@/components/RequestBodyEditor';
+import CodeMirror, { EditorView } from '@uiw/react-codemirror';
+import { langs } from '@uiw/codemirror-extensions-langs';
 
 type MethodName = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
@@ -67,6 +69,12 @@ const RestClient: FC<RestClientProps> = ({ searchParams }) => {
     if (!isAuthenticated) router.push('/signin');
   }, [isAuthenticated, router]);
 
+  const substituteVariables = (text: string, variables: object) => {
+    return text.replace(/\{\{(.*?)\}\}/g, (_, key) => {
+      return variables[key.trim()] || `{{${key}}}`;
+    });
+  };
+
   const handleMethodChange = (e) => {
     const newMethod = e.target.value;
     setMethod(newMethod);
@@ -94,14 +102,24 @@ const RestClient: FC<RestClientProps> = ({ searchParams }) => {
 
   const handleRequest = async () => {
     try {
-      const encodedEndpoint = encode(endpoint);
+      const parsedVariables = JSON.parse(variables);
+
+      // Substitute variables in the endpoint and body
+      const finalEndpoint = substituteVariables(endpoint, parsedVariables);
+      const finalBody =
+        body && (method === 'POST' || method === 'PUT')
+          ? substituteVariables(body, parsedVariables)
+          : '';
+
+      const encodedEndpoint = encode(finalEndpoint);
       const encodedBody =
-        (method === 'POST' || method === 'PUT') && body ? encode(body) : '';
+        (method === 'POST' || method === 'PUT') && finalBody
+          ? encode(finalBody)
+          : '';
 
       let url = `/rest-client/${method}/${encodedEndpoint}`;
       if (encodedBody) url += `/${encodedBody}`;
 
-      // Construct query parameters for headers
       const queryParams = new URLSearchParams();
       headers.forEach((header) => {
         if (header.key) {
@@ -112,8 +130,7 @@ const RestClient: FC<RestClientProps> = ({ searchParams }) => {
         }
       });
 
-      // Add variables to query parameters if applicable
-      if (variables && JSON.parse(variables)) {
+      if (variables && parsedVariables) {
         queryParams.append('variables', encode(variables));
       }
 
@@ -140,6 +157,7 @@ const RestClient: FC<RestClientProps> = ({ searchParams }) => {
 
       router.push(url);
     } catch (error) {
+      console.error('Request handling error:', error);
       setError(
         'An error occurred while processing your request. Please try again.',
       );
@@ -202,10 +220,12 @@ const RestClient: FC<RestClientProps> = ({ searchParams }) => {
           <div className={styles.variablesSection}>
             <h3>Variables</h3>
             {varErr && <div className={errStyles.error}>{varErr}</div>}
-            <textarea
+            <CodeMirror
               value={variables}
-              onChange={(e) => handleVariableChange(e.target.value)}
-              placeholder="Enter variables in JSON format"
+              height="100px"
+              extensions={[langs.json(), EditorView.lineWrapping]}
+              onChange={(value) => handleVariableChange(value)}
+              theme="light"
             />
           </div>
 

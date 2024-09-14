@@ -65,7 +65,6 @@ const ResponseSection: React.FC<ResponseSectionProps> = ({
         ) : (
           'No Response'
         )}
-        {/* GraphQL Errors (if applicable) */}
 
         {responseErrors && responseErrors.length > 0 && (
           <div className={styles.responseErrors}>
