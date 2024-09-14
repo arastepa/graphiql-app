@@ -29,7 +29,7 @@ describe('RestClient', () => {
   });
 
   it('renders correctly with initial state', () => {
-    render(<RestClient />);
+    render(<RestClient searchParams={undefined} />);
 
     expect(screen.getByText(/Headers/i)).toBeInTheDocument();
     expect(screen.getByPlaceholderText(/Endpoint URL/i)).toBeInTheDocument();
@@ -37,7 +37,7 @@ describe('RestClient', () => {
   });
 
   it('changes the HTTP method', () => {
-    render(<RestClient />);
+    render(<RestClient searchParams={undefined} />);
 
     const methodSelect = screen.getByDisplayValue('GET');
     fireEvent.change(methodSelect, { target: { value: 'POST' } });
@@ -46,7 +46,7 @@ describe('RestClient', () => {
   });
 
   it('adds a header', () => {
-    render(<RestClient />);
+    render(<RestClient searchParams={undefined} />);
 
     const addHeaderButton = screen.getByText(/Add Header/i);
     fireEvent.click(addHeaderButton);
@@ -64,8 +64,7 @@ describe('RestClient', () => {
   });
 
   it('handles request and constructs the URL correctly', async () => {
-    render(<RestClient />);
-
+    render(<RestClient searchParams={undefined} />);
     const endpointInput = screen.getByPlaceholderText(/Endpoint URL/i);
     fireEvent.change(endpointInput, { target: { value: '/api/test' } });
 
@@ -75,12 +74,14 @@ describe('RestClient', () => {
     const sendRequestButton = screen.getByText(/Send Request/i);
     fireEvent.click(sendRequestButton);
 
-    expect(mockPush).toHaveBeenCalledWith('/rest-client/GET/L2FwaS90ZXN0');
+    expect(mockPush).toHaveBeenCalledWith(
+      '/rest-client/GET/L2FwaS90ZXN0?header_Q29udGVudC1UeXBl=YXBwbGljYXRpb24vanNvbg&variables=e30',
+    );
   });
 
   it('redirects to signin if not authenticated', () => {
     (useAuth as jest.Mock).mockReturnValue({ isAuthenticated: false });
-    render(<RestClient />);
+    render(<RestClient searchParams={undefined} />);
 
     expect(mockPush).toHaveBeenCalledWith('/signin');
   });
