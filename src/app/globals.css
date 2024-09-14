@@ -1,8 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
+
 :root {
   --primary-color: rgba(74, 61, 229, 1);
   --secondary-color: rgba(44, 113, 222, 1);
   --black-color: rgba(0, 0, 0, 1);
-  --main-font-family: Open Sans;
+  --main-font-family: 'Inter', sans-serif;
   --gray-color: rgba(154, 154, 154, 1);
   --form-color: #2a2a2a;
   --white-color: rgba(255, 255, 255, 1);
