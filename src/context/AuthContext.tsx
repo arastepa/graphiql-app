@@ -25,14 +25,15 @@ export const AuthContext = createContext<AuthContextType | undefined>(
   undefined,
 );
 
+console.log('key:', process.env.NEXT_PUBLIC_API_KEY);
 // TODO: store the values as env variables
 const firebaseConfig = {
-  apiKey: 'AIzaSyDUFU00e0w3UX4XJ9xModcYEu28zuoBTEg',
-  authDomain: 'rss-login-b7b27.firebaseapp.com',
-  projectId: 'rss-login-b7b27',
-  storageBucket: 'rss-login-b7b27.appspot.com',
-  messagingSenderId: '857999080789',
-  appId: '1:857999080789:web:d539086d6b9e8c42aa83dc',
+  apiKey: process.env.NEXT_PUBLIC_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_AUTHDOMAIN,
+  projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_MESSAGING_SENDERID,
+  appId: process.env.NEXT_PUBLIC_APPID,
 };
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
