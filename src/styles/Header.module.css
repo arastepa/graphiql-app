@@ -29,12 +29,6 @@
   margin-top: 7px;
 }
 
-.nav {
-  display: flex;
-  align-items: center;
-  position: relative;
-}
-
 .burgerMenu {
   display: none;
 }
@@ -113,52 +107,19 @@
   color: var(--white-color);
 }
 
+/* Additional fix for .toggleMenu to ensure proper alignment */
+.toggleMenu {
+  display: flex;
+  align-items: center;
+}
+
 .active {
   background-color: var(--secondary-color);
   color: var(--white-color);
 }
 
-/* Tablet Styles */
-@media (max-width: 768px) {
-  .header {
-    padding: 15px;
-    height: 70px;
-  }
-
-  .logoText {
-    font-size: 26px;
-    width: auto;
-    margin: 15px 0 0 15px;
-  }
-
-  .headerImg {
-    margin-top: 5px;
-    width: 60px;
-  }
-
-  .langToggle {
-    width: 80px;
-    height: 40px;
-    font-size: 20px;
-    margin-right: 20px;
-  }
-
-  .langList {
-    top: 50px;
-  }
-
-  .signInButton,
-  .authButton {
-    width: 120px;
-    height: 45px;
-    font-size: 20px;
-    padding: 8px;
-    margin-right: 15px;
-  }
-}
-
 /* Mobile Styles */
-@media (max-width: 480px) {
+@media only screen and (max-width: 500px) {
   .header {
     align-items: flex-start;
     padding: 10px;
@@ -205,7 +166,7 @@
   .toggleMenu {
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
+    align-items: initial;
   }
 
   .visible {
@@ -220,10 +181,10 @@
   }
 
   .langToggle {
-    width: 70px;
+    min-width: 70px;
+    padding: 5px 10px;
     height: 35px;
     font-size: 18px;
-    margin-left: 10px;
   }
 
   .langList {
@@ -253,11 +214,45 @@
     align-self: flex-end;
   }
 
-  .signInButton {
-    margin-right: 5px;
-  }
-
   .authButton {
     margin-top: 2px;
+  }
+}
+/* Tablet Styles */
+@media only screen and (max-width: 768px) {
+  .header {
+    padding: 15px;
+    height: 70px;
+  }
+
+  .logoText {
+    font-size: 26px;
+    width: auto;
+    margin: 15px 0 0 15px;
+  }
+
+  .headerImg {
+    margin-top: 5px;
+    width: 60px;
+  }
+
+  .langToggle {
+    width: 80px;
+    height: 40px;
+    font-size: 20px;
+    margin-right: 20px;
+  }
+
+  .langList {
+    top: 50px;
+  }
+
+  .signInButton,
+  .authButton {
+    width: 100px;
+    height: 45px;
+    font-size: 20px;
+    padding: 8px;
+    margin-right: 15px;
   }
 }

@@ -25,7 +25,7 @@ const SignInForm = () => {
     if (user) {
       router.push('/');
     }
-  }, [user, router]); // Dependency array to trigger this effect only when user or router changes
+  }, [user, router]);
 
   const handleSignin = async (data: { email?: string; password?: string }) => {
     try {
