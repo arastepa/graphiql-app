@@ -13,7 +13,7 @@ vi.mock('firebase/auth', async () => {
     getAuth: vi.fn(() => ({
       currentUser: null,
     })),
-    onAuthStateChanged: vi.fn((auth, callback) => {
+    onAuthStateChanged: vi.fn((callback) => {
       callback(null);
       return vi.fn();
     }),
