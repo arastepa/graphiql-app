@@ -1,7 +1,7 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { act } from 'react';
 import { describe, it, expect, vi } from 'vitest';
-import { GraphiQLClient } from '@/app/graphiql/page';
+import GraphiQLClient from '@/app/graphiql/page';
 import { useAuth } from '@/context/AuthContext';
 import { useRouter } from 'next/navigation';
 import '@testing-library/jest-dom';
