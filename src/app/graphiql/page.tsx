@@ -33,7 +33,7 @@ const findItemByTimestamp = (
   return historyData.find((item) => item.timestamp === timestamp) || {};
 };
 
-export const GraphiQLClient = ({ searchParams }) => {
+const GraphiQLClient = ({ searchParams }) => {
   const requestDataFromHistory = findItemByTimestamp(searchParams?.timestamp);
 
   const {
