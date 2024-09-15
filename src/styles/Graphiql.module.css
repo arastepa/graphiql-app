@@ -1,5 +1,5 @@
 .graphiqlClient {
-  width: 50%;
+  width: 80%;
   margin: 20px auto;
   padding: 50px;
   background-color: var(--client-section-color);
@@ -37,7 +37,8 @@
 /* Tablet Styles */
 @media (max-width: 768px) {
   .graphiqlClient {
-    width: 70%;
+    width: 80%;
+    height: 100vh;
     margin: 20px auto;
     padding: 40px;
     background-color: var(--client-section-color);
@@ -76,9 +77,9 @@
 /* Mobile Styles */
 @media (max-width: 480px) {
   .graphiqlClient {
-    width: 80%;
+    width: 90%;
     margin: 20px auto;
-    padding: 50px;
+    padding: 20px;
     background-color: var(--client-section-color);
     border-radius: 5px;
   }

@@ -14,10 +14,6 @@ export default async function ResponsePage({
   const endpoint = decode(params.encodedEndpoint[0]);
   const encodedBody = params.encodedEndpoint[1];
 
-  // Log the endpoint and encoded body for debugging
-  console.log('Decoded endpoint:', endpoint);
-  console.log('Encoded body:', encodedBody);
-
   const body = encodedBody ? decode(encodedBody) : undefined;
   const headers = Object.keys(searchParams)
     .filter((key) => key.startsWith('header_'))
