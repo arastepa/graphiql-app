@@ -25,7 +25,6 @@ export const AuthContext = createContext<AuthContextType | undefined>(
   undefined,
 );
 
-// TODO: store the values as env variables
 const firebaseConfig = {
   apiKey: 'AIzaSyDUFU00e0w3UX4XJ9xModcYEu28zuoBTEg',
   authDomain: 'rss-login-b7b27.firebaseapp.com',
