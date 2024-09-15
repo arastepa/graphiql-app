@@ -35,6 +35,10 @@
   position: relative;
 }
 
+.burgerMenu {
+  display: none;
+}
+
 .langToggle {
   width: 93px;
   height: 48px;
@@ -72,14 +76,6 @@
   height: 15px;
   margin-right: 5px;
   object-fit: cover;
-}
-
-.burgerMenu {
-  /* position: absolute; */
-  top: 0;
-  right: 0;
-  font-size: 25px;
-  cursor: pointer;
 }
 
 .header a {
@@ -188,7 +184,6 @@
   }
 
   .nav {
-    /* width: 100%; */
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -199,16 +194,22 @@
     margin-right: 20px;
   }
 
+  .burgerMenu {
+    display: block;
+    top: 0;
+    right: 0;
+    font-size: 25px;
+    cursor: pointer;
+  }
+
   .toggleMenu {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    /* align-items: flex-end; */
   }
 
   .visible {
     display: inherit;
-    /* position: absolute; */
     height: 100;
     padding: 5px;
     background-color: var(--white-color);

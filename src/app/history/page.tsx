@@ -30,7 +30,7 @@ const History = () => {
 
   if (history.length === 0) {
     return (
-      <div className={styles.historyContainer}>
+      <section className={styles.historyContainer}>
         <h2>You haven&rsquo;t executed any requests yet</h2>
         <p>It&rsquo;s empty here. Try:</p>
         <Link href="/rest-client" className={styles.button}>
@@ -39,12 +39,12 @@ const History = () => {
         <Link href="/graphiql" className={styles.button}>
           GraphiQL Client
         </Link>
-      </div>
+      </section>
     );
   }
 
   return (
-    <div className={styles.historyContainer}>
+    <section className={styles.historyContainer}>
       <h2 className={styles.historyText}>History Requests</h2>
       <ul className={styles.requestContainer}>
         {history.map((requestData, index) => (
@@ -53,6 +53,7 @@ const History = () => {
               onClick={() =>
                 handleRequestClick(requestData.type, requestData.timestamp)
               }
+              className={styles.button}
             >
               {requestData.type === 'REST'
                 ? `[${requestData.method}] ${requestData.endpoint}`
@@ -61,7 +62,7 @@ const History = () => {
           </li>
         ))}
       </ul>
-    </div>
+    </section>
   );
 };
 
