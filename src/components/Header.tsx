@@ -51,7 +51,11 @@ const Header = () => {
         </div>
       </Link>
       <nav className={styles.nav}>
-        <IoMdMenu className={styles.burgerMenu} onClick={handleMenuToggle} />
+        <IoMdMenu
+          className={styles.burgerMenu}
+          onClick={handleMenuToggle}
+          data-testid="menu-icon"
+        />
         <div
           className={`${styles.toggleMenu} ${isMenuVisible ? styles.visible : styles.hidden}`}
         >

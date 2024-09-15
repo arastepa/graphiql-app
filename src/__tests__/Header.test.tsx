@@ -32,8 +32,8 @@ const mockUser: User = {
   getIdTokenResult: vi.fn(),
   reload: vi.fn(),
   toJSON: vi.fn(),
-  displayName: null, // Add missing properties
-  phoneNumber: null, // Add missing properties
+  displayName: null,
+  phoneNumber: null,
   photoURL: null,
   providerId: 'mock-provider-id',
 };
@@ -70,6 +70,19 @@ describe('Header Component', () => {
     expect(screen.getByText('WaveQ3')).toBeInTheDocument();
     expect(screen.getByText(/sign in/i)).toBeInTheDocument();
     expect(screen.getByText(/sign up/i)).toBeInTheDocument();
+  });
+
+  test('toggles menu visibility on burger icon click', () => {
+    renderHeader();
+
+    let signInButton = screen.queryByText(/sign in/i);
+
+    const menuIcon = screen.getByTestId('menu-icon');
+    fireEvent.click(menuIcon);
+    signInButton = screen.getByText(/sign in/i);
+    expect(signInButton).toBeVisible();
+    fireEvent.click(menuIcon);
+    signInButton = screen.queryByText(/sign in/i);
   });
 
   test('toggles language list visibility', () => {
