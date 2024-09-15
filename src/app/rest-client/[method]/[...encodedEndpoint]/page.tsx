@@ -28,9 +28,6 @@ export default async function ResponsePage({
       {} as Record<string, string>,
     );
 
-  // Log the headers for debugging
-  console.log('Decoded headers:', headers);
-
   const getBody = () => {
     if (!body) return undefined;
     if (headers['Content-Type'] === 'application/json') {
