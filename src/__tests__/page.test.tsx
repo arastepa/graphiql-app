@@ -13,7 +13,7 @@ vi.mock('firebase/auth', async () => {
     getAuth: vi.fn(() => ({
       currentUser: null,
     })),
-    onAuthStateChanged: vi.fn((callback) => {
+    onAuthStateChanged: vi.fn((auth, callback) => {
       callback(null);
       return vi.fn();
     }),
@@ -23,7 +23,6 @@ vi.mock('firebase/auth', async () => {
   };
 });
 
-// Initialize i18n
 i18n.use(initReactI18next).init({
   lng: 'en',
   resources: {
