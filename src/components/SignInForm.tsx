@@ -4,7 +4,7 @@ import styles from '../styles/SignUp.module.css';
 import { FirebaseError } from 'firebase/app';
 import { useAuth } from '@/context/AuthContext';
 import { useTranslation } from 'react-i18next';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 
@@ -20,9 +20,12 @@ const SignInForm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<{ email: string; password: string }>();
-  if (user) {
-    router.push('/');
-  }
+
+  useEffect(() => {
+    if (user) {
+      router.push('/');
+    }
+  }, [user, router]); // Dependency array to trigger this effect only when user or router changes
 
   const handleSignin = async (data: { email?: string; password?: string }) => {
     try {
