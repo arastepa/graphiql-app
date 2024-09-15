@@ -17,7 +17,6 @@ This project is a light-weight combination of Postman and GraphiQL, designed to 
   - **git** - A distributed version control system for tracking changes in source code
   - **github** - for hosting the repository
 - **additional Tools**
-  - **Vite** - project bundler.
   - **ESLint** - js linter for identifying and fixing code errors
   - **Prettier** - code formatter
   - **husky** - running scripts before commits.
