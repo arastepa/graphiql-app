@@ -4,7 +4,26 @@ import '@testing-library/jest-dom';
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import { AuthProvider } from '../context/AuthContext'; // Import AuthProvider
+import { vi } from 'vitest';
 
+vi.mock('firebase/auth', async () => {
+  const actual = await vi.importActual('firebase/auth');
+  return {
+    ...actual,
+    getAuth: vi.fn(() => ({
+      currentUser: null,
+    })),
+    onAuthStateChanged: vi.fn((auth, callback) => {
+      callback(null);
+      return vi.fn();
+    }),
+    signInWithEmailAndPassword: vi.fn(),
+    createUserWithEmailAndPassword: vi.fn(),
+    signOut: vi.fn(),
+  };
+});
+
+// Initialize i18n
 i18n.use(initReactI18next).init({
   lng: 'en',
   resources: {
