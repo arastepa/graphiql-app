@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# REST/GraphiQL Client
 
-## Getting Started
+## Overview
+This project is a light-weight combination of Postman and GraphiQL, designed to provide a unified interface for RESTful and GraphQL requests. The application will offer features such as method selection, request editors, headers, authorization, and a history section. Please read the instructions carefully before starting.
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+# Technology Stack
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Frontend**
+  - **React** - A JavaScript library for building user interfaces.
+  - **TypeScript** - A statically typed superset of JavaScript that enhances code quality and developer productivity.
+  - **fetch** - for making http requests
+  - **Next** - React.js framework
+- **testing**
+  - **vitest** - JS framework for unit testing
+- **version control**
+  - **git** - A distributed version control system for tracking changes in source code
+  - **github** - for hosting the repository
+- **additional Tools**
+  - **Vite** - project bundler.
+  - **ESLint** - js linter for identifying and fixing code errors
+  - **Prettier** - code formatter
+  - **husky** - running scripts before commits.
+  - **lint-staged** - Lint-staged is a tool used in conjunction with Git for running linters on staged files
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Theoretical Notes
+- **Postman** is a robust API platform used for building and using APIs, with support for method selection, URL, and headers.
+- **GraphiQL** is an IDE for making GraphQL requests. Use GraphiQL as a reference for building the GraphQL client portion of the app.
 
-## Learn More
+## Additional Features
+1. **Authorization and Authentication**: Ensure access to the app is restricted to authorized users.
+2. **History Section**: Enable users to view and access previously executed requests.
 
-To learn more about Next.js, take a look at the following resources:
+## Team Collaboration
+- This project requires collaboration between three team members.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+[Guranda26](https://github.com/guranda26)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+[paytsarharutyunyan](https://github.com/paytsarharutyunyan)
 
-## Deploy on Vercel
+[arastepa](https://github.com/arastepa)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+# Installation
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- clone the repository
+  - `git clone "repository url"`
+- # add your .env file with your api keys
+- Install dependencies
+  - **npm install**
+
+# Usage
+
+`npm run dev`
+this command will start the development server using next
+
+`npm run build`
+this commands builds the project
+
+`npm run lint`
+this command checks for linting errors using ESLint
+
+`npm run prettier:fix`
+formats code using prettier
+
+`npm run test`
+runs unit tests with vitest
+
+`npm run test:coverage`
+provide insights into how much of the code is being tested
