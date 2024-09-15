@@ -12,6 +12,17 @@
   background-color: var(--white-color);
 }
 
+/* Mobile Styles for Main */
+@media (max-width: 480px) {
+  .page {
+    padding: 10px;
+  }
+
+  .main {
+    padding: 15px;
+  }
+}
+
 /* Tablet Styles for Main */
 @media (max-width: 768px) {
   .page {
@@ -22,16 +33,5 @@
     padding: 20px;
     flex-direction: column;
     align-items: flex-start;
-  }
-}
-
-/* Mobile Styles for Main */
-@media (max-width: 480px) {
-  .page {
-    padding: 10px;
-  }
-
-  .main {
-    padding: 15px;
   }
 }

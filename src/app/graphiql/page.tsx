@@ -164,7 +164,7 @@ const GraphiQLClient = ({ searchParams }) => {
   };
 
   return (
-    <div className={styles.graphiqlClient}>
+    <section className={styles.graphiqlClient}>
       <div className="main-content">
         <div className={styles.clientSection}>
           <div className={styles.inputs}>
@@ -257,7 +257,7 @@ const GraphiQLClient = ({ searchParams }) => {
           )}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

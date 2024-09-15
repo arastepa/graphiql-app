@@ -4,11 +4,10 @@ import styles from '../styles/SignUp.module.css';
 import { FirebaseError } from 'firebase/app';
 import { useAuth } from '@/context/AuthContext';
 import { useTranslation } from 'react-i18next';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 
-// TODO: create wrapper for SignInForm and store there all non-form related logic
 const SignInForm = () => {
   const router = useRouter();
   const [errorMsg, setErrorMsg] = useState('');
@@ -20,9 +19,12 @@ const SignInForm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<{ email: string; password: string }>();
-  if (user) {
-    router.push('/');
-  }
+
+  useEffect(() => {
+    if (user) {
+      router.push('/');
+    }
+  }, [user, router]);
 
   const handleSignin = async (data: { email?: string; password?: string }) => {
     try {

@@ -49,3 +49,17 @@
   border-radius: 4px;
   overflow: auto;
 }
+
+/* Tablet Styles for Welcome */
+@media (max-width: 768px) {
+  .responseSection {
+    width: 80vh;
+  }
+}
+
+/* Mobile Styles for Welcome */
+@media (max-width: 480px) {
+  .responseSection {
+    width: 62vh;
+  }
+}

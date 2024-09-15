@@ -44,3 +44,27 @@
 .buttonContainer .button:hover {
   background-color: var(--border-primary);
 }
+
+/* Tablet Styles for Welcome */
+@media (max-width: 768px) {
+  .userSection {
+    margin: 0 auto;
+  }
+  .buttonContainer {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+/* Mobile Styles for Welcome */
+@media (max-width: 480px) {
+  .userSection {
+    margin: 0 auto;
+  }
+
+  .welcomeMessage {
+    width: 90vw;
+    margin-left: -25px;
+    margin-bottom: -80px;
+  }
+}

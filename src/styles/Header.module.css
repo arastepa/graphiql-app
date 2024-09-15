@@ -29,9 +29,8 @@
   margin-top: 7px;
 }
 
-.nav {
-  display: flex;
-  align-items: center;
+.burgerMenu {
+  display: none;
 }
 
 .langToggle {
@@ -108,50 +107,152 @@
   color: var(--white-color);
 }
 
+/* Additional fix for .toggleMenu to ensure proper alignment */
+.toggleMenu {
+  display: flex;
+  align-items: center;
+}
+
 .active {
   background-color: var(--secondary-color);
   color: var(--white-color);
 }
 
-/* Tablet Styles for Header */
-@media (max-width: 768px) {
-  .logoText {
-    font-size: 24px;
-  }
-
-  .nav {
-    width: 100%;
-  }
-
-  .langToggle,
-  .signInButton,
-  .authButton {
-    width: 100%;
-    margin-bottom: 10px;
-  }
-}
-
-/* Mobile Styles for Header */
-@media (max-width: 480px) {
+/* Mobile Styles */
+@media only screen and (max-width: 500px) {
   .header {
-    padding: 15px;
+    align-items: flex-start;
+    padding: 10px;
+    height: auto;
+    box-shadow: none;
+    position: relative;
+  }
+
+  .headerLogo {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .logoText {
+    font-size: 22px;
+    width: auto;
+  }
+
+  .headerImg {
+    margin-top: 5px;
+    width: 60px;
     height: auto;
   }
 
-  .logoText {
-    font-size: 20px;
-    margin: 30px 0 10px 10px;
-  }
-
   .nav {
-    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-end;
+    margin-top: 10px;
+    position: absolute;
+    right: 0;
+    margin-right: 20px;
   }
 
-  .langToggle,
+  .burgerMenu {
+    display: block;
+    top: 0;
+    right: 0;
+    font-size: 25px;
+    cursor: pointer;
+  }
+
+  .toggleMenu {
+    display: flex;
+    flex-direction: column;
+    align-items: initial;
+  }
+
+  .visible {
+    display: inherit;
+    height: 100;
+    padding: 5px;
+    background-color: var(--white-color);
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .langToggle {
+    min-width: 70px;
+    padding: 5px 10px;
+    height: 35px;
+    font-size: 18px;
+  }
+
+  .langList {
+    top: 45px;
+  }
+
   .signInButton,
   .authButton {
-    width: 100%;
-    margin-bottom: 8px;
+    width: auto;
+    max-width: 100px;
+    padding: 5px 10px;
+    padding-right: 0;
+  }
+
+  .signInButton,
+  .authButton,
+  .langToggle {
+    height: auto;
+    font-size: 16px;
+    margin-right: 0;
+  }
+
+  .langToggle {
+    margin-top: 7px;
+    max-width: 80px;
+    padding: 5px 7px;
+    align-self: flex-end;
+  }
+
+  .authButton {
+    margin-top: 2px;
+  }
+}
+/* Tablet Styles */
+@media only screen and (max-width: 768px) {
+  .header {
+    padding: 15px;
+    height: 70px;
+  }
+
+  .logoText {
+    font-size: 26px;
+    width: auto;
+    margin: 15px 0 0 15px;
+  }
+
+  .headerImg {
+    margin-top: 5px;
+    width: 60px;
+  }
+
+  .langToggle {
+    width: 80px;
+    height: 40px;
     font-size: 20px;
+    margin-right: 20px;
+  }
+
+  .langList {
+    top: 50px;
+  }
+
+  .signInButton,
+  .authButton {
+    width: 100px;
+    height: 45px;
+    font-size: 20px;
+    padding: 8px;
+    margin-right: 15px;
   }
 }

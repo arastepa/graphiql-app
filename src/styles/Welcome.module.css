@@ -62,6 +62,12 @@
   .welcomeButton {
     width: 100%;
   }
+
+  .welcomeImg {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 15px;
+  }
 }
 
 /* Mobile Styles for Welcome */
@@ -72,8 +78,8 @@
   }
 
   .welcomeText {
-    width: 60%;
-    margin: 10px 0 0 -230px;
+    /* width: 60%; */
+    margin-top: 10px;
     padding: 0 10px;
   }
 
@@ -83,6 +89,6 @@
   }
 
   .welcomeImg {
-    margin-left: -70px;
+    height: auto;
   }
 }
