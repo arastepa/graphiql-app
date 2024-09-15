@@ -50,6 +50,10 @@
   .userSection {
     margin: 0 auto;
   }
+  .buttonContainer {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 /* Mobile Styles for Welcome */

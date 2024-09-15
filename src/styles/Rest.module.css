@@ -73,17 +73,54 @@
 
 /* Mobile Styles for Welcome */
 @media (max-width: 480px) {
-
+  .headerSection input {
+    margin: 10px 10px 10px 0;
+    width: 200px;
+  }
+  
   .restClient {
-    width: 400px;
+    width: 350px;
+    max-width: 100%;
+    padding: 20px;
+    margin: 20px;
+  }
+
+  .endpoint_url {
+    max-width: 100%;
   }
   
   .clientWrapper {
-    width: 400px;
+    width: 100%;
     margin: 0 auto;
   }
 
   .variablesSection {
     margin-top: 20px;
+  }
+}
+
+@media (max-width: 900px) {
+  
+  .restClient {
+    width: 800px;
+    max-width: 100%;
+    padding: 20px;
+    margin: 20px;
+  }
+
+  .endpoint_url {
+    width: 200px;
+    max-width: 100%;
+  }
+
+  .headerSection input {
+    margin: 10px 10px 10px 0;
+    width: 200px;
+    max-width: 100%;
+  }
+  
+  .clientWrapper {
+    width: 100%;
+    margin: 0 auto;
   }
 }
