@@ -1,0 +1,69 @@
+.userSection {
+  margin-top: 100px;
+  text-align: center;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.welcomeMessage {
+  width: 55vw;
+  height: 90px;
+  font-size: 20px;
+  color: var(--form-color);
+  padding-top: 32px;
+  margin-bottom: 20px;
+  background-color: var(--light-blue-color);
+}
+
+.welcome {
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 24px;
+  color: var(--secondary-color);
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 150px;
+  gap: 10px;
+}
+
+.buttonContainer .button {
+  padding: 10px 15px;
+  font-size: 20px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  color: var(--white-color);
+  background-color: var(--secondary-color);
+  transition: 0.3s ease;
+  text-decoration: none;
+}
+
+.buttonContainer .button:hover {
+  background-color: var(--border-primary);
+}
+
+/* Tablet Styles for Welcome */
+@media (max-width: 768px) {
+  .userSection {
+    margin: 0 auto;
+  }
+  .buttonContainer {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+/* Mobile Styles for Welcome */
+@media (max-width: 480px) {
+  .userSection {
+    margin: 0 auto;
+  }
+
+  .welcomeMessage {
+    width: 90vw;
+    margin-bottom: -80px;
+  }
+}

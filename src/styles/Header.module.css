@@ -1,0 +1,258 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: var(--white-color);
+  height: 76px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: solid 1px;
+  border-color: var(--gray-color);
+  box-shadow: 0px 8px 15px -3px rgba(209, 209, 209, 0.9);
+}
+
+.headerLogo {
+  display: flex;
+}
+
+.logoText {
+  width: 149px;
+  font-size: 30px;
+  font-family: Orbitron;
+  color: var(--black-color);
+  margin: 20px 0 0 20px;
+}
+
+.headerImg {
+  margin-top: 7px;
+}
+
+.burgerMenu {
+  display: none;
+}
+
+.langToggle {
+  width: 93px;
+  height: 48px;
+  background-color: var(--white-color);
+  color: var(--secondary-color);
+  font-size: 22px;
+  margin-right: 25px;
+  border-color: var(--secondary-color);
+  cursor: pointer;
+}
+
+.langList {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 58px;
+  border-radius: 5px;
+  border: 1px solid var(--border-primary);
+  box-shadow: #00000037 0px 5px 15px;
+  background: var(--white-color);
+}
+
+.langList button:hover {
+  background-color: var(--hover-primary);
+  border-radius: 5px;
+}
+
+.removeBorder {
+  border: none;
+  margin-right: 0;
+}
+
+.flag {
+  width: 20px;
+  height: 15px;
+  margin-right: 5px;
+  object-fit: cover;
+}
+
+.header a {
+  text-decoration: none;
+}
+
+.signInButton {
+  width: 100px;
+  margin: 2px 25px 0 0;
+  padding-top: 7px;
+}
+
+.authButton {
+  width: 150px;
+  padding: 10px;
+}
+
+.signInButton,
+.authButton {
+  height: 49px;
+  font-size: 22px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  border: 2px solid var(--secondary-color);
+  color: var(--secondary-color);
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+.signInButton:hover,
+.authButton:hover {
+  background-color: var(--secondary-color);
+  color: var(--white-color);
+}
+
+/* Additional fix for .toggleMenu to ensure proper alignment */
+.toggleMenu {
+  display: flex;
+  align-items: center;
+}
+
+.active {
+  background-color: var(--secondary-color);
+  color: var(--white-color);
+}
+
+/* Mobile Styles */
+@media only screen and (max-width: 500px) {
+  .header {
+    align-items: flex-start;
+    padding: 10px;
+    height: auto;
+    box-shadow: none;
+    position: relative;
+  }
+
+  .headerLogo {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .logoText {
+    font-size: 22px;
+    width: auto;
+  }
+
+  .headerImg {
+    margin-top: 5px;
+    width: 60px;
+    height: auto;
+  }
+
+  .nav {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-end;
+    margin-top: 10px;
+    position: absolute;
+    right: 0;
+    margin-right: 20px;
+  }
+
+  .burgerMenu {
+    display: block;
+    top: 0;
+    right: 0;
+    font-size: 25px;
+    cursor: pointer;
+  }
+
+  .toggleMenu {
+    display: flex;
+    flex-direction: column;
+    align-items: initial;
+  }
+
+  .visible {
+    display: inherit;
+    height: 100;
+    padding: 5px;
+    background-color: var(--white-color);
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .langToggle {
+    min-width: 70px;
+    padding: 5px 10px;
+    height: 35px;
+    font-size: 18px;
+  }
+
+  .langList {
+    top: 45px;
+  }
+
+  .signInButton,
+  .authButton {
+    width: auto;
+    max-width: 100px;
+    padding: 5px 10px;
+    padding-right: 0;
+  }
+
+  .signInButton,
+  .authButton,
+  .langToggle {
+    height: auto;
+    font-size: 16px;
+    margin-right: 0;
+  }
+
+  .langToggle {
+    margin-top: 7px;
+    max-width: 80px;
+    padding: 5px 7px;
+    align-self: flex-end;
+  }
+
+  .authButton {
+    margin-top: 2px;
+  }
+}
+/* Tablet Styles */
+@media only screen and (max-width: 768px) {
+  .header {
+    padding: 15px;
+    height: 70px;
+  }
+
+  .logoText {
+    font-size: 26px;
+    width: auto;
+    margin: 15px 0 0 15px;
+  }
+
+  .headerImg {
+    margin-top: 5px;
+    width: 60px;
+  }
+
+  .langToggle {
+    width: 80px;
+    height: 40px;
+    font-size: 20px;
+    margin-right: 20px;
+  }
+
+  .langList {
+    top: 50px;
+  }
+
+  .signInButton,
+  .authButton {
+    width: 100px;
+    height: 45px;
+    font-size: 20px;
+    padding: 8px;
+    margin-right: 15px;
+  }
+}

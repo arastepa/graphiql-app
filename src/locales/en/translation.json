@@ -1,0 +1,20 @@
+{
+  "Header": {
+    "Title": "Welcome to Rest/Graphiql Client",
+    "Paragraph": "Our platform supports various endpoints and allows you to input queries, variables, and headers."
+  },
+  "Auth": {
+    "EmailLabel": "Email",
+    "PasswordLabel": "Password",
+    "PasswordConfLabel": "Confirm Password",
+    "EmailInput": "your email address",
+    "PasswordInput": "type your password",
+    "PasswordConfInput": "confirm Password",
+    "EmailAlreadyInUse": "Email is already in use",
+    "GenericError": "An unexpected error occurred. Please try again later."
+  },
+  "SignIn": "Sign In",
+  "SignUp": "Sign Up",
+  "SignOut": "Sign Out",
+  "Submit": "Submit"
+}

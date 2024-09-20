@@ -1,0 +1,94 @@
+.welcome {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.welcomePart {
+  width: 548px;
+  color: var(--black-color);
+  font-size: 32px;
+}
+
+.welcomeText {
+  width: 900px;
+  margin: 40px 0 0 85px;
+}
+
+.welcomeImg {
+  margin-bottom: -50px;
+}
+
+.welcomeButtons {
+  display: flex;
+  flex-direction: column;
+}
+
+.welcomeButton {
+  width: 150px;
+  text-align: center;
+  padding: 10px;
+  height: 50px;
+  background-color: var(--secondary-color);
+  color: var(--white-color);
+  margin-top: 20px;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.welcomeButton:hover {
+  background-color: var(--hover-secondary);
+}
+
+/* Tablet Styles for Welcome */
+@media (max-width: 768px) {
+  .welcomePart {
+    width: 100%;
+    font-size: 28px;
+  }
+
+  .welcomeText {
+    width: 100%;
+    margin: 20px 0;
+  }
+
+  .welcomeButtons {
+    width: 100%;
+  }
+
+  .welcomeButton {
+    width: 100%;
+  }
+
+  .welcomeImg {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 15px;
+  }
+}
+
+/* Mobile Styles for Welcome */
+@media (max-width: 480px) {
+  .welcomePart {
+    font-size: 24px;
+    padding: 0 10px;
+  }
+
+  .welcomeText {
+    /* width: 60%; */
+    margin-top: 10px;
+    padding: 0 10px;
+  }
+
+  .welcomeButton {
+    width: 100%;
+    margin-top: 15px;
+  }
+
+  .welcomeImg {
+    height: auto;
+  }
+}
