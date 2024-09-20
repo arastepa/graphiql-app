@@ -1,9 +1,10 @@
 .graphiqlClient {
-  width: 80%;
+  width: 50%;
   margin: 20px auto;
   padding: 50px;
   background-color: var(--client-section-color);
   border-radius: 5px;
+  border: 1px solid grey;
 }
 
 .graphiqlClient button {

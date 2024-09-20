@@ -14,7 +14,7 @@
   --border-primary: rgb(199, 198, 198);
   --light-blue-color: rgb(228, 238, 255);
   --error-color: rgb(183, 28, 28);
-  --client-section-color: rgb(200, 200, 236);
+  --client-section-color: white;
 }
 
 * {
@@ -26,5 +26,9 @@
 html,
 body {
   max-width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   font-family: var(--main-font-family);
 }

@@ -8,19 +8,15 @@
 }
 
 .restClient {
-  width: 800px;
   display: flex;
   justify-content: center;
   background-color: #efefef;
   border-radius: 5px;
   margin: auto;
   margin-top: 20px;
-  padding: 20px;
+  padding: 40px;
   background-color: var(--client-section-color);
-}
-
-.client {
-  min-height: 100vh;
+  border: 1px solid grey;
 }
 
 .clientHeader select {
